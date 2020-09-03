@@ -22,18 +22,17 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 .DS_Store
-report/main.synctex.gz
-report/main.run.xml
-report/main.fls
-report/main.fdb_latexmk
-report/main.aux
-report/main-blx.bib
 .vscode/tasks.json
-report/Presentations/presentation.aux
-report/Presentations/presentation.fdb_latexmk
-report/Presentations/presentation.fls
-report/Presentations/presentation.nav
-report/Presentations/presentation.out
-report/Presentations/presentation.toc
-report/Presentations/presentation.synctex.gz
-report/Presentations/presentation.snm
+
+#latex things
+*.aux
+*.run.xml
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bib
+*.nav
+*.out
+*.toc
+*.snm
+

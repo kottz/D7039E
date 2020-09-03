@@ -3,7 +3,7 @@
 \usepackage{graphicx}
 %\usepackage{sidecap}
 %\usepackage{pgfplotstable}
-\usepackage{pgfplots}
+%\usepackage{pgfplots}
 \usepackage{float}
 %\usepackage{import}
 \usepackage{amsmath}
@@ -20,6 +20,7 @@
 %\usepackage{wasysym}
 %\usepackage{gensymb}
 
+
 \title{D7039E report}
 \author{marbla-6 \\
         edwced-4 \\
@@ -32,9 +33,30 @@
 
 \begin{document}
 \maketitle
+\begin{abstract}
+\end{abstract}
+
+\chapter*{Introduction}
+\input{chapters/introduction.tex}
+
+\chapter*{Conceptual design}
+\input{chapters/concept.tex}
+
+\chapter*{Modeling}
+\input{chapters/modeling.tex}
+
+\chapter*{Motion algorithms}
+\input{chapters/motion.tex}
+
+\chapter*{Experimental evaluation}
+\input{chapters/experiment.tex}
+
+\chapter*{Conclusions}
+\input{chapters/conclusions.tex}
+
 \appendix
 \chapter{Team members}
-\input{appendix.tex}
+\input{chapters/appendix.tex}
 \end{document}
 
 
