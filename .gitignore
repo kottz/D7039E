@@ -29,3 +29,11 @@ report/main.fdb_latexmk
 report/main.aux
 report/main-blx.bib
 .vscode/tasks.json
+report/Presentations/presentation.aux
+report/Presentations/presentation.fdb_latexmk
+report/Presentations/presentation.fls
+report/Presentations/presentation.nav
+report/Presentations/presentation.out
+report/Presentations/presentation.toc
+report/Presentations/presentation.synctex.gz
+report/Presentations/presentation.snm
