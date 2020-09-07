@@ -9,18 +9,33 @@ During this meeting we'll discuss the overall impression of the engineering chal
 
 ## Status on last weeks work
   - Martin
-  - Edward C
+    - Report and project structure
   - Albin
-  - Niklas
+    - Decided to do Arrowhead in Cpp
+    - Read up on documentation
+  - Niklas & Edward C
+    - Will build own arm
+    - Started looking at the kinematics
+    - Implementing structure in MATLAB
   - Edward K
+    - Started looking at OpenCV
   - Måns
+    - Read up on ROS
+    - Started looking at the differential drive modeling
+  
 ## Next seminar discussion
 - Protocol from the last tuesday seminar
 - How well has the feedback been incorporated into the weeks work
 - Questions for the teachers
+  - More on the specifications
+  - Project room access
+  - What is needed to order
 - Question to the other group
 - Division of work for the seminar
+  - Martins presents
 ## Other 
-- Git stratedy (Albin?)
+- Git stratedy (Albin?) 
+  - Albin will make a better repo structure
 - Milestones
+  - Done in presentation
 
