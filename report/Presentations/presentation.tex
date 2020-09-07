@@ -1,5 +1,6 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
+\usepackage{tikz}
 
 \title{Weekly Presentation}
 \subtitle{Week 37}
@@ -16,7 +17,9 @@
     \frametitle{Overview}
     \tableofcontents
 \end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%% Project Structure %%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Project structure}
 \begin{frame}
     \subsection{Group members}
@@ -36,10 +39,15 @@
         \end{itemize}  
     \end{itemize}
 \end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% Meetings %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}
     \subsection{Meetings}
     \frametitle{Meetings}
+    Apart from the planned meetings there will be planned \textit{lab sessions} in
+    the project room. 
+    \\~\
     \begin{columns}
 
         \begin{column}[]{0.5\textwidth}
@@ -66,9 +74,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% Time Plan %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Time plan}
 \begin{frame}
-    \frametitle{Overall timetalbe}
+    \subsection{Time plan}
+    \frametitle{Overall timetable}
     \begin{table}
         \begin{tabular}{| l | c | c | c | c }
             
@@ -89,15 +97,15 @@
 
 
 \begin{frame}
-    \frametitle{Time plan for september}
+    \frametitle{Time plan for September}
     \begin{table}
         \begin{tabular}{l | c | c | c | c }
         Subproject & Week 1 & Week 2 & Week 3 & Week 4 \\
         \hline \hline
-            Arrowhead & Reading& Setup and requirements& Integration and API & \\
+            Arrowhead & Reading& Setup & API & Prototyping\\
             Movable base & Reading& Modeling & Simulation & Implementation\\
-            Arm and gripping  & Reading & Kinematics & & \\
-            Object detection & Reading & Theory and testing & Prototyping & \\
+            Arm and grip  & Reading & Kinematics & Simulation& Prototyping\\
+            Object detection & Reading & Testing & Prototyping & Evaluation\\
         \end{tabular}
     \end{table}
 \end{frame}
@@ -111,45 +119,135 @@
     \frametitle{Idea generation} 
     \begin{itemize}
         \item A common picture
+        \item Requirements
         \item Idea generation in subgroups
-        \item Prototype and evaluation
-    \end{itemize}
+        \item Prototype and evaluation\\~\
+    \end{itemize} 
+
     The concept generation phase is an ongoing process so after evaluation
     some adjustments will be done depending on the performance
     of the design.
 \end{frame}
 
 \begin{frame}
+    \subsection{Requirements}
+    \frametitle{Concept evaluation}
+    Each part of the project has requirements to keep the project focused 
+    on the task. During the evaluation phase the concepts will have to achive
+    the requirements which are considered \textit{bare minimum}. 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Robotic arm requirements}
+    \begin{itemize}
+        \item Move the arm/claw to a specific coordinate in space
+        \item Have 4 degrees of freedom in front of the robot.
+        \item Detect if the object is grabbed
+        \item Able to hold a object shape as a cylinder
+        \item Pick up object if dropped during path*
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Movable base}
+    \begin{itemize}
+        \item Move to a certain point in space
+        \item Overcome the factory platform
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Object detection}
+    \begin{itemize}
+        \item Given a distinctly colored line along the floor be able to track it and
+        feed back an accurate measurement of how much the robot deviates from said line.
+        \item Camera input should be filterable by RGB pixel values.
+        \item The system should be able to recognize and read of QR Codes.
+        \item It should be possible for the system to keep up with and process a continuous video stream in real-time.
+        \item An accompanying GUI should exist where the raw video stream can be seen adjacent to a video stream where detection is active.
+        \item Feed position data to the other systems
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Arrowhead}
+    \begin{itemize}
+        \item 
+    \end{itemize}
+\end{frame}
+
+\subsection{Flow charts}
+\begin{frame}
+    \frametitle{General flow}
+    \includegraphics[width=\textwidth]{img/general_flow.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Moving base flow}
+    \includegraphics[width=\textwidth]{img/base_flow.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Robotic arm flow}
+    \includegraphics[width=\textwidth]{img/arm_flow.png}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Object detection flow}
+    \includegraphics[width=\textwidth]{img/vision_flow.png}
+\end{frame}
+
+
+\begin{frame}
+    \subsection{Litterature}
     \frametitle{Litterature}
+
     \begin{columns}
-
         \begin{column}[]{0.5\textwidth}
-            \textbf{Robotics, Vision \& Control }
+            \textbf{Robotics, Vision \& Control }\\
+            \textit{Robert Corke}
             \begin{itemize}
-                \item Status update
-                \item Qustions for the seminar
-                \item Gameplan for the seminar
+                \item Gives s good overview
+                \item Covers most topics
+                \item Good code examples\\~\
             \end{itemize}
-        \end{column}
+            \textbf{Robot Dynamics \& Control}\\
+            \textit{Mark W. Spong}
+            \begin{itemize}
+                \item Popular in robotics
+                \item More focused on the theory
+                \item Covers basic robotic kinematics
+            \end{itemize}
 
+        \end{column}
+        
         \begin{column}[]{.5\textwidth}
-            \textbf{Tuesday meetings}
+            \textbf{Arrowhead Git}
             \begin{itemize}
-                \item Feedback review
-                \item Group feedback
-                \item Gameplan for the coming week
+                \item Official documentation
             \end{itemize}
         \end{column}
+        
 
     \end{columns}
 \end{frame}
 
+
+
 \begin{frame}
-    \frametitle{Git strategy}
+    \frametitle{Challenges / Unknowns}
     \begin{itemize}
-        \item 
-        \item 
+        \item Processing power
+        \item Complexity
+        \item Hardware failures
+        \item Losing focus 
     \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+        \Huge Questions?
+    \end{center}
 \end{frame}
 
 
