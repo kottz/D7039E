@@ -2,3 +2,36 @@
 The final design of the robot. Include CAD renderings etc. 
 \section*{Electrical components}
 Electrical components such as motors, MCUs etc. Why were they chosen
+
+% Putting this here temporarily. Should probably be moved in the future.
+\section*{Requirements}
+\subsection*{Computer Vision System}
+\textbf{ID:} 01 \\
+\textbf{Titel:} \emph{Line Detection}
+\begin{itemize}
+    \item Given a distinctly colored line along the floor the computer vision system should be able to track it and
+    feed back an accurate measurement of how much the robot deviates from said line.
+\end{itemize}
+\textbf{ID:} 02 \\
+\textbf{Titel:} \emph{Color Detection}
+\begin{itemize}
+    \item Camera input should be filterable by RGB pixel values. Objects within certain color ranges should be detectable.
+\end{itemize}
+\textbf{ID:} 03 \\
+\textbf{Titel:} \emph{QR Code Identification}
+\begin{itemize}
+    \item The system should be able to recognize and read the contents of QR Codes.
+\end{itemize}
+\textbf{ID:} 04 \\
+\textbf{Titel:} \emph{Real-Time Performance}
+\begin{itemize}
+    \item It should be possible for the system to keep up with and process a continuous video stream in real-time.
+\end{itemize}
+\textbf{ID:} 05 \\
+\textbf{Titel:} \emph{Visualization}
+\begin{itemize}
+    \item An accompanying GUI should exist where the raw video stream can be seen adjacent to a video stream where color
+    and line detection is active. Detected objects should have a border and an object coordinate should be seen on screen.
+    When the system is following a line it should be possible to see how the robot is positioned relative to the line.
+    A measurement of the current deviation should be seen on the screen.
+\end{itemize}
