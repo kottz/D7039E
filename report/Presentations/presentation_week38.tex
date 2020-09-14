@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
 \usepackage{tikz}
+\usepackage{graphicx}
 
 \title{Weekly Presentation}
 \subtitle{Week 38}
@@ -48,8 +49,8 @@ What we have done and what we are working on:
         \item Servos
         \item Representation (DH-parameters)
         \item Kinematics
-        \item Workspace
         \item Chosen arm, 4DOF
+        \item 3D modeling
     \end{itemize}
 \end{frame}
 
@@ -67,7 +68,6 @@ What we have done and what we are working on:
                     \item Feedback; position, torque, temperature, etc
                     \item Serial communication
                     \item Chainable
-                    \item
                 \end{itemize}
             \end{itemize}
         \end{column}
@@ -78,7 +78,6 @@ What we have done and what we are working on:
                 \centering
                 \includegraphics[width = \textwidth]{img/ax12a.jpg}
                 \caption{Dynamixel AX-12A servo.}
-                \label{fig:my_label}
             \end{figure}
             
         \end{column}
@@ -107,7 +106,6 @@ What we have done and what we are working on:
                 \centering
                 \includegraphics[width = \textwidth]{img/ax12a.jpg}
                 \caption{Representation of the robotic arm.}
-                \label{fig:my_label}
             \end{figure}
             
         \end{column}
@@ -129,22 +127,40 @@ What we have done and what we are working on:
 \end{frame}
 
 
-
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Workspace}
-
-
-\end{frame}
-
-
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}{Chosen arm}
 
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            \begin{itemize}
+                \item Four degrees of freedom
+                \item 3DOF for positioning and a wrist for controlling angle of the end effector
+            \end{itemize}
+        \end{column}
+        
+        
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \hspace*{-0.25\textwidth}
+                \includegraphics[width = 1.5\textwidth]{img/robotarm.eps}
+                \caption{Representation of the robotic arm.}
+            \end{figure}
+            
+        \end{column}
+    \end{columns}
+\end{frame}
 
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{3D Modeling}
+
+    \begin{itemize}
+        \item modeling in fusion 360
+    \end{itemize}
 \end{frame}
 
 
