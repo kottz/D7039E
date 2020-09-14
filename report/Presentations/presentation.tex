@@ -110,6 +110,21 @@
     \end{table}
 \end{frame}
 
+\begin{frame}
+    \frametitle{Github}
+    Git is a great way to structure and sync a project. With commits it's easy to 
+    "backup" the code in case something goes wrong. All members will be able to 
+    have an insight into the project nad help eachother. Not all group members
+    have used Git extensively so there's a learning curve in the beginning and how 
+    to structure the repo in a good way. 
+    \\~\
+    \begin{itemize}
+        \item Common repository for code, 3D-models and report
+        \item Issues as a TODO-list and feature requests
+        \item Still investigating the best way to do it
+    \end{itemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% Engineering Problem %%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -127,6 +142,46 @@
     The concept generation phase is an ongoing process so after evaluation
     some adjustments will be done depending on the performance
     of the design.
+\end{frame}
+
+\begin{frame}
+    \subsection{Litterature}
+    \frametitle{Litterature}
+
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            \textbf{Robotics, Vision \& Control }\\
+            \textit{Robert Corke}
+            \begin{itemize}
+                \item Gives s good overview
+                \item Covers most topics
+                \item Good code examples\\~\
+            \end{itemize}
+            \textbf{Robot Dynamics \& Control}\\
+            \textit{Mark W. Spong}
+            \begin{itemize}
+                \item Popular in robotics
+                \item More focused on the theory
+                \item Covers basic robotic kinematics
+            \end{itemize}
+
+        \end{column}
+        
+        \begin{column}[]{.5\textwidth}
+            \textbf{Programming Robots with ROS}
+            \textit{Morgan Quigley}
+            \begin{itemize}
+                \item Good for beginners
+                \item Explains most basic parts of ROS \\~\
+            \end{itemize}
+            \textbf{Arrowhead Git}
+            \begin{itemize}
+                \item Official documentation
+            \end{itemize}
+        \end{column}
+        
+
+    \end{columns}
 \end{frame}
 
 \begin{frame}
@@ -173,7 +228,12 @@
 \begin{frame}
     \frametitle{Arrowhead}
     \begin{itemize}
-        \item 
+        \item Have a raspberry pi as a plant, giving the robot a clear directive that the piece is ready for pick up.
+        \item Have authorized communication between the robot and the plant.
+        \item Being able to detect if the piece is ready for pick up or not using a distance sensor at the end
+        of the conveyor belt.
+        \item The robot should be able to tell the plant if the piece is not picked up properly.
+        \item The robot should be able to tell the plant after a succesfull pick up.
     \end{itemize}
 \end{frame}
 
@@ -197,42 +257,6 @@
     \frametitle{Object detection flow}
     \includegraphics[width=\textwidth]{img/vision_flow.png}
 \end{frame}
-
-
-\begin{frame}
-    \subsection{Litterature}
-    \frametitle{Litterature}
-
-    \begin{columns}
-        \begin{column}[]{0.5\textwidth}
-            \textbf{Robotics, Vision \& Control }\\
-            \textit{Robert Corke}
-            \begin{itemize}
-                \item Gives s good overview
-                \item Covers most topics
-                \item Good code examples\\~\
-            \end{itemize}
-            \textbf{Robot Dynamics \& Control}\\
-            \textit{Mark W. Spong}
-            \begin{itemize}
-                \item Popular in robotics
-                \item More focused on the theory
-                \item Covers basic robotic kinematics
-            \end{itemize}
-
-        \end{column}
-        
-        \begin{column}[]{.5\textwidth}
-            \textbf{Arrowhead Git}
-            \begin{itemize}
-                \item Official documentation
-            \end{itemize}
-        \end{column}
-        
-
-    \end{columns}
-\end{frame}
-
 
 
 \begin{frame}

@@ -1,0 +1,210 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{tikz}
+
+\title{Weekly Presentation}
+\subtitle{Week 38}
+\author{}
+\institute{Luleå University of Technology}
+\date{\today}
+
+
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}
+    \subsection{Group members}
+    \frametitle{Group members }
+    \begin{itemize}
+        \item Y-students
+        \begin{itemize}
+            \item Martin Blaszczyk - Project leader and object detection
+            \item Edward Cedergård - Gripping tool
+            \item Niklad Dahlqvist - Gripping tool
+            \item Måns Norell - Movable base
+        \end{itemize}
+        \item D-students
+        \begin{itemize}
+            \item Edward Källstedt - Object detection
+            \item Albin Martinsson - Arrowhead and Git
+        \end{itemize}  
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Robotic arm}
+What we have done and what we are working on:
+    \begin{itemize}
+        \item Servos
+        \item Representation (DH-parameters)
+        \item Kinematics
+        \item Workspace
+        \item Chosen arm, 4DOF
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Servos}
+
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            \begin{itemize}
+                \item Dynamixel
+                \begin{itemize}
+                    \item Feedback; position, torque, temperature, etc
+                    \item Serial communication
+                    \item Chainable
+                    \item
+                \end{itemize}
+            \end{itemize}
+        \end{column}
+        
+        
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width = \textwidth]{img/ax12a.jpg}
+                \caption{Dynamixel AX-12A servo.}
+                \label{fig:my_label}
+            \end{figure}
+            
+        \end{column}
+    \end{columns}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Representation}
+
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            \begin{itemize}
+                \item Denavit–Hartenberg parameters
+                \item Joints
+                \item Degrees of freedom
+            \end{itemize}
+        \end{column}
+        
+        
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width = \textwidth]{img/ax12a.jpg}
+                \caption{Representation of the robotic arm.}
+                \label{fig:my_label}
+            \end{figure}
+            
+        \end{column}
+    \end{columns}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Kinematics}
+
+    \begin{itemize}
+        \item Forward kinematics
+        \item Backward kinematics
+        \item Numerical or analytical solution
+    \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Workspace}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Chosen arm}
+
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% Time Plan %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+    \subsection{Time plan}
+    \frametitle{Overall timetable}
+    \begin{table}
+        \begin{tabular}{| l | c | c | c | c }
+            
+            Sep & Oct & Nov & Dec \\
+            \hline \hline
+            Concept generation & Evaluation & Evaluation &  \\ 
+            \hline
+            Theory & Prototyping & Evaluation & Finishing up \\
+            \hline
+            Simulation & Evaluation & Evaluation & \\
+            \hline
+            Prototyping & Final Design & Evaluation &  \\
+            \hline
+ 
+        \end{tabular}
+    \end{table}    
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Time plan for September}
+    \begin{table}
+        \begin{tabular}{l | c | c | c | c }
+        Subproject & Week 1 & Week 2 & Week 3 & Week 4 \\
+        \hline \hline
+            Arrowhead & Reading& Setup & API & Prototyping\\
+            Movable base & Reading& Modeling & Simulation & Implementation\\
+            Arm and grip  & Reading & Kinematics & Simulation& Prototyping\\
+            Object detection & Reading & Testing & Prototyping & Evaluation\\
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}
+    \begin{center}
+        \Huge Questions?
+    \end{center}
+\end{frame}
+
+
+
+\end{document}
