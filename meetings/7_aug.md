@@ -1,7 +1,7 @@
 # Monday meeting
 Date: 7th Aug
 
-Present:
+Present: All (Edwark K and Måns remote)
 
 
 # Agenda
