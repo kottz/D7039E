@@ -9,9 +9,8 @@ During this meeting we'll discuss the overall impression of the engineering chal
 
 ## What feedback did the teachers give
     - Delay in controlloop
-    - 
 
-## What feedback did he other group give 
+## What feedback did the other group give 
   
 ## Feedback to each other withing the group
     - Good presentation Martin
