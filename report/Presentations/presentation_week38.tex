@@ -2,6 +2,7 @@
 \usetheme{Boadilla}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{animate}
 
 \title{Weekly Presentation}
 \subtitle{Week 38}
@@ -104,14 +105,14 @@ What we have done and what we are working on:
         \begin{column}[]{0.5\textwidth}
             \begin{table}
                 \begin{tabular}{l | c | c | c | c }
-                Link & a & $alpha$ & d & $theta$ \\
+                Link & a & alpha & d & theta \\
                 \hline \hline
                    1 & 0   & -90 & d1 & theta 1\\
                     2 & a2& 0 & 0 & theta 2\\
                     3  & a3 & 0 & 0& theta 3\\
                     4 & a4 & 0 & 0 & theta 4\\
                 \end{tabular}
-            \end{table}
+            \end{table} 
         \end{column}
     \end{columns}
     
@@ -127,6 +128,7 @@ What we have done and what we are working on:
         \item Forward kinematics
         \item Inverse kinematics
         \item Numerical or analytical solution
+        \item Robotics Toolbox in Matlab by Peter Corke
     \end{itemize}
 
     
@@ -136,13 +138,26 @@ What we have done and what we are working on:
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
+\begin{frame}{Kinematics}
+    \begin{figure}
+        \centering
+        \animategraphics[loop,width=0.7\linewidth]{12}{img/animation/00}{0}{74}
+        \caption{3DOF robot moving in a triangle pattern.}
+    \end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Chosen arm}
 
     \begin{columns}
         \begin{column}[]{0.5\textwidth}
             \begin{itemize}
                 \item Four degrees of freedom
-                \item 3DOF for positioning and a wrist for controlling angle of the end effector
+                \item 3DOF for positioning and \\
+                a "wrist" for controlling the \\
+                angle of the end effector
             \end{itemize}
         \end{column}
         
@@ -150,8 +165,8 @@ What we have done and what we are working on:
         \begin{column}[]{0.5\textwidth}
             \begin{figure}
                 \centering
-                \hspace*{-0.25\textwidth}
-                \includegraphics[width = 1.5\textwidth]{img/robotarm.eps}
+                \hspace*{-0.2\textwidth}
+                \includegraphics[width = 1.4\textwidth]{img/robotarm.eps}
                 \caption{Representation of the robotic arm.}
             \end{figure}
             
