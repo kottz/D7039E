@@ -37,5 +37,6 @@ hs_err_pid*
 *.snm
 
 /MV/*
+/report/Presentations/img/animation*
 
 
