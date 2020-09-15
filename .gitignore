@@ -37,6 +37,7 @@ hs_err_pid*
 *.snm
 
 /MV/*
+/report/Presentations/img/animation*
 
 
 src/red_line.mp4

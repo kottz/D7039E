@@ -1,6 +1,8 @@
 \documentclass{beamer}
 \usetheme{Boadilla}
 \usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{animate}
 
 \title{Weekly Presentation}
 \subtitle{Week 38}
@@ -26,8 +28,8 @@
         \item Y-students
         \begin{itemize}
             \item Martin Blaszczyk - Project leader and object detection
-            \item Edward Cedergård - Gripping tool
-            \item Niklad Dahlqvist - Gripping tool
+            \item Edward Cedergård -Arm and gripping tool
+            \item Niklad Dahlqvist -  Arm and gripping tool
             \item Måns Norell - Movable base
         \end{itemize}
         \item D-students
@@ -48,8 +50,8 @@ What we have done and what we are working on:
         \item Servos
         \item Representation (DH-parameters)
         \item Kinematics
-        \item Workspace
         \item Chosen arm, 4DOF
+        \item 3D modeling
     \end{itemize}
 \end{frame}
 
@@ -67,7 +69,6 @@ What we have done and what we are working on:
                     \item Feedback; position, torque, temperature, etc
                     \item Serial communication
                     \item Chainable
-                    \item
                 \end{itemize}
             \end{itemize}
         \end{column}
@@ -78,7 +79,6 @@ What we have done and what we are working on:
                 \centering
                 \includegraphics[width = \textwidth]{img/ax12a.jpg}
                 \caption{Dynamixel AX-12A servo.}
-                \label{fig:my_label}
             \end{figure}
             
         \end{column}
@@ -103,13 +103,16 @@ What we have done and what we are working on:
         
         
         \begin{column}[]{0.5\textwidth}
-            \begin{figure}
-                \centering
-                \includegraphics[width = \textwidth]{img/ax12a.jpg}
-                \caption{Representation of the robotic arm.}
-                \label{fig:my_label}
-            \end{figure}
-            
+            \begin{table}
+                \begin{tabular}{l | c | c | c | c }
+                Link & a & alpha & d & theta \\
+                \hline \hline
+                   1 & 0   & -90 & d1 & theta 1\\
+                    2 & a2& 0 & 0 & theta 2\\
+                    3  & a3 & 0 & 0& theta 3\\
+                    4 & a4 & 0 & 0 & theta 4\\
+                \end{tabular}
+            \end{table} 
         \end{column}
     \end{columns}
     
@@ -123,32 +126,119 @@ What we have done and what we are working on:
 
     \begin{itemize}
         \item Forward kinematics
-        \item Backward kinematics
+        \item Inverse kinematics
         \item Numerical or analytical solution
+        \item Robotics Toolbox in Matlab by Peter Corke
+    \end{itemize}
+
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Kinematics}
+    \begin{figure}
+        \centering
+        \animategraphics[loop,width=0.7\linewidth]{12}{img/animation/00}{0}{74}
+        \caption{3DOF robot moving in a triangle pattern.}
+    \end{figure}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Chosen arm}
+
+    \begin{columns}
+        \begin{column}[]{0.5\textwidth}
+            \begin{itemize}
+                \item Four degrees of freedom
+                \item 3DOF for positioning and \\
+                a "wrist" for controlling the \\
+                angle of the end effector
+            \end{itemize}
+        \end{column}
+        
+        
+        \begin{column}[]{0.5\textwidth}
+            \begin{figure}
+                \centering
+                \hspace*{-0.2\textwidth}
+                \includegraphics[width = 1.4\textwidth]{img/robotarm.eps}
+                \caption{Representation of the robotic arm.}
+            \end{figure}
+            
+        \end{column}
+    \end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{3D Modeling}
+
+    \begin{itemize}
+        \item Modeling in fusion 360
+        \item Work in progress
+        \item Time table
+    \end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+%%%%%%%%%%%%%%%% Part about github
+
+\begin{frame}
+    \frametitle{Github}
+    Git is a great way to structure and sync a project. With commits it's easy to 
+    "backup" the code in case something goes wrong. All members will be able to 
+    have an insight into the project nad help eachother. Not all group members
+    have used Git extensively so there's a learning curve in the beginning and how 
+    to structure the repo in a good way. 
+    \\~\
+\end{frame}
+
+\begin{frame}
+    \frametitle{Github - branches}
+    \begin{itemize}
+        \item Master and development branch.
+        \item Separate branch for each part of the project.
+        \item Proofreading of the report by two people before it ends up in master.
+        \item Code review by the other team members before it ends up in master. 
+    \end{itemize}  
+\end{frame}
+
+\begin{frame}
+    \frametitle{Github - issues}
+    \begin{itemize}
+        \item Tasks
+        \item Assingees and mentions
+        \item Labels
+        \item Milestones
+    \end{itemize}  
+\end{frame}
+
+\begin{frame}
+    \frametitle{Arrowhead}
+    \begin{itemize}
+        \item C++ provider and consumer
+        \item Framework 
+        \item Local cloud
     \end{itemize}
 \end{frame}
 
 
 
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Workspace}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Chosen arm}
-
-
-\end{frame}
-
-
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
