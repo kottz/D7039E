@@ -1,0 +1,177 @@
+\documentclass{report}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,arrows, positioning, fit}
+
+
+
+\begin{document}
+\chapter*{Hardware}
+
+\tikzstyle{computing} = [draw, rectangle, fill=white!50, rounded corners, node distance=2cm, 
+                    minimum height=3em] 
+                    
+\tikzstyle{io} = [rectangle, draw, trapezium right angle=110, rounded corners, 
+                  fill=red!20, node distance=1.9cm, minimum height=2.9em] 
+
+\tikzstyle{calculate} = [diamond, draw, trapezium right angle=110, rounded corners, 
+                  fill=green!20, node distance=1.9cm, minimum height=2.9em] 
+                  
+\tikzstyle{hardware} = [rectangle, draw, trapezium right angle=110, rounded corners, 
+                  fill=blue!20, node distance=1.9cm, minimum height=2.9em] 
+
+\tikzstyle{external} = [rectangle, draw, trapezium right angle=110, rounded corners, 
+                  fill=gray!20, node distance=1.9cm, minimum height=2.9em]
+\tikzstyle{line} = [draw, -latex']  
+
+\tikzstyle{function} = [rectangle, draw, fill=green!20, node distance=1.9cm, minimum height=2.9em]
+\tikzstyle{ros} = [circle, draw, 
+                  fill=gray!20, node distance=1.9cm, minimum height=2.9em]
+
+\begin{tikzpicture}
+    [align=center, node distance=1em, auto]
+
+    \node [computing] (pc) {Arrowhead PC};
+    \node [computing, below= of pc] (nvidia) {NVIDIA}; 
+    \node [io, right= of nvidia] (battery) {Battery};
+    \node [computing, right= of pc] (factory) {Factory};
+    \node [io, below of= nvidia] (cameras) {Cameras};
+    \node [io, right= 1em of cameras] (motors) {Motors};
+    \node [io, left= 1em of cameras] (distance_sensors) {Distance sensors};
+    \node [io, below= of motors] (arm) {Robot arm};
+    \node [io, right= 1em of arm] (base) {Base};
+    \node [rectangle=white, left= 5em of nvidia] (robot) {Robot};
+
+    \path [line] (nvidia)--(cameras);
+    \path [line] (battery)--(nvidia);
+    \path [line] (battery)--(motors);
+    \path [line] (nvidia)--(motors);
+    \path [line] (nvidia)--(distance_sensors);
+    \draw[->] (factory) -- (pc);
+    \draw[<->] (pc) -- (nvidia);
+    \draw[->] (motors) -- (arm);
+    \draw[->] (motors) -- (base);
+    \node [draw=black, dashed, fit= (nvidia) (battery) (distance_sensors) 
+    (cameras) (motors) (base) (arm)]{};
+
+\end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%% ROS %%%%%%%%%%%%%%%%%%%%%
+
+
+\chapter*{Base}
+%% NOT FINISHED
+\begin{tikzpicture}
+    [align=center]
+    \node [ros] (line) {Line \\Follower};
+    \coordinate [below= of line] (aux1);
+    \node [ros, below= of line] (obj) {Object\\ Detection};
+    \node [function, right= 10em of obj] (diff) {Differential drive\\controller};
+    \node [function, below= of diff] (handler) {Motor handler};
+    \node [function, left= of handler] (error) {Error handler};
+    \node [hardware, right= of handler] (motors) {Motors};
+    \node [ros, below= of handler] (ros) {ROS Topics};
+
+    
+    
+
+    \draw [->] (line) -| node[midway, fill=white] {error [deg]} (diff);
+    \draw [<->] (diff) -- node[midway, fill=white] {rad/s} (handler);
+    \draw [<->] (handler) -- node[midway, fill=white] {data} (motors);
+    \draw [->] (handler) -- node[midway, fill=white] {Motor feedback} (ros);
+    \draw [->] (obj) -- node[midway, fill=white] {heading error [deg]} (diff);
+    \draw [<->] (error) -- node[midway, fill=white] {data} (handler);
+    \draw [<->] (error) |- (ros);
+    
+\end{tikzpicture}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%% Machine Vision %%%%%%%%%%%%%%%%%%%%%
+\chapter*{Machine vision}
+\begin{tikzpicture}
+
+    \node [hardware] (fcamera) {Front facing camera};
+    \node [hardware, right= of fcamera] (dcamera) {Down facing camera};
+    \path (fcamera) -- (dcamera) coordinate[midway] (aux);
+    \node [computing, below= of aux] (opencv) {OpenCV};
+    \node [function, below= of opencv] (qr) {QR-codes};
+    \node [function, left= of qr] (line_follow) {Line follower};
+    \node [function, right= of qr] (obj_detection) {Object detection};
+    \coordinate [below= of line_follow] (aux3);
+    \coordinate [below= of obj_detection] (aux4);
+    \node [external, left= 1em of aux4] (cylinder) {Cylinder};
+    \node [external, right= 1em of aux4] (factory) {Factory};
+    \coordinate [below= of opencv] (aux5);
+    
+
+
+    \draw [->] (fcamera)|- node[midway, fill=white] {frame} (opencv); 
+    \draw [->] (dcamera)|- node[midway, fill=white] {frame} (opencv); 
+    \draw [->] (qr) -- node[midway, fill=white] {ID} (obj_detection);
+    \draw [->] (qr) -- node[midway, fill=white] {Nav} (line_follow);
+    \draw [<-] (factory.north) -- (factory|-obj_detection.south);
+    \draw [<-] (cylinder.north) -- (cylinder|-obj_detection.south);
+    \draw [->] (opencv) -- (aux5) -| (obj_detection);
+    \draw [->] (aux5) -- (qr);
+    \draw [->] (aux5) -| (line_follow);
+
+\end{tikzpicture}
+
+\chapter*{OpenCV}
+\begin{tikzpicture}
+    [align=center, auto]
+    \node [io] (rgb) {RGB Frame};
+    \node [calculate, below= 2em of rgb] (rgb2hsv) {RGB to HSV};
+    \node [io, below= 2em of rgb2hsv] (hsv) {HSV Frame};
+    \node [function, below= of hsv] (qr) {QR-scanner};
+    \node [function, right= 10em of qr] (mass) {Calculate center \\of mass};
+    \node [function, left= 10em of qr] (cylinder) {Localize cylinder};
+    \node [io, below= 1em of cylinder] (ccoordinate) {Cylinder \\position [x,y,z]};
+    \node [io, below= 1em of mass] (coordinate) {Center of line [x,y]};
+    \node [io, below= 1em of coordinate] (angle) {Angle [deg]};
+    \coordinate [below= of qr] (aux1);
+    \node [io, left= 1em of aux1] (id) {Identification};
+    \node [io, right= 1em of aux1] (position) {Position in space \\ (x,y) };
+    \node [io, below= 1em of id] (action) {Action at QR};
+
+    \draw [->] (rgb) -- (rgb2hsv) -- (hsv);
+    \coordinate [below= of hsv] (aux2);
+    \draw [->] (hsv) -- (aux2) -| (mass);
+    \draw [->] (aux2) -| (cylinder);
+    \draw [->] (aux2) -- (qr);
+    \draw [->] (mass) -- (coordinate) -- (angle);
+    \draw [->] (cylinder) -- (ccoordinate);
+    \draw [->] (qr) -| (id);
+    \draw [->] (qr) -| (position);
+    \draw [->] (id) -- (action);
+    
+    \node [ros, below= 15emof qr] (ros) {ROS topics};
+
+    \draw [->] (position.south) -- (ros);
+    \draw [->] (action.south) -- (ros);
+    \draw [->] (ccoordinate.south) -- (ros);
+    \draw [->] (coordinate.south west) -- (ros);
+    \draw [->] (angle.south west) -- (ros);
+\end{tikzpicture}
+
+\chapter*{Robotic arm}
+%% NOT FINISHED
+\begin{tikzpicture}
+    [align=center]
+    \node [ros] (sub) {ROS subs};
+    \node [function, right= of sub] (inv) {Inverse\\ kinematics};
+    \node [function, above= of inv] (action) {Action/ \\ Mission planner};
+    \node [function, below= of inv] (frw) {Forward\\kinematics};
+    \node [io, right= of inv] (angles) {Angles};
+    \node [ros, right= of angles] (pub) {ROS pubs};
+
+    \draw [<-] (action) -| (sub);
+\end{tikzpicture}
+
+
+
+
+
+\end{document}
+
+
+
