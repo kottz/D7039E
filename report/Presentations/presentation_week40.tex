@@ -15,24 +15,24 @@
 
 \begin{document}
 
-\tikzstyle{computing} = [draw, rectangle, fill=white!50, rounded corners, node distance=2cm, 
-                    minimum height=3em] 
-                    
-\tikzstyle{io} = [rectangle, draw, trapezium right angle=110, rounded corners, 
-                  fill=red!20, node distance=1.9cm, minimum height=2.9em] 
+\tikzstyle{computing} = [draw, rectangle, fill=white!50, rounded corners, node distance=2cm,
+                    minimum height=3em]
 
-\tikzstyle{calculate} = [diamond, draw, trapezium right angle=110, rounded corners, 
-                  fill=green!20, node distance=1.9cm, minimum height=2.9em] 
-                  
-\tikzstyle{hardware} = [rectangle, draw, trapezium right angle=110, rounded corners, 
-                  fill=blue!20, node distance=1.9cm, minimum height=2.9em] 
+\tikzstyle{io} = [rectangle, draw, trapezium right angle=110, rounded corners,
+                  fill=red!20, node distance=1.9cm, minimum height=2.9em]
 
-\tikzstyle{external} = [rectangle, draw, trapezium right angle=110, rounded corners, 
+\tikzstyle{calculate} = [diamond, draw, trapezium right angle=110, rounded corners,
+                  fill=green!20, node distance=1.9cm, minimum height=2.9em]
+
+\tikzstyle{hardware} = [rectangle, draw, trapezium right angle=110, rounded corners,
+                  fill=blue!20, node distance=1.9cm, minimum height=2.9em]
+
+\tikzstyle{external} = [rectangle, draw, trapezium right angle=110, rounded corners,
                   fill=gray!20, node distance=1.9cm, minimum height=2.9em]
-\tikzstyle{line} = [draw, -latex']  
+\tikzstyle{line} = [draw, -latex']
 
 \tikzstyle{function} = [rectangle, draw, fill=green!20, node distance=1.9cm, minimum height=2.9em]
-\tikzstyle{ros} = [circle, draw, 
+\tikzstyle{ros} = [circle, draw,
                   fill=gray!20, node distance=1.9cm, minimum height=2.9em]
 
 
@@ -54,10 +54,10 @@
     \frametitle{Overall timetable}
     \begin{table}
         \begin{tabular}{| l | c | c | c | c }
-            
+
             Sep & Oct & Nov & Dec \\
             \hline \hline
-            Concept generation & Evaluation & Evaluation &  \\ 
+            Concept generation & Evaluation & Evaluation &  \\
             \hline
             Theory & Prototyping & Evaluation & Finishing up \\
             \hline
@@ -65,9 +65,9 @@
             \hline
             Prototyping & Final Design & Evaluation &  \\
             \hline
- 
+
         \end{tabular}
-    \end{table}    
+    \end{table}
 \end{frame}
 
 \subsection{September planning}
@@ -91,13 +91,13 @@
 \section{Hardware}
 \begin{frame}
     \subsection{New toys}
-    \frametitle{New toys!} 
+    \frametitle{New toys!}
     \begin{itemize}
         \item NVIDIA Jetson Nano
         \item Cameras
         \item Dynamixel Smart motors
         \item Screws, cables and other goodies
-    \end{itemize} 
+    \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -110,13 +110,13 @@
                 \item More powerful GPU than RPi
             \end{itemize}
         \end{column}
-        
+
         \begin{column}[]{0.5\textwidth}
             \includegraphics[width=\textwidth]{img/nvidia.jpg}
         \end{column}
     \end{columns}
-    
-    
+
+
 \end{frame}
 \begin{frame}
     \frametitle{Cameras}
@@ -131,10 +131,10 @@
                     \item 1080p @ 30 fps
                     \item 720p @ 60fps
                 \end{itemize}
-                
+
             \end{itemize}
         \end{column}
-        
+
         \begin{column}[]{0.5\textwidth}
             \includegraphics[width=\textwidth]{img/camera.jpg}
         \end{column}
@@ -147,10 +147,10 @@
             \begin{itemize}
                 \item Connects in series
                 \item Angle and wheel mode
-                \item Feedback   
+                \item Feedback
             \end{itemize}
         \end{column}
-        
+
         \begin{column}[]{0.5\textwidth}
             \includegraphics[width=\textwidth]{img/dynamixel.png}
         \end{column}
@@ -162,9 +162,9 @@
     \resizebox{7.0cm}{!}{
     \begin{tikzpicture}
         [align=center, node distance=1em, auto]
-    
+
         \node [computing] (pc) {Arrowhead PC};
-        \node [computing, below= of pc] (nvidia) {NVIDIA}; 
+        \node [computing, below= of pc] (nvidia) {NVIDIA};
         \node [io, right= of nvidia] (battery) {Battery};
         \node [computing, right= of pc] (factory) {Factory};
         \node [io, below of= nvidia] (cameras) {Cameras};
@@ -173,7 +173,7 @@
         \node [io, below= of motors] (arm) {Robot arm};
         \node [io, right= 1em of arm] (base) {Base};
         \node [rectangle=white, left= 5em of nvidia] (robot) {Robot};
-    
+
         \path [line] (nvidia)--(cameras);
         \path [line] (battery)--(nvidia);
         \path [line] (battery)--(motors);
@@ -183,9 +183,9 @@
         \draw[<->] (pc) -- (nvidia);
         \draw[->] (motors) -- (arm);
         \draw[->] (motors) -- (base);
-        \node [draw=black, dashed, fit= (nvidia) (battery) (distance_sensors) 
+        \node [draw=black, dashed, fit= (nvidia) (battery) (distance_sensors)
         (cameras) (motors) (base) (arm)]{};
-    
+
     \end{tikzpicture}
     }
 \end{frame}
@@ -222,11 +222,11 @@
         \node [external, left= 1em of aux4] (cylinder) {Cylinder};
         \node [external, right= 1em of aux4] (factory) {Factory};
         \coordinate [below= of opencv] (aux5);
-        
-    
-    
-        \draw [->] (fcamera)|- node[midway, fill=white] {frame} (opencv); 
-        \draw [->] (dcamera)|- node[midway, fill=white] {frame} (opencv); 
+
+
+
+        \draw [->] (fcamera)|- node[midway, fill=white] {frame} (opencv);
+        \draw [->] (dcamera)|- node[midway, fill=white] {frame} (opencv);
         \draw [->] (qr) -- node[midway, fill=white] {ID} (obj_detection);
         \draw [->] (qr) -- node[midway, fill=white] {Nav} (line_follow);
         \draw [<-] (factory.north) -- (factory|-obj_detection.south);
@@ -234,7 +234,7 @@
         \draw [->] (opencv) -- (aux5) -| (obj_detection);
         \draw [->] (aux5) -- (qr);
         \draw [->] (aux5) -| (line_follow);
-    
+
     \end{tikzpicture}
     }
 \end{frame}
@@ -258,7 +258,7 @@
         \node [io, left= 1em of aux1] (id) {Identification};
         \node [io, right= 1em of aux1] (position) {Position in space \\ (x,y) };
         \node [io, below= 1em of id] (action) {Action at QR};
-    
+
         \draw [->] (rgb) -- (rgb2hsv) -- (hsv);
         \coordinate [below= of hsv] (aux2);
         \draw [->] (hsv) -- (aux2) -| (mass);
@@ -269,9 +269,9 @@
         \draw [->] (qr) -| (id);
         \draw [->] (qr) -| (position);
         \draw [->] (id) -- (action);
-        
+
         \node [ros, below= 15emof qr] (ros) {ROS publish};
-    
+
         \draw [->] (position.south) -- (ros);
         \draw [->] (action.south) -- (ros);
         \draw [->] (ccoordinate.south) -- (ros);
@@ -282,10 +282,37 @@
 \end{frame}
 
 \subsection{Line following algorithm}
+
 \begin{frame}
     \frametitle{Line following algorithm}
+    \begin{itemize}
+	    \item \url{https://www.youtube.com/watch?v=TdtPIdipSBY}
+    \end{itemize}
 \end{frame}
-
+\begin{frame}
+    \frametitle{Line following algorithm - Procedure}
+    \begin{itemize}
+	    \item HSV mask to select color space
+        \item Crop image into horizontal slice
+        \item Calculate image moment on slice to extract centroid
+        \item Calculate angle between robot base and line
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Line following algorithm - Optimization}
+    \begin{itemize}
+	    \item Only search adjacent to previous line position
+        \item Implement CUDA support
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{CV - What's next?}
+    \begin{itemize}
+	    \item Implement QR code functionality
+        \item Finalize API consumed by other parts of the system
+        \item Clean up code and implement proper configuration capabilities
+    \end{itemize}
+\end{frame}
 \section{Movable base}
 \begin{frame}
     \frametitle{Movable base}
