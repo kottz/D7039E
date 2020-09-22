@@ -314,14 +314,123 @@
     \end{itemize}
 \end{frame}
 \section{Movable base}
-\begin{frame}
-    \frametitle{Movable base}
-\end{frame}
+\begin{frame}{Movable Base}
+    What has been done
+    \begin{itemize}
+        \item Mathematical model
+        \item Controller selection
+        \item Some simulations (more work needs to be done)
+    \end{itemize}
+ \end{frame}
+
+ %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Mathematical Model}
+    \begin{columns}
+    \begin{column}[]{0.5\textwidth}
+    Actuators:
+        \begin{itemize}
+            \item The motors of the left and right track ($v_L,v_R$)
+        \end{itemize}
+    Parameters to Control:
+    \begin{itemize}
+        \item The angle to a coloured line ($\theta$)
+    \end{itemize}
+    \end{column}
+    \begin{column}[]{0.5\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{model_of_base.png}
+        \caption{Model of base}
+        \label{fig:my_label}
+    \end{figure}
+    \end{column}
+    \end{columns}
+    \end{frame}
+    
+    
+    %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    \begin{frame}{Mathematical Model}
+    Given the $v_L$, $v_R$ and $\theta$ we can calculate
+        \begin{itemize}
+            \item $\overline{v}=||v||*(-\cos{\theta}*\hat{i}+\sin{\theta}*\hat{j})$
+            \item $\overline{L}=\int \overline{v}$
+            %\item $\theta=\frac{sin^{-1}(L_{Ly} - L_{Ry)}}{2 r}$ (r: Length from center of base to center of track)
+            \item $\dot{\theta}=\frac{v_R-v_L}{2 r}$
+        \end{itemize}
+    \end{frame}
+    
+    
+    %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    \begin{frame}{Controller Choice}
+    
+        The robot will use two \textbf{PD} controllers for the line following
+        
+    \end{frame}
+    
+    %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    \begin{frame}{Controller Choice}
+    
+        The robot will use two \textbf{PD} controllers for the line following
+        
+        \begin{itemize}
+            \item Simple \textbf{P} controller is not smooth enough
+            \item \textbf{PID} is more likely to overshoot
+        \end{itemize}
+        
+    \end{frame}
+    
+    %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{frame}{Simulations}
+    \begin{columns}
+    \begin{column}[]{0.5\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{Robot_displacement.png}
+        \caption{Angle from line}
+        \label{fig:my_label}
+    \end{figure}
+    \end{column}
+    \begin{column}[]{0.5\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{Motor_speed.png}
+        \caption{Motor speed for left and right motor}
+        \label{fig:my_label}
+    \end{figure}
+    \end{column}
+    \end{columns}
+        
+    \end{frame}
+    
+    
+    %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    \begin{frame}{Simulations}
+    To be done
+    
+    \begin{itemize}
+        \item Import real values from the motors and base for applicable simulations
+        \item Insert boundaries for control signals
+    \end{itemize}
+    
+    \end{frame}
 
 \subsection{Arrowhead}
 
 \begin{frame}
     \frametitle{Arrowhead}
+    
+
 \end{frame}
 
 \begin{frame}
