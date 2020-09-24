@@ -10,7 +10,7 @@ Write everything here, see workflows below on how to work with the report.
 4. This wll be your file to work on and for others to see progress and shouldn't have any merge conflict if you are the only one working on it
 
 ### When you feel satisfied with your section
-When you're done with your section and feel that it's finished and ready to be reviewed merged  in the report follow this workflow:
+When you're done with your section and feel that it's finished and ready to be reviewed and merged with the report follow this workflow:
 1. Push all your changes one last time to `report-UNSAFE`
 2. Pull from `report-UNSAFE` just to make sure you have all the changes from others
 3. Create a new branch named `REVIEW_chapter`. For example `REVIEW_appendix`.
