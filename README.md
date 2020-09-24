@@ -16,7 +16,7 @@ When you're done with your section and feel that it's finished and ready to be r
 3. Create a new branch named `REVIEW_chapter`. For example `REVIEW_appendix`.
 4. Go to `/chapters` in `report-UNSAFE` branch and paste your section to where you think it belongs, in this case `appendix.tex`. Don't use `\input`. Just paste the raw text
 5. Add figures to `/chapters/img`
-6. Commit __ONLY ONE__ changed chapter at a time with figures
+6. Commit __ONLY ONE__ changed chapter at a time. Only add figures relevant to the chapter
 7. Push your new branch to the repo
 8. Go to github and create a new Pull request where
    ```
