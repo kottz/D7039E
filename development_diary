@@ -1,2 +1,3 @@
 24/9 - 2020
 Met with Martin and when through the basics of git. Started planing and cadding a platform for the base which will be used for prototyping.
+Implimented some limitations on the acuators in the simulation, such as top and minimum speed, a limiter on the rate of change.
