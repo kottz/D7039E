@@ -38,3 +38,9 @@ hs_err_pid*
 
 #Python venv
 .venv
+
+#Build
+build/
+
+#config
+**/config.toml
