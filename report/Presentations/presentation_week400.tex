@@ -314,7 +314,7 @@ What we have done and what we are working on:
             \end{tabular}
         \end{flushleft}
     \end{table}
-    Similar to instruction package but each bit in the error byte represents one error.
+    Similar to instruction package but each bit in the error byte represents one possible error.
     
 \end{frame}
 
@@ -325,7 +325,7 @@ What we have done and what we are working on:
 
     \begin{itemize}
         \item Return delay can be set for each motor
-        \item Values between 0 - 254 \(\)s
+        \item Values between 0 - 508 microseconds
     \end{itemize}
     
 \end{frame}
@@ -349,6 +349,25 @@ What we have done and what we are working on:
     
 \end{frame}
 
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Example package}
+
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c | c | c | c | c | c |}
+                \hline
+                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+                \hline
+                0xFFFF & 0x01 & 0x & 0x3 & 0x & ... & Param n & 0x\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
