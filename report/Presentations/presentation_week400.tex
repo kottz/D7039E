@@ -2,6 +2,8 @@
 \usetheme{Boadilla}
 \usepackage{tikz}
 \usepackage{graphicx}
+\usepackage{amsmath}
+
 
 
 
@@ -48,8 +50,7 @@
 \begin{frame}{Overview}
 What we have done and what we are working on:
     \begin{itemize}
-        \item Duplex to simplex
-        \item Serial communication
+        \item Full duplex to half duplex serial communication
         \item Dynamixel data packages
         \item Arm construction
     \end{itemize}
@@ -59,7 +60,7 @@ What we have done and what we are working on:
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Duplex to simplex}
+\begin{frame}{Full duplex to half duplex}
 
     \begin{columns}
         \begin{column}[]{0.5\textwidth}
@@ -159,13 +160,15 @@ What we have done and what we are working on:
 
 
 \begin{frame}{Dynamixel data packages}
+
     Instruction package - send to the motor
+
     \begin{table}
         \begin{tabular}{| c | c | c | c | c | c | c | c |}
             \hline
-            Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+            Header & ID & Length & Instruction & Param 1 & ... & n & Checksum\\
             \hline
-            0xFFFF & ID & Length & Instruction & param 1 & ... & Param n & Checksum\\
+            0xFFFF & ID & Length & Instruction & param 1 & ... & n & Checksum\\
             \hline
         \end{tabular}
     \end{table}
@@ -175,9 +178,9 @@ What we have done and what we are working on:
     \begin{table}
         \begin{tabular}{| c | c | c | c | c | c | c | c |}
             \hline
-            Header & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+            Header & ID & Length & Error & Param 1 & ... & n & Checksum\\
             \hline
-            0xFFFF & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+            0xFFFF & ID & Length & Error & Param 1 & ... & n & Checksum\\
             \hline
         \end{tabular}
     \end{table}
@@ -202,6 +205,29 @@ What we have done and what we are working on:
             \end{flushleft}
         \end{table}
 
+        Header allways fixed.
+
+\end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Instruction package}
+ 
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c |}
+                \hline
+                Header & ID\\
+                \hline
+                0xFFFF & ID\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+
+    ID is a unique number for each motor connected.
+    
 \end{frame}
 
 
@@ -221,6 +247,8 @@ What we have done and what we are working on:
             \end{tabular}
         \end{flushleft}
     \end{table}
+
+    Length of the message, excluding the header bytes.
     
 \end{frame}
 
@@ -242,6 +270,8 @@ What we have done and what we are working on:
             \end{tabular}
         \end{flushleft}
     \end{table}
+
+    Parameters, depends on the instruction.
     
 \end{frame}
 
@@ -255,14 +285,17 @@ What we have done and what we are working on:
         \begin{flushleft}
             \begin{tabular}{| c | c | c | c | c | c | c | c |}
                 \hline
-                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+                Header & ID & Length & Instruction & Param 1 & ... & n & Checksum\\
                 \hline
-                0xFFFF & ID & Length & Instruction & param 1 & ... & Param n & Checksum\\
+                0xFFFF & ID & Length & Instruction & param 1 & ... & n & Checksum\\
                 \hline
             \end{tabular}
         \end{flushleft}
     \end{table}
-    
+
+    The checksum is calculated as\\
+    Checksum = ~( ID + Length + Instruction + Parameter1 + … Parameter N )\\
+    where "" is the "not" operation and only the lower byte is used.
 \end{frame}
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
@@ -281,6 +314,7 @@ What we have done and what we are working on:
             \end{tabular}
         \end{flushleft}
     \end{table}
+    Similar to instruction package but each bit in the error byte represents one error.
     
 \end{frame}
 
@@ -295,6 +329,26 @@ What we have done and what we are working on:
     \end{itemize}
     
 \end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Example package}
+
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c | c | c | c | c | c |}
+                \hline
+                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+                \hline
+                0xFFFF & 0x01 & 0x & 0x3 & 0x & ... & Param n & 0x\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
+
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
