@@ -52,7 +52,6 @@ What we have done and what we are working on:
     \begin{itemize}
         \item Full duplex to half duplex serial communication
         \item Dynamixel data packages
-        \item Arm construction
     \end{itemize}
 \end{frame}
 
@@ -101,28 +100,12 @@ What we have done and what we are working on:
 \end{frame}
 
 
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Serial communication}
-
-    \begin{columns}
-        \begin{column}[]{0.5\textwidth}
-            \begin{itemize}
-                \item Logic analyzer
-            \end{itemize}
-        \end{column}
-        
-        
-        \begin{column}[]{0.5\textwidth}
-        \end{column}
-    \end{columns}
-    
-\end{frame}
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
-\begin{frame}{Dynamixel data packages}
+\begin{frame}{Dynamixel data packages overview}
 
     \begin{columns}
         \begin{column}[]{0.5\textwidth}
@@ -314,24 +297,6 @@ What we have done and what we are working on:
     
 \end{frame}
 
-%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Example package}
-
-    \begin{table}
-        \begin{flushleft}
-            \begin{tabular}{| c | c | c | c | c | c | c | c |}
-                \hline
-                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
-                \hline
-                0xFFFF & 0x01 & 0x & 0x3 & 0x & ... & Param n & 0x\\
-                \hline
-            \end{tabular}
-        \end{flushleft}
-    \end{table}
-    
-\end{frame}
 
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
@@ -343,31 +308,56 @@ What we have done and what we are working on:
         \begin{flushleft}
             \begin{tabular}{| c | c | c | c | c | c | c | c |}
                 \hline
-                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+                Header & ID & Length & Instr. & P.1 & P.2 & P.3 & Checksum\\
                 \hline
-                0xFFFF & 0x01 & 0x & 0x3 & 0x & ... & Param n & 0x\\
+                0xFFFF & 0x01 & 0x04 & 0x03 & 0x1E & 0x00 & 0x00 & 0xD9\\
                 \hline
             \end{tabular}
         \end{flushleft}
     \end{table}
-    
+    Writes the data 0x0000 at memory position 0x1E. (Goal position = 0)
 \end{frame}
 
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Arm construction}
 
-    \begin{columns}
-        \begin{column}[]{0.5\textwidth}
-            \begin{itemize}
-                \item Use the official plastic pieces
-            \end{itemize}
-        \end{column}
-        
-        
-        \begin{column}[]{0.5\textwidth}
-        \end{column}
-    \end{columns}
+\begin{frame}{Logic analyzer example}
+
+
+        \begin{figure}
+            \centering
+            \includegraphics[width = \textwidth]{img/logic_1.PNG}
+
+        \end{figure}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Logic analyzer example}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width = 0.5\textwidth]{img/logic_2.PNG}
+
+    \end{figure}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{frame}{Demonstration}
+
+
+        \begin{itemize}
+            \item \url{https://youtu.be/f_JAT8srcIc}
+        \end{itemize}
+
     
 \end{frame}
 
