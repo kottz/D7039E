@@ -2,7 +2,8 @@
 \usetheme{Boadilla}
 \usepackage{tikz}
 \usepackage{graphicx}
-\usepackage{animate}
+
+
 
 \title{Weekly Presentation}
 \subtitle{Week 40}
@@ -102,8 +103,9 @@ What we have done and what we are working on:
     \begin{columns}
         \begin{column}[]{0.5\textwidth}
             \begin{itemize}
-                \item Structure
-                \item Response
+                \item Data packets structure
+                \item Timing of response
+                \item Example package
             \end{itemize}
         \end{column}
         
@@ -111,6 +113,147 @@ What we have done and what we are working on:
         \begin{column}[]{0.5\textwidth}
         \end{column}
     \end{columns}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Dynamixel data packages}
+    Instruction package - send to the motor
+    \begin{table}
+        \begin{tabular}{| c | c | c | c | c | c | c | c |}
+            \hline
+            Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+            \hline
+            0xFFFF & ID & Length & Instruction & param 1 & ... & Param n & Checksum\\
+            \hline
+        \end{tabular}
+    \end{table}
+    
+    Status return package - recieve from the motor
+
+    \begin{table}
+        \begin{tabular}{| c | c | c | c | c | c | c | c |}
+            \hline
+            Header & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+            \hline
+            0xFFFF & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+            \hline
+        \end{tabular}
+    \end{table}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Instruction package}
+    
+        \begin{table}
+            \begin{flushleft}
+                \begin{tabular}{| c |}
+                    \hline
+                    Header\\
+                    \hline
+                    0xFFFF\\
+                    \hline
+                \end{tabular}
+            \end{flushleft}
+        \end{table}
+
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Instruction package}
+ 
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c |}
+                \hline
+                Header & ID & Length\\
+                \hline
+                0xFFFF & ID & Length \\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Instruction package}
+ 
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c | c | c | c | c |}
+                \hline
+                Header & ID & Length & Instruction & Param 1 & ... & Param n\\
+                \hline
+                0xFFFF & ID & Length & Instruction & param 1 & ... & Param n\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Instruction package}
+
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c | c | c | c | c | c |}
+                \hline
+                Header & ID & Length & Instruction & Param 1 & ... & Param n & Checksum\\
+                \hline
+                0xFFFF & ID & Length & Instruction & param 1 & ... & Param n & Checksum\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Status return package}
+
+    \begin{table}
+        \begin{flushleft}
+            \begin{tabular}{| c | c | c | c | c | c | c | c |}
+                \hline
+                Header & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+                \hline
+                0xFFFF & ID & Length & Error & Param 1 & ... & Param n & Checksum\\
+                \hline
+            \end{tabular}
+        \end{flushleft}
+    \end{table}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Timing of return package}
+
+    \begin{itemize}
+        \item Return delay can be set for each motor
+        \item Values between 0 - 254 \(\)s
+    \end{itemize}
     
 \end{frame}
 
@@ -150,7 +293,6 @@ What we have done and what we are working on:
 
 
 
-%%%%%%%%%%%%%%%% Part about github
 
 
 
