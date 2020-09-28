@@ -8,7 +8,7 @@ Present: Martin, Albin, Edwark K, Edwark C, Niklas, Måns
 Seminar review and plan for next week.
 
 ## What feedback did the teachers give
-    - No, he liked it
+    - None, he liked it
     - Nice to have videos
     - Jan likes block diagrams
     - Gantt chart?
@@ -26,9 +26,9 @@ Seminar review and plan for next week.
 ## Work to be done the following week
     - Måns börjar CADa på basen
     - Ed K börjar med Qr-koder
-    - Sätta hiop arm motorerna och få dem att styras
+    - Sätta ihop arm motorerna och få dem att styras
     - Martin jobbar på projektstrukturen
-    - Arrowhead works. Fixa i secure mode (HTTPS). Skriva rapport och README. 
+    - Arrowhead works. Fixa i secure mode (HTTPS). Skriva   rapport och README. 
 
 ## Other 
 
