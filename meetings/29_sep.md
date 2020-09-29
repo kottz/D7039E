@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 22nd Aug
+Date: 29th Sep
 
 Present: Albin, Edwark K, Edwark C, Niklas, Måns
 Remote: Martin

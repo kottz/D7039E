@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 12th Aug
+Date: 12th Sep
 
 Present: All (Måns remote)
 

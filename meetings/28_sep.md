@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 21 Aug
+Date: 28th Sep
 
 Present: Martin, Ed C, Måns, Ed K (länk)
 

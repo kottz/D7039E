@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 7th Aug
+Date: 7th Sep
 
 Present: All (Edwark K and Måns remote)
 

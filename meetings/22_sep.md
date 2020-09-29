@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 22nd Aug
+Date: 22nd Sep
 
 Present: Martin, Albin, Edwark K, Edwark C, Niklas, Måns
 

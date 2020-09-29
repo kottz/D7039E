@@ -1,5 +1,5 @@
 # Monday meeting
-Date: 15th Aug
+Date: 15th Sep
 
 Present: Martin, Albin, Edwark K, Edwark C, Niklas
 
