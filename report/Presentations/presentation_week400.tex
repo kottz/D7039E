@@ -56,6 +56,7 @@ What we have done and what we are working on:
 \end{frame}
 
 
+
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -384,6 +385,124 @@ What we have done and what we are working on:
 %%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
 
 
+
+%\begin{frame}
+%   \titlepage
+%\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{Movable Base}
+What has been done\\
+\begin{itemize}
+    \item CAD model for base have been made
+    \item Controllers have been made to move the base to a specific point in space
+    \item Real world limitations have been applied to the controllers
+\end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{CAD Model}
+\begin{columns}
+\begin{column}[]{0.5\textwidth}
+THIS IS NOT THE FINAL BASE MODEL\\
+It's for prototyping and is modelled to be modular and easy to attach parts to
+
+\end{column}
+\begin{column}[]{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{manbase.png}
+    \caption{Model of base}
+    \label{fig:my_label}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{New Controllers}
+Two \textbf{PID} controller are made in order to move to a user specific coordinate by
+\begin{itemize}
+    \item Setting the robot to a specific angle
+    \item Move the robot a user defined distanced
+\end{itemize}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Simulations With Limitations}
+\begin{columns}
+\begin{column}[]{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{motor_speeds.eps}
+    \caption{Motor speeds}
+    \label{fig:my_label}
+\end{figure}
+\end{column}
+\begin{column}[]{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{comparison.eps}
+    \caption{The angle towards the center and the angle towards the line comparison}
+    \label{fig:my_label}
+\end{figure}
+\end{column}
+\end{columns}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%% new page %%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+\begin{frame}{Simulations With Limitations}
+
+\begin{columns}
+\begin{column}[]{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{pd_block_diagram.png}
+    \caption{Block diagram}
+    \label{fig:my_label}
+\end{figure}
+\end{column}
+\begin{column}[]{0.5\textwidth}
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{angle_towards_line.eps}
+    \caption{The angle towards the line}
+    \label{fig:my_label}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{What Is To Be Done}
+    \begin{itemize}
+        \item Stability analysis on \textbf{PID}s
+        \item 3D print and build robot
+        \item Implement controllers on robot
+    \end{itemize}
+\end{frame}
 
 
 
