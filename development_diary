@@ -5,6 +5,9 @@ Implimented some limitations on the acuators in the simulation, such as top and 
 25/9 - 2020
 Created two controllers for the robot, one for turning the robot to a certain angle and one for moving the robot a certain distance.
 
-Dia28/9 - 2020
+28/9 - 2020
 Started working on stability analasys for the controllers and had a meeting with the group.
 Got LaTex working through VSC.
+
+29/9
+Did made the presentation and presented it. Started to 3d-print the base prototype
