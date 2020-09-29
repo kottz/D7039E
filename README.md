@@ -27,4 +27,33 @@ When you're done with your section and feel that it's finished and ready to be r
 10. Assign two reviewers. Martin and someone else
 11. Publish Pull Request and wait for reviewers to have a look
 
+### Checklist for reviewers
+Add this as a checklist in your comment of the Pull Request
+1. Are there two reviewers?
+2. Does the section fit in the chapter?
+3. Check spelling and grammar
+4. Figure format (see Fig guidelines below)
+5. Citations
+
+If you're the last reviewer:
+1. Merge branch
+2. Remove `REVIEW_branch`
+
+### Figure review guidelines
+1. Font in figure should be the same as the report 
+2. Width of graph lines and axes looks good
+3. The captions of the figures are self-readable and terminate with a dot
+4. The figures are color-blind friendly and do not have useless backgrounds
+5. The figures have meaningful legends that allow to understand what is what
+
+### Figure guidelines
+1. Remember to always have a `.fig`version of the figure in case something change. 
+2. Font: Times
+   1. In MATLAB: `set(gca,'FontName','Times')`
+3. Line width shoudl be 1
+   1. In MATLAB: `plot(x,y,'LineWidth',1)`
+4. Axes line width should be 1
+   1. In MATLAB: `set(gca,'LineWidth',1)`
+    
+
 
