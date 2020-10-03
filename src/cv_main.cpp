@@ -85,12 +85,14 @@ int line_trace() {
 			drawInfo(frame, vecToPoint(cam), vecToPoint(track_point), decodedObjects);
 			imshow("frame", frame);
 			imshow("mask", mask);
+			
+			char c = (char)waitKey(25);
+			if (c == 27)
+				break;
 		}
 
 		//video.write(frame);
-		char c = (char)waitKey(25);
-		if (c == 27)
-			break;
+		
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
 		//
