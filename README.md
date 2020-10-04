@@ -16,16 +16,17 @@ When you're done with your section and feel that it's finished and ready to be r
 3. Create a new branch named `REVIEW_chapter`. For example `REVIEW_appendix`.
 4. Go to `/chapters` in `report-UNSAFE` branch and paste your section to where you think it belongs, in this case `appendix.tex`. Don't use `\input`. Just paste the raw text
 5. Add figures to `/chapters/img`
-6. Commit __ONLY ONE__ changed chapter at a time. Only add figures relevant to the chapter
-7. Push your new branch to the repo
-8. Go to github and create a new Pull request where
+6. Add citations to `bibliography.tex`
+7. Commit __ONLY ONE__ changed chapter at a time. Only add figures relevant to the chapter
+8. Push your new branch to the repo
+9. Go to github and create a new Pull request where
    ```
    Base: report-UNSAFE
    Compare: REVIEW_chapter
    ```
-9. Add label `review` and `report` on the right
-10. Assign two reviewers. Martin and someone else
-11. Publish Pull Request and wait for reviewers to have a look
+10. Add label `review` and `report` on the right
+11. Assign two reviewers. Martin and someone else
+12. Publish Pull Request and wait for reviewers to have a look
 
 ### Checklist for reviewers
 Add this as a checklist in your comment of the Pull Request
