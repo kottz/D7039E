@@ -9,7 +9,7 @@ Remote: Martin
 Seminar review and plan for next week.
 
 ## What feedback did the teachers give
-    - Block diagram of what i sended
+    - Block diagram of what is sent
     - Picture of base or model
     - What is being send between Arrowhead to robot
 
