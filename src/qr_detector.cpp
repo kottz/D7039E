@@ -38,3 +38,13 @@ bool QRDetector::Detect(const Mat &img, vector<decodedObject>* decoded_objects) 
     }
     return true;
 }
+
+Point QRDetector::GetCenter(const decodedObject &obj) {
+    int x = 0;
+    int y = 0;
+    for(int i = 0; i < obj.location.size(); i++) {
+	        x += obj.location[i].x;
+            y += obj.location[i].y;
+	    }
+    return Point(int(x/4),int(y/4));
+}
