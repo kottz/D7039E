@@ -1,12 +1,15 @@
 ﻿#include "cv_main.h"
 #include <chrono>
+#include "readerwriterqueue.h"
+#include "atomicops.h"
 using namespace std::chrono; 
 
 using namespace std;
 using namespace cv;
 using namespace zbar;
+using namespace moodycamel;
 
-//vector<mask> get_mask_vector()
+
 
 Mat create_color_mask(Mat &img, vector<mask> &mask_vec) {
 	int sizeX = img.cols;
@@ -69,6 +72,7 @@ Point trace_line_and_qr(Mat &img, vector<mask> &mask_vec, QRDetector &qr_detecto
 	qr_tracked = false;
 	//Pick qr location over line location if it is in the upper half of the image
 	if(detected) {
+		cout << "data: " << decodedObjects[0].data << endl;
 		Point center = QRDetector::GetCenter(decodedObjects[0]);
 		if(center.y < sizeY/2) {
 			track_point = center;
@@ -78,21 +82,20 @@ Point trace_line_and_qr(Mat &img, vector<mask> &mask_vec, QRDetector &qr_detecto
 	return track_point;
 }
 
-bool follow_line_until_qr(VideoCapture &cap, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
+bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &q, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
 
 	while (true) {
 		auto start = high_resolution_clock::now();
-		Mat frame1;
-		cap >> frame1;
 		Mat frame;
-
-
-		if (frame1.empty()) {
-			LOG_F(INFO, "Empty frame");
-			break;
+		q.wait_dequeue(frame);
+		if (frame.empty()) {
+				LOG_F(INFO, "Empty frame received. Stopping image processing.");
+				break;
 		}
-		resize(frame1, frame, Size(frame1.cols * 0.5, frame1.rows * 0.5), 0, 0, INTER_LINEAR);
-		
+
+		//resize(frame1, frame, Size(frame1.cols * 0.5, frame1.rows * 0.5), 0, 0, INTER_LINEAR);
+		//cout << "width: " << frame.cols << endl;
+		//cout << "height: " << frame.rows << endl;
 		vector<decodedObject> decodedObjects;
 		bool qr_tracked;
 		Point track_point = trace_line_and_qr(frame, mask_vec, qr_detector, decodedObjects, qr_tracked);
@@ -122,8 +125,7 @@ bool follow_line_until_qr(VideoCapture &cap, vector<mask> &mask_vec, QRDetector 
 		//video.write(frame);
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
-		//
-		cout << "dur: " << duration.count() << endl;
+		cout << "fps: " << 1000000/duration.count() << endl;
 	}
 	return false;
 }
@@ -132,32 +134,51 @@ int process_video() {
 	Config config = Config::GetConfigFromFile("config.toml");
 	bool draw_gui = config.DrawGUI();
 	vector<mask> mask_vec = config.GetMask();
-	VideoCapture cap(config.GetVideoSource());
+	
+	string video_name = config.GetVideoSource();
+	
+	VideoCapture cap = VideoCapture();
+	if(video_name == "camera") {
+		cap.open(0);
+		cap.set(CAP_PROP_FRAME_WIDTH,320);
+		cap.set(CAP_PROP_FRAME_HEIGHT,240);
+		cap.set(CAP_PROP_FPS, 90);
+	} else {
+		cap.open(video_name);
+	}
+	
 	if (!cap.isOpened()) {
 		LOG_F(ERROR, "Could not open video source");
 		return -1;
 	}
-	//cap.set(CAP_PROP_FRAME_WIDTH,256);
-	//cap.set(CAP_PROP_FRAME_HEIGHT,144);
-
-	//writer
-	//int frame_width = cap.get(CAP_PROP_FRAME_WIDTH);
-	//int frame_height = cap.get(CAP_PROP_FRAME_HEIGHT);
-	//VideoWriter video("out_mov.avi", VideoWriter::fourcc('M','J','P','G'),30,Size(frame_width, frame_height));
-
-	//lower mask
-
+	BlockingReaderWriterQueue<Mat> q(2);
+	
+	//create VideoCapture thread
+	std::thread writer([&]() {
+		while(true) {
+			Mat img;
+			cap >> img;
+			if (img.empty()) {
+				q.enqueue(img); // enqueue this so that reader gets the empty frame
+				LOG_F(INFO, "Empty frame captured. Stopping capture thread.");
+				break;
+			}
+			//TODO: When processing a video this will skip frames.
+			//Discard frame if queue is full
+			bool a = q.try_enqueue(img);
+		}
+	});
 	
 	QRDetector qr_detector = QRDetector();
 	Rect goal_rect = config.GetGoalRect();
-	follow_line_until_qr(cap, mask_vec, qr_detector, goal_rect, draw_gui);
+	follow_line_until_qr(q, mask_vec, qr_detector, goal_rect, draw_gui);
 
 	LOG_F(INFO, "Waiting for next command.");
 
 	cap.release();
 	//video.release();
 	destroyAllWindows();
-	
+	writer.join();
 	return 0;
 }
 
