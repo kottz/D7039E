@@ -25,7 +25,7 @@ When you're done with your section and feel that it's finished and ready to be r
    Compare: REVIEW_chapter
    ```
 10. Add label `review` and `report` on the right
-11. Assign two reviewers. Martin and someone else
+11. Assign two reviewers as REVIEWERS, not assignees. Martin and someone else
 12. Publish Pull Request and wait for reviewers to have a look
 
 ### Checklist for reviewers
