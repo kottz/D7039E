@@ -1,0 +1,53 @@
+\documentclass[15pt]{beamer}
+\usetheme{Boadilla}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usetikzlibrary{shapes.geometric,arrows, positioning, fit}
+
+\title{Presentation Arrowhead framework}
+\author{}
+\institute{Luleå University of Technology}
+\date{\today}
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Overview}
+    \tableofcontents
+\end{frame}
+
+\section{Core systems}
+    \subsection{Service Registry}
+    \subsection{Orchestrator}
+    \subsection{Authorization system}
+    \input{frames/core_systems}
+    
+\section{Service Registry}
+    \input{frames/service_registry}
+    
+\section{Authorization system}
+    \input{frames/authorization_system}
+    
+\section{Orchestrator}
+    \input{frames/orchestrator}
+    
+\section{Sequence diagram}
+    \input{frames/sequence_diagram}
+    
+\section{Implementation}
+    \input{frames/implementation}
+    
+\section{Advantages and purpose}
+    \input{frames/purpose}
+    
+\begin{frame}
+    \begin{center}
+        \Huge Questions?
+    \end{center}
+\end{frame}
+
+\end{document}
