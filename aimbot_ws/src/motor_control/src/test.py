@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import rospy
-import dynamixel_functions as dynamixel
+#import dynamixel_functions as dynamixel
 from dynamixel_sdk import *
 from std_msgs.msg import Int32
 from sensor_msgs.msg import JointState
@@ -31,20 +31,20 @@ groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, ADDR_GOAL_POSITION, 
 
 
 # Establish connection to dynamixels
-if portHandler.openPort():
-    rospy.loginfo("Succeeded to open Dynamixel port")
-else:
-    rospy.logerror("Failed to open Dynamixel port")
-    rospy.logerror("Aborting...")
-    quit()
+#if portHandler.openPort():
+#    rospy.loginfo("Succeeded to open Dynamixel port")
+#else:
+#    rospy.logerror("Failed to open Dynamixel port")
+#    rospy.logerror("Aborting...")
+#    quit()
 
-if portHandler.setBaudRate(BAUDRATE):
-    loginfo("Changed baudrate to %s", BAUDRATE)
-else:
-    logwarn("Failed to change baudrate to %s", BAUDRATE)
-    logwarn("Continuing...")
+#if portHandler.setBaudRate(BAUDRATE):
+#    loginfo("Changed baudrate to %s", BAUDRATE)
+#else:
+#    logwarn("Failed to change baudrate to %s", BAUDRATE)
+#    logwarn("Continuing...")
 
-group_num = dynamixel.
+#group_num = dynamixel.
 # Get data from arm
 # Get data from base
 # Send data to dynamixels
