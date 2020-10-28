@@ -121,7 +121,8 @@ bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &q, vector<mask> &mask_
 			if (c == 27)
 				break;
 		}
-
+		int a = angle(track_point, Point(frame.cols/2, frame.rows));
+		cout << "angle: " << a << endl;
 		//video.write(frame);
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
