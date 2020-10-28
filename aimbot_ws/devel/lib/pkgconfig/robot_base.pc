@@ -1,8 +1,0 @@
-prefix=/home/robot/D7039E/aimbot_ws/devel
-
-Name: robot_base
-Description: Description of robot_base
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
