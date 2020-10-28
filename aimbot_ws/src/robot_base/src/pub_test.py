@@ -5,7 +5,7 @@ from std_msgs.msg import Float64, Int32
 from sensor_msgs.msg import JointState
 
 def talker():
-    pub = rospy.Publisher('arm_motors', JointState, queue_size=10)
+    pub = rospy.Publisher('base_motors', JointState, queue_size=10)
     rospy.init_node('pubber', anonymous=True)
     rate = rospy.Rate(10)
     joints = JointState()

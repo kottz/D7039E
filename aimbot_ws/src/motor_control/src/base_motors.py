@@ -44,7 +44,7 @@ def signal_handler(signal, frame):
 
 signal.signal(signal.SIGINT, signal_handler)
 
-class Motor:
+class Motor:	#Setup the motor arguments
 
     motor_flip = False
     speed_offset = 1024
@@ -53,13 +53,13 @@ class Motor:
     def __exit__(self):
       self.set_speed(0)
 
-    def __init__(self, motor_id, motor_flip):
+    def __init__(self, motor_id, motor_flip):	#Setup the write to motor func
         self.motor_id = motor_id
         self.setup(motor_id)
         self.motor_flip = motor_flip
 
-    def set_speed(self, moving_speed):
-        if self.motor_flip:
+    def set_speed(self, moving_speed):	#The write to motor func
+        if self.motor_flip:		#Checks which motor to write to and apply offset
             moving_speed += 1024
 
         (dxl_comm_result, dxl_error) = \
@@ -176,7 +176,7 @@ PROTOCOL_VERSION = 1.0  # See which protocol version is used in the Dynamixel
 
 # Default setting
 
-DXL_ID = 6  # Dynamixel ID : 1
+DXL_ID = 6  # Dynamixel ID
 
 BAUDRATE = 57600  # Dynamixel default baudrate : 57600
 DEVICENAME = '/dev/ttyUSB0'  # Check which port is being used on your controller
@@ -227,7 +227,7 @@ else:
 
 # setup(6)
 
-print('hej')
+#print('hej')
 
 # setup(7)
 
@@ -244,7 +244,7 @@ def send_to_motors(data):
   m2.set_speed(int(data.velocity[1]))
 
 
-def listener():
+def listener(): 	# Set up subscriber to ros-node
     # Initialization
     rospy.init_node('motor_control')
     base_sub = rospy.Subscriber("motor_control", JointState, send_to_motors)

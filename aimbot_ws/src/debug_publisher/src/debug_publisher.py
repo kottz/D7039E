@@ -9,23 +9,7 @@ from sensor_msgs.msg import JointState
 
 
 class Control:
-    speed= 521
-    kp=5
-    kd=1
-    prev_err=0
-    n = 10
-    def get_angle_from_mv(self):
-        return 45
-        
-    def PD_control(self, angle):
-        err=90-angle
-        der=self.prev_err-err
-        cont=self.kp*err-self.kd*der
-        self.prev_err=err
-        speed_L=min(max(self.speed+cont,0),1023)
-        speed_R=min(max(self.speed-cont,0),1023)		
-        return [speed_L, speed_R]
-    
+    n = 0
     def get_keyboard_input(self):
       while(True):
         inp = input("type something ")
@@ -33,26 +17,16 @@ class Control:
         if(inp == "quit"):
           return
         self.n = int(inp)
-		
-def get_joint_state(cont):
-    joints = JointState()
-    joints.header.stamp = rospy.get_rostime()
-    joints.name = ["left wheel", "right_wheel"]
-    joints.velocity = cont
-    return joints
+
 
 def talker(c):
-    pub = rospy.Publisher('motor_control', JointState, queue_size=10)
-    rospy.init_node('move_control', anonymous=True)
+    pub = rospy.Publisher('mv', Int32, queue_size=10)
+    rospy.init_node('mv', anonymous=True)
     rate = rospy.Rate(10)
     while not rospy.is_shutdown():
-        cont = c.PD_control(c.n)
-        joints = get_joint_state(cont)
-        print(joints)
-        pub.publish(joints)
+        cont = c.n
+        pub.publish(cont)
         rate.sleep()
-
-
 
 if __name__ == '__main__':
     try:
