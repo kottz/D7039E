@@ -1,4 +1,10 @@
-﻿#include "cv_main.h"
+﻿//ROS deps
+#if defined(__arm__) && (__CUDACC__)
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <sstream>
+#endif
+#include "cv_main.h"
 #include <chrono>
 #include "readerwriterqueue.h"
 #include "atomicops.h"
@@ -82,12 +88,18 @@ Point trace_line_and_qr(Mat &img, vector<mask> &mask_vec, QRDetector &qr_detecto
 	return track_point;
 }
 
-bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &q, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
+struct mv_output {
+	int angle;
+	int qr_coord_x;
+	int qr_coord_y;
+};
+
+bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &frame_q, BlockingReaderWriterQueue<mv_output> &output_q, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
 
 	while (true) {
 		auto start = high_resolution_clock::now();
 		Mat frame;
-		q.wait_dequeue(frame);
+		frame_q.wait_dequeue(frame);
 		if (frame.empty()) {
 				LOG_F(INFO, "Empty frame received. Stopping image processing.");
 				break;
@@ -100,12 +112,15 @@ bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &q, vector<mask> &mask_
 		bool qr_tracked;
 		Point track_point = trace_line_and_qr(frame, mask_vec, qr_detector, decodedObjects, qr_tracked);
 		//Break when QR is in correct position
-
+		
+		//TODO: This has temporarily been removed since we just want to
+		//send forever.
+		/*
 		if(qr_tracked && goal_rect.contains(track_point)) {
 			LOG_F(INFO, "QR is in correct position. Stopping Robot.");
 			return true;
 		}
-
+		*/
 		if(draw_gui) {
 			int sizeX = frame.cols;
 			int sizeY = frame.rows;
@@ -123,6 +138,16 @@ bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &q, vector<mask> &mask_
 		}
 		int a = angle(track_point, Point(frame.cols/2, frame.rows));
 		cout << "angle: " << a << endl;
+
+		mv_output out;
+		out.angle = a;
+		out.qr_coord_x = -1;
+		out.qr_coord_y = -1;
+		//TODO fixa qr code parsing json -> (x,y)
+		if(qr_tracked) {
+		}
+		output_q.try_enqueue(out);
+		
 		//video.write(frame);
 		auto stop = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(stop - start);
@@ -152,7 +177,8 @@ int process_video() {
 		LOG_F(ERROR, "Could not open video source");
 		return -1;
 	}
-	BlockingReaderWriterQueue<Mat> q(2);
+	BlockingReaderWriterQueue<Mat> frame_q(2);
+	BlockingReaderWriterQueue<mv_output> output_q(10);
 	
 	//create VideoCapture thread
 	std::thread writer([&]() {
@@ -160,26 +186,46 @@ int process_video() {
 			Mat img;
 			cap >> img;
 			if (img.empty()) {
-				q.enqueue(img); // enqueue this so that reader gets the empty frame
+				frame_q.enqueue(img); // enqueue this so that reader gets the empty frame
 				LOG_F(INFO, "Empty frame captured. Stopping capture thread.");
 				break;
 			}
 			//TODO: When processing a video this will skip frames.
 			//Discard frame if queue is full
-			bool a = q.try_enqueue(img);
+			bool a = frame_q.try_enqueue(img);
 		}
 	});
-	
-	QRDetector qr_detector = QRDetector();
-	Rect goal_rect = config.GetGoalRect();
-	follow_line_until_qr(q, mask_vec, qr_detector, goal_rect, draw_gui);
+	//create image processing thread	
+	std::thread image_processing([&]() {
+		QRDetector qr_detector = QRDetector();
+		Rect goal_rect = config.GetGoalRect();
+		follow_line_until_qr(frame_q, output_q, mask_vec, qr_detector, goal_rect, draw_gui);
+	});
 
-	LOG_F(INFO, "Waiting for next command.");
+//Only send to ROS if we are on the Nvidia	
+#if defined(__arm__) && (__CUDACC__)
+	ros::init(argc, argv, "mv");
+	ros::NodeHandle n;
+	ros::Publisher mv_pub = n.advertise<std_msgs::Int32>("mv", 5);
+	ros::Rate loop_rate(10);
+
+	//Send ROS msg with angle
+	while(true) {
+		mv_output angle_msg;
+		output_q.wait_dequeue(angle_msg);
+		int angle = angle_msg.angle; 
+		std_msgs::int32 ros_angle_msg;
+		ros_angle_msg.data = angle;
+		mv_pub.publish(ros_angle_msg);
+	}
+#endif	
+
+	writer.join();
+	image_processing.join();
 
 	cap.release();
 	//video.release();
 	destroyAllWindows();
-	writer.join();
 	return 0;
 }
 
@@ -223,7 +269,6 @@ void drawInfo(Mat &img, Point cam, Point track, const vector<decodedObject> &dec
 
 int main()
 {
-
 	process_video();
 
 
