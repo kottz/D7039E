@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 add_executable(${PROJECT_NAME})
 FIND_PACKAGE(OpenCV REQUIRED)
 TARGET_LINK_LIBRARIES(${PROJECT_NAME} ${OpenCV_LIBS} zbar pthread dl)
-
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES})
 
 
 

@@ -1,10 +1,17 @@
 ﻿//ROS deps
+<<<<<<< HEAD
 #if defined(__aarch64__) && (__CUDACC__)
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "sensor_msgs/JointState.h"
+=======
+
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <std_msgs/Int32.h>
+>>>>>>> save ros mv testing before nvidia dies
 #include <sstream>
-#endif
+
 #include "cv_main.h"
 #include <chrono>
 #include "readerwriterqueue.h"
@@ -15,6 +22,13 @@ using namespace std;
 using namespace cv;
 using namespace zbar;
 using namespace moodycamel;
+
+std::string gstreamer_pipeline (int capture_width, int capture_height, int display_width, int display_height, int framerate, int flip_method) {
+    return "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)" + std::to_string(capture_width) + ", height=(int)" +
+           std::to_string(capture_height) + ", format=(string)NV12, framerate=(fraction)" + std::to_string(framerate) +
+           "/1 ! nvvidconv flip-method=" + std::to_string(flip_method) + " ! video/x-raw, width=(int)" + std::to_string(display_width) + ", height=(int)" +
+           std::to_string(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink max-buffers=1 drop=True";
+}
 
 
 
@@ -166,23 +180,42 @@ bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &frame_q, BlockingReade
 	return false;
 }
 
-int process_video() {
+int process_video(ros::Publisher mv_pub) {
 	Config config = Config::GetConfigFromFile("config.toml");
 	bool draw_gui = config.DrawGUI();
 	vector<mask> mask_vec = config.GetMask();
 	
 	string video_name = config.GetVideoSource();
+
+	int capture_width = 640 ;
+	int capture_height = 480 ;
+	int display_width = 640 ;
+	int display_height = 480 ;
+	int framerate = 120 ;
+	int flip_method = 2 ;
+
+	std::string pipeline = gstreamer_pipeline(capture_width,
+	capture_height,
+	display_width,
+	display_height,
+	framerate,
+	flip_method);
+	//pipeline = "nvarguscamerasrc ! video/x-raw(memory:NVMM), width=(int)640, height=(int)360, format=(string)NV12, framerate=(fraction)120/1 ! nvvidconv flip-method=0 ! appsink max-buffers=1 drop=True";
+	std::cout << "Using pipeline: \n\t" << pipeline << "\n";
 	
-	VideoCapture cap = VideoCapture();
+	//VideoCapture cap = VideoCapture();
+	cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
+/*
 	if(video_name == "camera") {
-		cap.open(0);
-		cap.set(CAP_PROP_FRAME_WIDTH,320);
-		cap.set(CAP_PROP_FRAME_HEIGHT,240);
-		cap.set(CAP_PROP_FPS, 90);
+		//cap.open(0);
+		//cap.set(CAP_PROP_FRAME_WIDTH,320);
+		//cap.set(CAP_PROP_FRAME_HEIGHT,240);
+		//cap.set(CAP_PROP_FPS, 90);
+		cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
 	} else {
 		cap.open(video_name);
 	}
-	
+	*/
 	if (!cap.isOpened()) {
 		LOG_F(ERROR, "Could not open video source");
 		return -1;
@@ -214,18 +247,32 @@ int process_video() {
 	});
 
 //Only send to ROS if we are on the Nvidia	
+<<<<<<< HEAD
 #if defined(__aarch64__) && (__CUDACC__)
 	ros::init(argc, argv, "mv");
 	ros::NodeHandle n;
 	ros::Publisher mv_pub = n.advertise<std_msgs::Int32>("mv", 5);
 	ros::Publisher qr_pub = node.advertise<sensor_msgs::jointstate>("mv_qr", 5);
 	ros::Rate loop_rate(10);
+=======
+>>>>>>> save ros mv testing before nvidia dies
 
+	cout << "cuda arm detected" << endl;
+	
+
+	
 	//Send ROS msg with angle
 	while(true) {
+<<<<<<< HEAD
 		int angle;
 		output_q.wait_dequeue(angle);
 		std_msgs::int32 ros_angle_msg;
+=======
+		mv_output angle_msg;
+		output_q.wait_dequeue(angle_msg);
+		int angle = angle_msg.angle; 
+		std_msgs::Int32 ros_angle_msg;
+>>>>>>> save ros mv testing before nvidia dies
 		ros_angle_msg.data = angle;
 		mv_pub.publish(ros_angle_msg);
 
@@ -240,7 +287,7 @@ int process_video() {
 			
 		}
 	}
-#endif	
+
 
 	writer.join();
 	image_processing.join();
@@ -310,10 +357,18 @@ void drawInfo(Mat &img, Point cam, Point track, const vector<decodedObject> &dec
 	}
 }
 
+<<<<<<< HEAD
 
 int main()
+=======
+int main(int argc, char **argv)
+>>>>>>> save ros mv testing before nvidia dies
 {
-	process_video();
+	ros::init(argc, argv, "mv");
+	ros::NodeHandle n;
+	ros::Publisher mv_pub = n.advertise<std_msgs::Int32>("mv", 5);
+	ros::Rate loop_rate(10);
+	process_video(mv_pub);
 
 
 }
