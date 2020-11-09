@@ -61,19 +61,19 @@ def listener(): 	# Set up subscriber to ros-node
     #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
    #ats.registerCallback(send_to_motors)
     rospy.spin()
-    
-def listener(): 	# Set up subscriber to ros-node
-    # Initialization
-    base_sub = rospy.Subscriber("Arrow", Int32, A.send_to_PD)
-    #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
-   #ats.registerCallback(send_to_motors)
-    rospy.spin()
 if __name__ == '__main__':
     c = Control()
     pub = rospy.Publisher('motor_control', JointState, queue_size=10)
     rospy.init_node('move_control', anonymous=True)
     rate = rospy.Rate(10)
     listener()
+    
+#def listener(): 	# Set up subscriber to ros-node
+#    # Initialization
+#    base_sub = rospy.Subscriber("Arrow", Int32, A.send_to_PD)
+#    #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
+#   #ats.registerCallback(send_to_motors)
+#    rospy.spin()
 
 			
 	
