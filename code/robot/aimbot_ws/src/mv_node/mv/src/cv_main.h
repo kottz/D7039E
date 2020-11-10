@@ -21,4 +21,5 @@ using namespace std;
 int line_trace();
 Point vecToPoint(vec2f v);
 void drawInfo(Mat &img, Point cam, Point track, const vector<decodedObject> &decodedObjects, Rect goal_rect);
+int from_direction(decodedObject obj);
 //void decode(Mat &im, vector<decodedObject>&decodedObjects)

@@ -1,7 +1,8 @@
 ﻿//ROS deps
-#if defined(__arm__) && (__CUDACC__)
+#if defined(__aarch64__) && (__CUDACC__)
 #include "ros/ros.h"
 #include "std_msgs/String.h"
+#include "sensor_msgs/JointState.h"
 #include <sstream>
 #endif
 #include "cv_main.h"
@@ -82,19 +83,20 @@ Point trace_line_and_qr(Mat &img, vector<mask> &mask_vec, QRDetector &qr_detecto
 		Point center = QRDetector::GetCenter(decodedObjects[0]);
 		if(center.y < sizeY/2) {
 			track_point = center;
-			qr_tracked = true;
 		}
+		qr_tracked = true;
 	}
 	return track_point;
 }
 
 struct mv_output {
-	int angle;
-	int qr_coord_x;
-	int qr_coord_y;
+	std::string qr_data;
+	float qr_x;
+	float qr_y;
+	int from_direction; //0 north, 1 east, 2 south, 3 west
 };
 
-bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &frame_q, BlockingReaderWriterQueue<mv_output> &output_q, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
+bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &frame_q, BlockingReaderWriterQueue<int> &output_q, BlockingReaderWriterQueue<mv_output> &output_qr_q, vector<mask> &mask_vec, QRDetector &qr_detector, Rect goal_rect, bool draw_gui) {
 
 	while (true) {
 		auto start = high_resolution_clock::now();
@@ -139,14 +141,22 @@ bool follow_line_until_qr(BlockingReaderWriterQueue<Mat> &frame_q, BlockingReade
 		int a = angle(track_point, Point(frame.cols/2, frame.rows));
 		cout << "angle: " << a << endl;
 
-		mv_output out;
-		out.angle = a;
-		out.qr_coord_x = -1;
-		out.qr_coord_y = -1;
 		//TODO fixa qr code parsing json -> (x,y)
 		if(qr_tracked) {
+			decodedObject obj = decodedObjects[0];
+			Point center = QRDetector::GetCenter(obj);
+			mv_output out;
+			out.qr_data = obj.data;
+			out.qr_x = (float) center.x / frame.cols;
+			out.qr_y = (float) center.y / frame.rows;
+			out.from_direction = from_direction(obj);
+			output_qr_q.try_enqueue(out);
+			cout << "qr data: " << out.qr_data << endl;
+			cout << "qr x: " << out.qr_x << endl;
+			cout << "qr y: " << out.qr_y << endl;
+			cout << "qr from dir: " << out.from_direction << endl;
 		}
-		output_q.try_enqueue(out);
+		output_q.try_enqueue(a);
 		
 		//video.write(frame);
 		auto stop = high_resolution_clock::now();
@@ -178,7 +188,8 @@ int process_video() {
 		return -1;
 	}
 	BlockingReaderWriterQueue<Mat> frame_q(2);
-	BlockingReaderWriterQueue<mv_output> output_q(10);
+	BlockingReaderWriterQueue<mv_output> output_qr_q(10);
+	BlockingReaderWriterQueue<int> output_q(10);
 	
 	//create VideoCapture thread
 	std::thread writer([&]() {
@@ -199,24 +210,35 @@ int process_video() {
 	std::thread image_processing([&]() {
 		QRDetector qr_detector = QRDetector();
 		Rect goal_rect = config.GetGoalRect();
-		follow_line_until_qr(frame_q, output_q, mask_vec, qr_detector, goal_rect, draw_gui);
+		follow_line_until_qr(frame_q, output_q, output_qr_q, mask_vec, qr_detector, goal_rect, draw_gui);
 	});
 
 //Only send to ROS if we are on the Nvidia	
-#if defined(__arm__) && (__CUDACC__)
+#if defined(__aarch64__) && (__CUDACC__)
 	ros::init(argc, argv, "mv");
 	ros::NodeHandle n;
 	ros::Publisher mv_pub = n.advertise<std_msgs::Int32>("mv", 5);
+	ros::Publisher qr_pub = node.advertise<sensor_msgs::jointstate>("mv_qr", 5);
 	ros::Rate loop_rate(10);
 
 	//Send ROS msg with angle
 	while(true) {
-		mv_output angle_msg;
-		output_q.wait_dequeue(angle_msg);
-		int angle = angle_msg.angle; 
+		int angle;
+		output_q.wait_dequeue(angle);
 		std_msgs::int32 ros_angle_msg;
 		ros_angle_msg.data = angle;
 		mv_pub.publish(ros_angle_msg);
+
+		mv_output qr_msg;
+		output_qr_q.try_dequeue(qr_msg);
+		if(qr_msg) {
+			sensor_msgs::JointState qr;
+			qr.name.push_back(qr_msg.data);
+			qr.position.push_back(qr_msg.qr_x);
+			qr.position.push_back(qr_msg.qr_y);
+			qr.effort.push_back(qr_msg.from_direction);  
+			
+		}
 	}
 #endif	
 
@@ -235,6 +257,25 @@ Point vecToPoint(vec2f v) {
 	return Point(x,y);
 }
 
+int from_direction(decodedObject obj) {
+	//find middle of each line, return the one which has the lowest y pos
+	int y_max = 0;
+	int dir = -1; //0 north, 1 east, 2 south, 3 west
+	for(int i = 0; i < 4; i++) {
+		int p = (obj.location[i].y + obj.location[(i+1)%3].y)/2;
+		//cout << "y1 " << obj.location[i].y << " y2 " << obj.location[(i+1)%4].y << endl;
+		//cout << "p " << p << "i " << i << endl;
+		if(p > y_max) {
+			y_max = p;
+			dir = (i+1)%4; //zbar uses will set bottom left corner to index one. but we want to have north as 0
+		}
+	}
+	//cout << "new y1 " << obj.location[0] << " y2 " << obj.location[1] << endl;
+	//cout << "new y1 " << obj.location[1] << " y2 " << obj.location[2] << endl;
+	//cout << "new y1 " << obj.location[2] << " y2 " << obj.location[3] << endl;
+	//cout << "new y1 " << obj.location[3] << " y2 " << obj.location[0] << endl;
+	return dir;
+}
 void drawInfo(Mat &img, Point cam, Point track, const vector<decodedObject> &decodedObjects, Rect goal_rect) {
 
 	line(img, track, cam, Scalar(255,0,0),2);
@@ -263,9 +304,12 @@ void drawInfo(Mat &img, Point cam, Point track, const vector<decodedObject> &dec
 		line(img, decodedObjects[0].location[1], decodedObjects[0].location[2], Scalar(255,200,0),3);
 		line(img, decodedObjects[0].location[2], decodedObjects[0].location[3], Scalar(255,0,100),3);
 		line(img, decodedObjects[0].location[3], decodedObjects[0].location[0], Scalar(255,0,200),3);
-		putText(img, decodedObjects[0].data, Point(decodedObjects[0].location[3].x + 15, decodedObjects[0].location[3].y + 25), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(0,0,0), 2);
+		int dir = from_direction(decodedObjects[0]);
+		cout << dir << endl;
+		putText(img, decodedObjects[0].data + " dir " + std::to_string(dir), Point(decodedObjects[0].location[3].x + 15, decodedObjects[0].location[3].y + 25), FONT_HERSHEY_SIMPLEX, 0.7, Scalar(0,0,0), 2);
 	}
 }
+
 
 int main()
 {
