@@ -15,8 +15,8 @@ class Control:
         der=self.prev_err-err
         cont=self.kp*err-self.kd*der
         self.prev_err=err
-        speed_L=min(max(self.speed+cont,0),1023)
-        speed_R=min(max(self.speed-cont,0),1023)		
+        speed_R=min(max(self.speed+cont,0),1023)
+        speed_L=min(max(self.speed-cont,0),1023)		
         return [speed_L, speed_R]
 		
     def send_to_PD(self, data):
@@ -33,7 +33,7 @@ class Control:
 def get_joint_state(cont):
     joints = JointState()
     joints.header.stamp = rospy.get_rostime()
-    joints.name = ["left wheel", "right_wheel"]
+    joints.name = ["right wheel", "left wheel"]
     joints.velocity = cont
     return joints
 

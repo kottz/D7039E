@@ -75,8 +75,17 @@ class Motor:	#Setup the motor arguments
 
     def setup(self, motor_id):
 
-        # Dynamixel Torque
+       
+        if motor_id < 5
 
+			  TORQUE_ENABLE = 1  
+			  CW_ANGLE_LIMIT = 1 # ok?
+			  CCW_ANGLE_LIMIT = 1 # ok?
+			
+		
+			
+			########
+		# Dynamixel Torque
         (dxl_comm_result, dxl_error) = \
             packetHandler.write1ByteTxRx(portHandler, motor_id,
                 ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE)
@@ -134,6 +143,10 @@ class Motor:	#Setup the motor arguments
             print('%s' % packetHandler.getRxPacketError(dxl_error))
         else:
             print('Dynamixel has been successfully connected')
+
+		
+	
+
 
 
 import os
@@ -231,9 +244,17 @@ else:
 
 # setup(7)
 
-m1 = Motor(7, True)
-m2 = Motor(6, False)
+m1 = Motor(6, True)
+m2 = Motor(7, False)
 
+###########
+
+m_arm1 = Motor(1, False) # ID1
+m_arm2 = Motor(2, False) #..
+m_arm3 = Motor(3, False) #..
+m_arm4 = Motor(4, False)
+m_arm5 = Motor(5, False)
+#############
 
 def send_to_motors(data):
   #print("callback called")
@@ -251,6 +272,19 @@ def listener(): 	# Set up subscriber to ros-node
     #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
    #ats.registerCallback(send_to_motors)
     rospy.spin()
+#####################################    
+ 
+
+def listener():
+	# Initialization
+    rospy.init_node('arm_control')
+    base_sub = rospy.Subscriber("arm_control", JointState, send_to_arm)
+    #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
+   #ats.registerCallback(send_to_arm)
+    rospy.spin()
+    
+    
+######################################    
 if __name__ == '__main__':
     listener()
 
