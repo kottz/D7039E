@@ -1,47 +1,59 @@
 This is BibTeX, Version 0.99d (TeX Live 2020)
 Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: test_report_for_compiling.aux
-I found no \citation commands---while reading file test_report_for_compiling.aux
-I found no \bibstyle command---while reading file test_report_for_compiling.aux
-You've used 0 entries,
-            0 wiz_defined-function locations,
-            84 strings with 540 characters,
-and the built_in function-call counts, 0 in all, are:
-= -- 0
-> -- 0
+The style file: IEEEtran.bst
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+Reallocated singl_function (elt_size=4) to 100 items from 50.
+Database file #1: bibliography.bib
+Warning--entry type for "ros" isn't style-file defined
+--line 10 of file bibliography.bib
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+
+Done.
+You've used 1 entry,
+            4087 wiz_defined-function locations,
+            825 strings with 7433 characters,
+and the built_in function-call counts, 437 in all, are:
+= -- 22
+> -- 4
 < -- 0
-+ -- 0
-- -- 0
-* -- 0
-:= -- 0
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 2
+- -- 1
+* -- 30
+:= -- 90
+add.period$ -- 2
+call.type$ -- 1
+change.case$ -- 1
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 0
-format.name$ -- 0
-if$ -- 0
+cite$ -- 1
+duplicate$ -- 29
+empty$ -- 36
+format.name$ -- 1
+if$ -- 74
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 0
-num.names$ -- 0
-pop$ -- 0
-preamble$ -- 0
+int.to.str$ -- 1
+missing$ -- 7
+newline$ -- 28
+num.names$ -- 1
+pop$ -- 24
+preamble$ -- 1
 purify$ -- 0
-quote$ -- 0
-skip$ -- 0
+quote$ -- 2
+skip$ -- 24
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 1
+swap$ -- 14
 text.length$ -- 0
 text.prefix$ -- 0
-top$ -- 0
-type$ -- 0
+top$ -- 5
+type$ -- 1
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 0
-(There were 2 error messages)
+while$ -- 1
+width$ -- 2
+write$ -- 31
+(There was 1 warning)
