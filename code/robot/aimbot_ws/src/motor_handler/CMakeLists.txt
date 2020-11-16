@@ -160,7 +160,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/motor_handler.py scripts/test_joint_pub.py
+   motor_handler.py test_joint_pub.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

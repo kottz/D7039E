@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 ################################################################################
@@ -38,6 +38,11 @@ from std_msgs.msg import String
 #from message_filters import ApproximateTimeSynchronizer, Subscriber
 import signal
 import sys
+
+from queue import Queue
+from threading import Thread
+
+
 
 
 import os
@@ -133,7 +138,9 @@ ADDR_MOVING_SPEED = 32
 
 def set_position(id_motor, position):
 	#print("Setting position to " + str(position) + " for id " + str(id_motor))
-	
+	if position > 150 or position < -150:
+		print("position is out of range")
+
 	angle_mem_value = (position + 150)/300*1023
 	#set goal position
 	dxl_comm_result, dxl_error = packetHandler.write2ByteTxRx(portHandler, int(id_motor), ADDR_GOAL_POSITION, int(angle_mem_value))
@@ -150,9 +157,18 @@ def set_position(id_motor, position):
 def set_speed(id_motor, velocity):
 	#print("Setting velocity to " + str(velocity) + " for id " + str(id_motor))
 
+	dir_value = 0
+	#if speed is negative (it should be in wheel mode) "switch" direction
+	if velocity < 0:
+		velocity = -velocity
+		dir_value = 1024
+
 	velocity_mem_value = (velocity)/100*1023
+	
+	#print(str(int(velocity_mem_value + dir_value)))
+	
 	# Set moving speed
-	dxl_comm_result, dxl_error = packetHandler.write2ByteTxRx(portHandler, int(id_motor), ADDR_MOVING_SPEED, int(velocity_mem_value))
+	dxl_comm_result, dxl_error = packetHandler.write2ByteTxRx(portHandler, int(id_motor), ADDR_MOVING_SPEED, int(velocity_mem_value + dir_value))
 	if dxl_comm_result != COMM_SUCCESS:
 		print("%s" % packetHandler.getTxRxResult(dxl_comm_result))
 	elif dxl_error != 0:
@@ -166,12 +182,12 @@ def set_speed(id_motor, velocity):
 
 
 def send_to_motors(data):
-	
+
 	#print(data)
 	#send speed and position data to motors
 	for i in range(0, len(data.name)):
 		try:
-			set_speed(int(data.name[i]), int(data.velocity[i]))		
+			set_speed(int(data.name[i]), int(data.velocity[i]))
 		except:
 			pass
 
@@ -182,21 +198,39 @@ def send_to_motors(data):
 			pass
 
 
+def queue_reader(in_q):
+	while True:
+		d = in_q.get()
+		send_to_motors(d)
+
+def callback(data):
+	q.put(data)
+
+
+
+
+q = Queue()
 
 
 def listener(): 	# Set up subscriber to ros-node
-    # Initialization
-    rospy.init_node('motor_handler')
-    base_sub = rospy.Subscriber("motor_data", JointState, send_to_motors)
-    #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
-    #ats.registerCallback(send_to_motors)
-    rospy.spin()
-#####################################    
- 
+	# Initialization
+	rospy.init_node('motor_handler')
 
 
-    
-######################################    
+	t = Thread(target = queue_reader, args = [q])
+	t.daemon = True
+	t.start()
+
+	base_sub = rospy.Subscriber("motor_data", JointState, callback)
+	#ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
+	#ats.registerCallback(send_to_motors)
+	rospy.spin()
+#####################################
+
+
+
+
+######################################
 if __name__ == '__main__':
     listener()
 
@@ -213,5 +247,3 @@ def at_exit():
 
 import atexit
 atexit.register(at_exit)
-
-

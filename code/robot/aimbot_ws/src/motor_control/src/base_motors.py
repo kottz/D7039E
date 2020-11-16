@@ -231,8 +231,8 @@ else:
 
 # setup(7)
 
-m1 = Motor(7, True)
 m2 = Motor(6, False)
+m1 = Motor(7, True)
 
 
 def send_to_motors(data):
