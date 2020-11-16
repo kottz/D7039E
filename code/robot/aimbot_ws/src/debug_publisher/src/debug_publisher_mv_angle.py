@@ -37,7 +37,7 @@ class Control:
 def get_joint_state(cont):
     joints = JointState()
     joints.header.stamp = rospy.get_rostime()
-    joints.name = ["left wheel", "right_wheel"]
+    joints.name = ["left_wheel", "right_wheel"]
     joints.velocity = cont
     return joints
 

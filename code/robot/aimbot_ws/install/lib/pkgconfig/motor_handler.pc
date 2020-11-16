@@ -1,0 +1,8 @@
+prefix=/home/robot/D7039E/code/robot/aimbot_ws/install
+
+Name: motor_handler
+Description: Description of motor_handler
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

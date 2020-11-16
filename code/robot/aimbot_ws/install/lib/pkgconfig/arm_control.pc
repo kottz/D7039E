@@ -1,0 +1,8 @@
+prefix=/home/robot/D7039E/code/robot/aimbot_ws/install
+
+Name: arm_control
+Description: Description of arm_control
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

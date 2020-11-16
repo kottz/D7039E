@@ -27,6 +27,7 @@ std::string gstreamer_pipeline (int capture_width, int capture_height, int displ
            std::to_string(display_height) + ", format=(string)BGRx ! videoconvert ! video/x-raw, format=(string)BGR ! appsink max-buffers=1 drop=True";
 }
 #endif
+
 Mat create_color_mask(Mat &img, vector<mask> &mask_vec) {
 	int sizeX = img.cols;
 	int sizeY = img.rows;
@@ -249,7 +250,7 @@ int process_video(ros::Publisher mv_pub, ros::Publisher qr_pub) {
 
 
 	//Send ROS msg with angle
-	while(ros::ok()) {
+	while(true) {
 		int angle;
 		output_q.wait_dequeue(angle);
 		std_msgs::Int32 ros_angle_msg;
@@ -265,7 +266,6 @@ int process_video(ros::Publisher mv_pub, ros::Publisher qr_pub) {
 			qr.effort.push_back(qr_msg.from_direction);
 			qr_pub.publish(qr);
 		}
-
 	}
 #endif	
 
@@ -344,7 +344,7 @@ int main(int argc, char **argv)
 	ros::NodeHandle n;
 	ros::Publisher mv_pub = n.advertise<std_msgs::Int32>("mv", 1);
 	ros::Publisher qr_pub = n.advertise<sensor_msgs::JointState>("mv_qr", 1);
-	//ros::Rate loop_rate(20); // Rate = 11 originally
+	ros::Rate loop_rate(11); // Rate = 11 originally
 	process_video(mv_pub, qr_pub);
 
 }
