@@ -236,7 +236,7 @@ m1 = Motor(7, True)
 
 
 def send_to_motors(data):
-  #print("callback called")
+  print("callback called")
   #rospy.loginfo(rospy.get_caller_id() + "I heard %s", data)
   print(data.velocity[0])
   print(int(data.velocity[0]))
