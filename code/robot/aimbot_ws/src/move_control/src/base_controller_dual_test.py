@@ -27,7 +27,6 @@ class MoveControl:
     angle = 90
     prev_angle = 90
     follow = True
-    qr_processing = False
     prev_qr = None
     qr = None
 
@@ -59,65 +58,76 @@ class MoveControl:
         qr_sub = rospy.Subscriber("mv_qr", JointState, self._qr_callback)
         rospy.spin()
 
+    def stop(self):
+        with self.follow_lock:
+            if self.follow:
+                self.follow = False
+                self._stop_robot()
+    
+    def _stop_robot(self):
+        speed_msg = self.ros_message_from_speed([0,0])
+        self.motor_publisher.publish(speed_msg)
+
     def set_motors_from_angle(self):
         #If angle hasn't changed, then we don't have to update anything
+        rate = rospy.Rate(20)
+        while not rospy.is_shutdown():
+            rate.sleep()
+            with self.angle_lock:
+                angle = self.angle
+            
+            if angle == self.prev_angle: #This might lock here if the robot speed has been set elsewhere and the angle does not change
+                continue
+            self.prev_angle = angle
 
-        with self.angle_lock:
-            angle = self.angle
-        
-        if angle == self.prev_angle:
-            return
-        
+            with self.follow_lock:
+                follow = self.follow
 
-        with self.follow_lock:
-            follow = self.follow
-
-        if follow:
-            speed = self.pd.speed_from_angle(angle)
-            speed_msg = self.ros_message_from_speed(speed)
-            self.motor_publisher.publish(speed_msg)
+            if follow:
+                speed = self.pd.speed_from_angle(angle)
+                speed_msg = self.ros_message_from_speed(speed)
+                self.motor_publisher.publish(speed_msg)
+            
+            
 
 
-    def _qr_callback(self, qr):
+    def process_qr(self, qr):
         #Only run this procedure once per intersection.
+        rate = rospy.Rate(20)
+        while not rospy.is_shutdown():
+            rate.sleep()
+            with self.qr_lock:
+                qr = self.qr
+            
+            if qr == self.prev_qr:
+                continue
+            self.prev_qr = qr
 
-        data = qr.name[0]
-        x = qr.position[0]
-        y = qr.position[1]
-        from_dir = int(qr.effort[0])
+            data = qr.name[0]
+            x = qr.position[0]
+            y = qr.position[1]
+            from_dir = int(qr.effort[0])
 
-        if data == self.prev_qr:
-            return
-        self.prev_qr = data
-        #outside_goal_rect = not ((0.2 < x < 0.8) and (0.2 < x < 0.8))
+            #outside_goal_rect = not ((0.2 < x < 0.8) and (0.2 < x < 0.8))
 
-        if self.qr_processing: #or outside_goal_rect:
-            return
-        self.qr_processing = True
+            #Turn off line following while we do the qr processing
+            with self.follow_lock:
+                self.follow = False
 
+            self._stop_robot()
+            print("qr found in goal rect, stopping robot")
+            time.sleep(3)
 
+            
+            #Blocking call waiting for a new move instruction
+            
+            #Here we then want to run a procedure to turn left/right/forward etc. For debug purposes we just try to turn left
+            self.turn_left()
 
+            #Start the line following again and turn off qr_processing mode
+            with self.follow_lock:
+                self.follow = True
 
-
-        #Turn off line following while we do the qr processing
-        with self.follow_lock:
-            self.follow = False
-
-        stop_msg = self.ros_message_from_speed([0,0])
-        self.motor_publisher.publish(stop_msg) #stops the robot
-        print("qr found in goal rect, stopping robot")
-        time.sleep(0.5)
-
-        
-        #Blocking call waiting for a new move instruction
-        
-        #Here we then want to run a procedure to turn left/right/forward etc. For debug purposes we just try to turn left
-        self.turn_left()
-
-        #Start the line following again and turn off qr_processing mode
-        with self.follow_lock:
-            self.follow = True
-        self.qr_processing = False
 
 
 
@@ -143,12 +153,10 @@ class MoveControl:
 
 
         #Then stop again
-        speed = [0, 0]
-        speed_msg = self.ros_message_from_speed(speed)
-        self.motor_publisher.publish(speed_msg)
+        self._stop_robot()
 
         #debug wait
-        time.sleep(0.2)
+        time.sleep(3)
 
         
 
@@ -158,5 +166,14 @@ class MoveControl:
 if __name__ == '__main__':
     c = MoveControl()
     c.start_listeners()
+
+    angle_thread = threading.Thread(target=c.set_motors_from_angle)
+    qr_thread = threading.Thread(target=c.process_qr)
+
+    angle_thread.start()
+    qr_thread.start()
+    print("threads started")
+    angle_thread.join()
+    qr_thread.join()
 
 
