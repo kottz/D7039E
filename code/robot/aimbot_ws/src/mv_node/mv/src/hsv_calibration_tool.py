@@ -19,11 +19,9 @@ def get_mask(image, hsv_start, hsv_range, s_min, s_max, v_min, v_max):
 def nothing(x):
     pass
 
-# Load image
 image = cv2.imread('red_line.jpg')
 
-# Create a window
-cv2.namedWindow('image')
+cv2.namedWindow('HSV calibration tool')
 
 # Create trackbars for color change
 # Hue is from 0-179 for Opencv
@@ -34,7 +32,7 @@ cv2.createTrackbar('v_min', 'image', 0, 255, nothing)
 cv2.createTrackbar('s_max', 'image', 0, 255, nothing)
 cv2.createTrackbar('v_max', 'image', 0, 255, nothing)
 
-# Set default value for Max HSV trackbars
+# Set default value for Max trackbars
 cv2.setTrackbarPos('hsv_range', 'image', 10)
 cv2.setTrackbarPos('s_max', 'image', 255)
 cv2.setTrackbarPos('v_max', 'image', 255)
@@ -52,13 +50,6 @@ while(1):
     s_max = cv2.getTrackbarPos('s_max', 'image')
     v_max = cv2.getTrackbarPos('v_max', 'image')
 
-    # Set minimum and maximum HSV values to display
-    #lower = np.array([hsv_start, s_min, v_min])
-    #upper = np.array([h_max, s_max, v_max])
-
-    # Convert to HSV format and color threshold
-    #hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    #mask = cv2.inRange(hsv, lower, upper)
     mask = get_mask(image, hsv_start, hsv_range, s_min, s_max, v_min, v_max)
     result = cv2.bitwise_and(image, image, mask=mask)
 
