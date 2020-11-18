@@ -1,0 +1,30 @@
+
+\resizebox{9.0cm}{!}{
+
+\begin{tikzpicture}
+    [align=center, node distance = 2em,  auto]
+
+    %% Robot
+    \node [Start] (start) {Start};
+    \node [Data, below= of start] (findqr) {Find and read QR};
+    \node [Data, below= of findqr] (report) {Report to \\ Arrowhead};
+    \node [Data, below= of report] (getgood) {Wait for instruction \\from Arrwohead};
+    \node [Process, below= of getgood] (follow) {Work on goal};
+    \node [Data, left= of report, yshift=-2em] (status) {Report status \\ to Arrowhead};
+
+    %% Arrowhead
+    \node [Process, right= of report, xshift=10em] (arrowstart) {Decide on goal \\ for robot};
+    \node [Process, below= of arrowstart, yshift=-0.5em] (certify) {Certify robot};
+
+
+    %% Draw
+    \draw (start) -- (findqr) -- (report) -- (getgood) -- (follow);
+    \draw [->] (follow) -| (status) |- (findqr);
+
+    
+    \draw [->, dashed] (report) -- node[midway, fill=white, yshift=-1.5em] {Status/ \\ Position} (arrowstart);
+    \draw [->] (arrowstart) -- (certify);
+    \draw [->, dashed] (certify) -- (getgood);
+
+\end{tikzpicture}
+}

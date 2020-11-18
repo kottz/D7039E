@@ -1,0 +1,37 @@
+\begin{frame}  
+    \frametitle{Orchestrator}
+    Implements two methods
+    \begin{itemize}
+        \item Orchestration pull
+            \begin{itemize}
+                \item An Application system requests requests a service.
+                \item If the requesting application system is allowed to access requested service the 
+                      physical endpoints are returned.
+                \item If the requesting application system is not allowed to access requested service or the        service doesn't exist an error code will be returned.
+            \end{itemize}
+        \item Orchestration push
+        \begin{itemize}
+            \item The Orchestrator pushes new information on Application Systems, with information about physical endpoints and which services that are connected.
+            \item Only required for store orchestration.
+        \end{itemize}
+        
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Orchestrator}
+    Two types of orchestration 
+    \begin{itemize}
+        \item Dynamic orchestration
+        \begin{itemize}
+            \item Uses the application system name and authorization properties to find the appropriate providers. 
+        \end{itemize}
+        
+        \item Store orchestration
+        \begin{itemize}
+            \item Uses the application system's id to query the orchestration store database for an appropriate provider. 
+        \end{itemize}
+    \end{itemize}
+
+\end{frame}

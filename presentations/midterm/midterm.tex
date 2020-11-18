@@ -1,0 +1,101 @@
+\documentclass{beamer}
+\usetheme{Boadilla}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usetikzlibrary{shapes.geometric,arrows, positioning, fit}
+\tikzstyle{computing} = [draw, rectangle, fill=white!50, rounded corners, node distance=2cm,
+                    minimum height=3em]
+
+\tikzstyle{io} = [rectangle, draw, trapezium right angle=110, rounded corners,
+                  fill=red!20, node distance=1.9cm, minimum height=2.9em]
+
+\tikzstyle{calculate} = [diamond, draw, trapezium right angle=110, rounded corners,
+                  fill=green!20, node distance=1.9cm, minimum height=2.9em]
+
+\tikzstyle{hardware} = [rectangle, draw, trapezium right angle=110, rounded corners,
+                  fill=blue!20, node distance=1.9cm, minimum height=2.9em]
+
+\tikzstyle{external} = [rectangle, draw, trapezium right angle=110, rounded corners,
+                  fill=gray!20, node distance=1.9cm, minimum height=2.9em]
+\tikzstyle{line} = [draw, -latex']
+
+\tikzstyle{function} = [rectangle, draw, fill=green!20, node distance=1.9cm, minimum height=2.9em]
+\tikzstyle{ros} = [circle, draw,
+                  fill=gray!20, node distance=1.9cm, minimum height=2.9em]
+
+                  \tikzstyle{Process} = [rectangle, draw]
+
+                  \tikzstyle{Start} = [draw, rectangle, rounded corners] 
+                  
+                  \tikzstyle{Data} = [draw,trapezium,trapezium left angle=70,trapezium right angle=-70]
+
+
+
+
+
+\title{Midterm Presentation}
+\subtitle{AIMBOT}
+\author{Martin Blaszczyk \\ Edward Källstedt}
+\institute{Luleå University of Technology}
+\date{\today}
+
+
+
+\begin{document}
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Overview}
+    \tableofcontents
+\end{frame}
+
+
+%%%%%%%%%%%% Add new frames below this line %%%%%%%%%
+\section{Project structure}
+\input{frames/intro.tex}
+\input{frames/timeplan.tex}
+
+\section{Engineering challenge}
+\subsection{Concept}
+\input{frames/concept.tex}
+
+\subsection{Internals}
+\input{frames/internal.tex}
+\begin{frame}
+    \frametitle{Concept rendering}
+    \includegraphics[width=\textwidth]{frames/img/b4_manufacturing.PNG}
+\end{frame}
+\subsection{Flowcharts}
+\input{frames/positioning_flow.tex}
+\input{frames/base_flow.tex}
+\input{frames/factory.tex}
+
+\section{Machine Vision}
+\subsection{EDWARD USE SUBSECTIONS!}
+\begin{frame}
+    \begin{center}
+        \Huge Machine vision
+    \end{center}
+\end{frame}
+
+
+
+
+
+%%%%%%%%%%%% Add new frames above this line %%%%%%%%%
+
+
+\begin{frame}
+    \begin{center}
+        \Huge Questions?
+    \end{center}
+\end{frame}
+
+
+
+
+
+\end{document}

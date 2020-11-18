@@ -44,3 +44,6 @@ build/
 
 #config
 **/config.toml
+/report/Presentations/img/animation*
+
+*.mp4

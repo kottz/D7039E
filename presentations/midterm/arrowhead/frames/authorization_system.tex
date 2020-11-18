@@ -1,0 +1,22 @@
+\begin{frame}  
+    \frametitle{Authorization system}
+    
+    Implements two methods
+    
+    \begin{itemize}
+        \item Authorization control
+        \begin{itemize}
+            \item Sets up rules for which services are allowed to access each other.
+            \item Specifies which protocols will be used for communication.
+            \item Sets up rules for communication within local cloud, also called intracloud authorization.
+            \item Sets up rules for communication with remote clouds, also called intercloud authorization.
+        \end{itemize}
+        \item Token generation
+            \begin{itemize}
+                \item Generates a token used for accessing services within cloud, currently only supported between remote clouds. 
+                \item Will not be used in our implementation, we will use certificates.
+            \end{itemize}
+            
+    \end{itemize}
+    
+\end{frame}
