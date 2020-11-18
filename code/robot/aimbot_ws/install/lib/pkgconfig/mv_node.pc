@@ -1,8 +1,0 @@
-prefix=/home/robot/D7039E/code/robot/aimbot_ws/install
-
-Name: mv_node
-Description: Description of mv_node
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 
