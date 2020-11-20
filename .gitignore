@@ -30,7 +30,6 @@ hs_err_pid*
 *.synctex.gz
 *.fls
 *.fdb_latexmk
-*.bib
 *.nav
 *.out
 *.toc
@@ -44,3 +43,6 @@ build/
 
 #config
 **/config.toml
+/report/Presentations/img/animation*
+
+*.mp4

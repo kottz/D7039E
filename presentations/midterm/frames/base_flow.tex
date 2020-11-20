@@ -1,0 +1,32 @@
+\begin{frame}
+    \frametitle{ROS-Base example}
+\begin{center}
+    
+
+    \resizebox{8.0cm}{!}{
+    \begin{tikzpicture}
+        [align=center]
+        \node [ros] (line) {Line \\Follower};
+        \coordinate [below= of line] (aux1);
+        \node [ros, below= of line] (obj) {Object\\ Detection};
+        \node [function, right= 10em of obj] (diff) {Differential drive\\controller};
+        \node [function, below= of diff] (handler) {Motor handler};
+        \node [function, left= of handler] (error) {Error handler};
+        \node [hardware, right= of handler] (motors) {Motors};
+        \node [ros, below= of handler] (ros) {ROS Topics};
+    
+        
+        
+    
+        \draw [->] (line) -| node[midway, fill=white] {error [deg]} (diff);
+        \draw [<->] (diff) -- node[midway, fill=white] {rad/s} (handler);
+        \draw [<->] (handler) -- node[midway, fill=white] {data} (motors);
+        \draw [->] (handler) -- node[midway, fill=white] {Motor feedback} (ros);
+        \draw [->] (obj) -- node[midway, fill=white] {heading error [deg]} (diff);
+        \draw [<->] (error) -- node[midway, fill=white] {data} (handler);
+        \draw [<->] (error) |- (ros);
+        
+    \end{tikzpicture}
+    }
+\end{center}
+\end{frame}
