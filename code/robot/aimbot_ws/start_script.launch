@@ -2,7 +2,7 @@
   <!-- <node name="motor_handler" pkg="motor_handler" type="motor_handler.py" />
   <node name="test_joint_pub" pkg="motor_handler" type="test_joint_pub.py" /> -->
   <node name="motor_control" pkg="motor_control" type="base_motors.py" />
-  <node name="move_control" pkg="move_control" type="base_controller_dual_test.py" />
+  <node name="move_control" pkg="move_control" type="base_controller.py" />
 </launch>
 
 

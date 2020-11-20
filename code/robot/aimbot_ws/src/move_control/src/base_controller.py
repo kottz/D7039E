@@ -99,13 +99,13 @@ class MoveControl:
         #Only run this procedure once per intersection.
         rate = rospy.Rate(20)
         while not rospy.is_shutdown():
-            rospy.logwarn("In QR while")
+            #rospy.logwarn("In QR while")
             rate.sleep()
             with self.qr_lock:
                 qr = self.qr
             
             if self.qr.name[0] == self.prev_qr.name[0]:
-                rospy.logwarn("Before CONTINUE!!!")
+                #rospy.logwarn("Before CONTINUE!!!")
                 continue
             self.prev_qr = qr
             rospy.logwarn(self.prev_qr)
@@ -122,13 +122,17 @@ class MoveControl:
 
             self._stop_robot()
             print("qr found in goal rect, stopping robot")
-            time.sleep(3)
+            #time.sleep(3)
 
-            
+
             #Blocking call waiting for a new move instruction
-            
+            if self.qr.name[0] == "{0,1}":
+                rospy.logwarn("found the goal yo")
+                self._stop_robot()
+                time.sleep(200)
             #Here we then want to run a procedure to turn left/right/forward etc. For debug purposes we just try to turn left
-            self.turn_left()
+            else:
+                self.turn_left()
 
             #Start the line following again and turn off qr_processing mode
             with self.follow_lock:

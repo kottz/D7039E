@@ -182,7 +182,7 @@ def set_speed(id_motor, velocity):
 
 
 def send_to_motors(data):
-
+	start_time = time.time()
 	#print(data)
 	#send speed and position data to motors
 	for i in range(0, len(data.name)):
@@ -196,6 +196,10 @@ def send_to_motors(data):
 			set_position(int(data.name[i]), int(data.position[i]))
 		except:
 			pass
+			
+
+	end_time = time.time()
+	print(end_time - start_time)
 
 
 def queue_reader(in_q):

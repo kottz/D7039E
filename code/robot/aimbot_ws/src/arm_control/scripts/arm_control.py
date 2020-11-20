@@ -20,7 +20,7 @@ def arm_control(data):
 	print("Recieved data: " + str(data.data))
 
 	
-	file_name = "give_to_ed.txt"
+	file_name = "pick_from_factory.txt"
 
 
 	path = functions.read_path(file_name)
