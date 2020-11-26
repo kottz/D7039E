@@ -15,10 +15,12 @@
 \tikzstyle{line} = [draw, -latex']
 
 \tikzstyle{function} = [rectangle, draw, fill=green!20, node distance=1.9cm, minimum height=2.9em]
-\begin{center}
-    
 
-\resizebox{4.0cm}{!}{
+    
+    \begin{figure}
+        \begin{center}
+\resizebox{6.0cm}{!}{
+
 \begin{tikzpicture}
 
     [align=center, auto]
@@ -35,10 +37,12 @@
 
         \draw [-] (powerbank) -- node[midway, fill=white] {USB} (nvidia);
         \draw [-] (lipo) -- node[midway, fill=white] {2-wire} (motors);
-        \draw [-] (motors) -- node[pos=0.25, fill=white] {3-wire} (u2d2);
+        \draw [-] (motors) -- node[pos=0.5, fill=white] {3-wire} (u2d2);
         \draw [-] (nvidia) -| node[pos=0.25, fill=white] {USB} (u2d2);
         \draw [-] (nvidia) -- node[pos=0.5, fill=white] {CSI} (cameras);
-
     \end{tikzpicture}
-}
+    }
 \end{center}
+\caption{Diagram of electrical components}
+\end{figure}
+
