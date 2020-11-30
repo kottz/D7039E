@@ -10,23 +10,39 @@
             "orchestration_url": "https://benkpress.campus.ltu.se:8441/orchestrator"
         },
         "consumer_json": {
-            "systemName": "aimbot_consumer",
-            "address": "https://benkpress.ltu.campus.se",
-            "port": 1234,
+            "systemName": "test_consumer",
+            "address": "localhost",
+            "port": 2341,
             "authenticationInfo": ""
         },
         "provider_json": {
-            "systemName": "aimbot_provider",
-            "address": "https://benkpress.ltu.campus.se",
-            "port": 1235,
+            "systemName": "test_provider",
+            "address": "localhost",
+            "port": 2342,
             "authenticationInfo": ""
         },
-        "service_definition_json": {
-            "serviceDefinition": "service_definition",
+        "pick_up_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/pick-up",
+            "serviceDefinition": "pick-up",
             "providerSystem": {
-                "systemName": "aimbot_provider",
-                "address": "https://benkpress.ltu.campus.se",
-                "port": 1235,
+                "systemName": "test_provider",
+                "address": "localhost",
+                "port": 2342,
+                "authenticationInfo": ""
+            },
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        },
+        "place_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/place",
+            "serviceDefinition": "place",
+            "providerSystem": {
+                "systemName": "test_provider",
+                "address": "localhost",
+                "port": 2342,
                 "authenticationInfo": ""
             },
             "interfaces": [
