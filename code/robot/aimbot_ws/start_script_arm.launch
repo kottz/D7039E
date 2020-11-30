@@ -1,0 +1,6 @@
+<launch>
+  <node name="motor_handler" pkg="motor_handler" type="motor_handler.py" />
+  <node name="test_joint_pub" pkg="motor_handler" type="test_joint_pub.py" />
+</launch>
+
+

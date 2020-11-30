@@ -1,0 +1,287 @@
+#!/usr/bin/python
+
+import rospy
+
+from dynamixel_sdk import *
+from std_msgs.msg import Int32
+from sensor_msgs.msg import JointState
+from std_msgs.msg import String
+#from message_filters import ApproximateTimeSynchronizer, Subscriber
+import signal
+import sys
+
+
+SWIVEL_MOTOR 	   = 1
+FIRST_JOINT_MOTOR  = 2
+SECOND_JOINT_MOTOR = 3
+THIRD_JOINT_MOTOR  = 4
+GRIPPER_MOTOR 	   = 5
+LEFT_WHEEL_MOTOR   = 6
+RIGHT_WHEEL_MOTOR  = 7
+
+# Protocol version
+
+PROTOCOL_VERSION = 1.0  # See which protocol version is used in the Dynamixel
+
+# Default setting
+
+DXL_ID = 6  # Dynamixel ID
+BAUDRATE = 57600  # Dynamixel default baudrate : 57600
+DEVICENAME = '/dev/ttyUSB0'  # Check which port is being used on your controller
+
+ADDR_MX_TORQUE_ENABLE = 24  # Control table address is different in Dynamixel model
+ADDR_MX_CW_ANGLE_LIMIT = 6
+ADDR_MX_CCW_ANGLE_LIMIT = 8
+ADDR_MX_CW_LIMIT = 6
+ADDR_MX_CCW_LIMIT = 8
+ADDR_MX_GOAL_POSITION = 116
+ADDR_MX_PRESENT_POSITION = 132
+ADDR_MX_MOVING_SPEED = 32
+ADDR_MX_MAX_TORQUE = 14
+ADDR_MX_TORQUE_LIMIT = 34
+
+TORQUE_ENABLE = 0  # Value for enabling the torque
+CW_ANGLE_LIMIT = 0
+CCW_ANGLE_LIMIT = 0
+MOVING_SPEED = 1023
+MAX_TORQUE = 1023
+TORQUE_LIMIT = 1023
+MAX_TORQUE = 1023
+
+ADDR_GOAL_POSITION = 30
+ADDR_MOVING_SPEED = 32
+
+def signal_handler(signal, frame):
+    sys.exit(0)
+
+signal.signal(signal.SIGINT, signal_handler)
+
+class Motor:	#Setup the motor arguments
+    motor_flip = False
+    speed_offset = 1024
+
+    def __exit__(self):
+      self.set_speed(0)
+
+    def __init__(self, motor_id, motor_flip): #, wheel_mode):	#Setup the write to motor func
+        self.motor_id = motor_id
+        self.motor_flip = motor_flip
+        #self.wheel_mode = wheel_mode
+        self.setup()
+
+    def set_speed(self, speed):	#The write to motor func
+        if self.motor_flip:		#Checks which motor to write to and apply offset
+            speed += 1024
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write2ByteTxRx(portHandler, self.motor_id,
+                ADDR_MOVING_SPEED, int(speed))
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' \
+                % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel speed has been set')
+
+    def set_position(self, position):
+	#print("Setting position to " + str(position) + " for id " + str(id_motor))
+	    dxl_comm_result, dxl_error = packetHandler.write2ByteTxRx(portHandler, int(self.motor_id), ADDR_GOAL_POSITION, int(position))
+	    if dxl_comm_result != COMM_SUCCESS:
+		    print("%s" % packetHandler.getTxRxResult(dxl_comm_result))
+	    elif dxl_error != 0:
+		    print("%s" % packetHandler.getRxPacketError(dxl_error))
+	    else:
+		    print("Position set to: " + str(position) + " for motor id: " + str(self.motor_id))
+		
+    def set_motors(self, speed, position):
+        self.set_speed(speed)
+        self.set_position(position)
+        
+    def setup(self):
+
+        # Dynamixel Torque
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write1ByteTxRx(portHandler, self.motor_id,
+                ADDR_MX_TORQUE_ENABLE, TORQUE_ENABLE)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel has been successfully connected')
+
+        # Set max torque
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write2ByteTxRx(portHandler, self.motor_id,
+                ADDR_MX_MAX_TORQUE, MAX_TORQUE)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel has been successfully connected')
+
+        # Set torque limit
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write2ByteTxRx(portHandler, self.motor_id,
+                ADDR_MX_TORQUE_LIMIT, TORQUE_LIMIT)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel has been successfully connected')
+        
+        #If these two values below are 0 then the motor will be in wheel mode
+        # Set CW limit
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write2ByteTxRx(portHandler, self.motor_id,
+                ADDR_MX_CW_LIMIT, CW_ANGLE_LIMIT)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel CW Limit set')
+
+        # Set CCW limit
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write2ByteTxRx(portHandler, self.motor_id,
+                ADDR_MX_CCW_LIMIT, CCW_ANGLE_LIMIT)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel CCW limit set')
+
+   # def _set_motor(self, position, velocity):
+    #    # We want this to be generic, to control both arm and base motors
+
+        
+        
+import os
+import time
+
+import sys
+import tty
+import termios
+fd = sys.stdin.fileno()
+old_settings = termios.tcgetattr(fd)
+
+
+def getch():
+    try:
+        tty.setraw(sys.stdin.fileno())
+        ch = sys.stdin.read(1)
+    finally:
+        termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
+    return ch
+
+
+from dynamixel_sdk import *  # Uses Dynamixel SDK library
+
+# Control table address
+
+
+
+# Initialize PortHandler instance
+# Set the port path
+# Get methods and members of PortHandlerLinux or PortHandlerWindows
+
+
+
+
+portHandler = PortHandler(DEVICENAME)
+
+# Initialize PacketHandler instance
+# Set the protocol version
+# Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
+packetHandler = PacketHandler(PROTOCOL_VERSION)
+
+# Open port
+
+if portHandler.openPort():
+    print('Succeeded to open the port')
+else:
+    print('Failed to open the port')
+    print('Press any key to terminate...')
+    getch()
+    quit()
+
+# Set port baudrate
+
+if portHandler.setBaudRate(BAUDRATE):
+    print ('Succeeded to change the baudrate')
+else:
+    print('Failed to change the baudrate')
+    print('Press any key to terminate...')
+    getch()
+    quit()
+
+
+#print('hej')
+
+
+m2 = Motor(6, False)
+m1 = Motor(7, True)
+
+motor_dict = {'1': Motor(1, False),
+                '2': Motor(2, False),
+                '3': Motor(3, False),
+                '4': Motor(4, False),
+                '5': Motor(5, False),
+                '6': Motor(6, False),
+                '7': Motor(7, True)
+            }
+
+
+# Right now quite a bit of delay is introduced here when line following.
+# How to speed up?             
+def send_to_motors(data):
+    print("callback called")
+    #rospy.loginfo(rospy.get_caller_id() + "I heard %s", data)
+    #print(data.velocity[0])
+   # print(int(data.velocity[0]))
+   # m1.set_motors(int(data.velocity[0]), int(data.position[0]))
+   # m2.set_motors(int(data.velocity[1]), int(data.position[1]))
+  
+
+    #Update positions if they were sent
+    if hasattr(data, 'position'):
+        for motor_id, pos in zip(data.name, data.position):
+            print("setting motor id {} to pos {}".format(motor_id, str(pos)))
+            motor = motor_dict[motor_id]
+            motor.set_position(pos)
+    
+    # Update velocities if they were set
+    if hasattr(data, 'velocity'):
+        for motor_id, vel in zip(data.name, data.velocity):
+            print("setting motor id {} to vel {}".format(motor_id, str(vel)))
+            motor = motor_dict[motor_id]
+            motor.set_speed(vel)
+            
+        
+  
+
+
+def listener(): 	# Set up subscriber to ros-node
+    # Initialization
+    rospy.init_node('motor_control')
+    base_sub = rospy.Subscriber("motor_control", JointState, send_to_motors)
+    #ats = ApproximateTimeSynchronizer([base_sub], queue_size=2, slop=0.1)
+   #ats.registerCallback(send_to_motors)
+    rospy.spin()
+if __name__ == '__main__':
+    listener()
+
+
+# Close port
+
+portHandler.closePort()
+

@@ -35,8 +35,14 @@ hs_err_pid*
 *.toc
 *.snm
 
-/MV/*
+#Python venv
+.venv
+
+#Build
+build/
+
+#config
+**/config.toml
 /report/Presentations/img/animation*
 
-
-src/red_line.mp4
+*.mp4
