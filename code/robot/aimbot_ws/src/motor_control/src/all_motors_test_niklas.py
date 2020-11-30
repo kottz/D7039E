@@ -106,10 +106,10 @@ class Motor:	#Setup the motor arguments
         cw_limit = 0
         ccw_limit = 1023
 
-        max_torque = 300
+        max_torque = 800
 
         if self.motor_id == 5:
-            max_torque = 100
+            max_torque = 700
 
         # Set torque limit
 

@@ -1,0 +1,9 @@
+<launch>
+  <!-- <node name="motor_handler" pkg="motor_handler" type="motor_handler.py" />
+  <node name="test_joint_pub" pkg="motor_handler" type="test_joint_pub.py" /> -->
+  <node name="move_control" pkg="move_control" type="base.py" />
+  <node name="arm_control" pkg="arm_control" type="arm_edwardk.py" />
+  <node name="motor_control" pkg="motor_control" type="all_motors_test_niklas.py" />
+</launch>
+
+

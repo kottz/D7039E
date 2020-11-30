@@ -61,7 +61,12 @@ class MoveControl:
         msg = JointState()
         msg.header.stamp = rospy.get_rostime()
         msg.name = [LEFT_WHEEL_MOTOR, RIGHT_WHEEL_MOTOR]
-        msg.velocity = speed
+       
+
+        #TODO The order of the wheel speeds seems to be wrong somewhere, so i switched them here
+        #msg.velocity = speed
+        msg.velocity = [speed[1], speed[0]]
+        #rospy.logwarn(speed)
         return msg
 
     # Should have a listener for angle which just updates the current angle on incoming messages, check if running 
@@ -159,7 +164,7 @@ class MoveControl:
     # Public service
     # These values are totally untested, but should work something like this
     def turn_back(self, req):
-        self._drive([-300, -300], 1)
+        self._drive([-300, 300-1024], 1)
         self._drive([300, -300], 4)
         return ()
     

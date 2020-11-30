@@ -260,6 +260,13 @@ portHandler = PortHandler(DEVICENAME)
 # Get methods and members of Protocol1PacketHandler or Protocol2PacketHandler
 packetHandler = PacketHandler(PROTOCOL_VERSION)
 
+
+# Initialize GroupSyncWrite instance
+ADDR_AX_GOAL_POSITION = 30 # speed = 32
+LEN_SPEED_POSITION = 4
+groupSyncWrite = GroupSyncWrite(portHandler, packetHandler, ADDR_AX_GOAL_POSITION, LEN_SPEED_POSITION)
+
+
 # Open port
 
 if portHandler.openPort():
@@ -281,7 +288,45 @@ else:
     quit()
 
 
-#print('hej')
+def sync_speed_position(ids, velocities, positions):
+    print("SYNC WRITE")
+    
+    ids = [int(i) for i in ids] #convert to int
+    #velocities = [int(v) for v in velocities] 
+    #print(velocities)
+    for i in range(0, len(ids)):
+        #Allocate params into byte array
+        param = []
+      
+      
+        param.append(DXL_LOBYTE(int(positions[i])))
+        param.append(DXL_HIBYTE(int(positions[i])))
+        
+      
+        param.append(DXL_LOBYTE(int(velocities[i])))
+        param.append(DXL_HIBYTE(int(velocities[i])))
+       
+       
+        print(param)
+ 
+        
+        # Add Dynamixel#1 goal position value to the Syncwrite parameter storage
+        dxl_addparam_result = groupSyncWrite.addParam(ids[i], param)
+        if dxl_addparam_result != True:
+           print("[ID:%03d] groupSyncWrite addparam failed" % i)
+           quit()
+
+
+
+    # Syncwrite goal position
+    dxl_comm_result = groupSyncWrite.txPacket()
+    if dxl_comm_result != COMM_SUCCESS:
+        print("%s" % packetHandler.getTxRxResult(dxl_comm_result))
+
+    # Clear syncwrite parameter storage
+    groupSyncWrite.clearParam()
+    
+    #time.sleep(10)
 
 
 #m2 = Motor(6, False)
@@ -308,23 +353,51 @@ def send_to_motors(data):
    # m2.set_motors(int(data.velocity[1]), int(data.position[1]))
     
 
+    #Store in array to syncwrite
+    velocities = []
+    ids = []
+    positions = []
+
     # Update velocities if they were set
-    if hasattr(data, 'velocity'):
-        for motor_id, vel in zip(data.name, data.velocity):
-            print("setting motor id {} to vel {}".format(motor_id, str(vel)))
-            motor = motor_dict[motor_id]
-            motor.set_speed(vel)
-      
+    if hasattr(data, 'velocity') & hasattr(data, 'position'):
+        print(data)
+        for motor_id, vel, pos in zip(data.name, data.velocity, data.position):
+            print("setting motor id {} to vel {} and pos to {}".format(motor_id, str(vel), str(pos)))
+            #motor = motor_dict[motor_id]
+            #motor.set_speed(vel)
+            velocities.append(vel)
+            positions.append(pos)
+            ids.append(motor_id)
+        sync_speed_position(ids, velocities, positions)
+
+        #print(velocities)
+        #print(ids)
+
+    else:
+        #Update positions if they were sent
+        if hasattr(data, 'position'):
+            for motor_id, pos in zip(data.name, data.position):
+                print("setting motor id {} to pos {}".format(motor_id, str(pos)))
+                motor = motor_dict[motor_id]
+                motor.set_position(pos)
 
 
-    #Update positions if they were sent
-    if hasattr(data, 'position'):
-        for motor_id, pos in zip(data.name, data.position):
-            print("setting motor id {} to pos {}".format(motor_id, str(pos)))
-            motor = motor_dict[motor_id]
-            motor.set_position(pos)
+        print(velocities)
+        print(ids)
+
+
+
+        #Update positions if they were sent
+        if hasattr(data, 'position'):
+            for motor_id, pos in zip(data.name, data.position):
+                print("setting motor id {} to pos {}".format(motor_id, str(pos)))
+                motor = motor_dict[motor_id]
+                motor.set_position(pos)
+
+
        
         
+  
 
 
 def listener(): 	# Set up subscriber to ros-node
