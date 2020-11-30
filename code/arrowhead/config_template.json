@@ -11,13 +11,13 @@
         },
         "consumer_json": {
             "systemName": "test_consumer",
-            "address": "https://benkpress.ltu.campus.se",
+            "address": "localhost",
             "port": 2341,
             "authenticationInfo": ""
         },
         "provider_json": {
             "systemName": "test_provider",
-            "address": "https://benkpress.ltu.campus.se",
+            "address": "localhost",
             "port": 2342,
             "authenticationInfo": ""
         },
@@ -27,7 +27,7 @@
             "serviceDefinition": "pick-up",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "https://benkpress.ltu.campus.se",
+                "address": "localhost",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -41,7 +41,7 @@
             "serviceDefinition": "place",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "https://benkpress.ltu.campus.se",
+                "address": "localhost",
                 "port": 2342,
                 "authenticationInfo": ""
             },
