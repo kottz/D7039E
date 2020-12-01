@@ -21,6 +21,7 @@ try:
     ah_req = rospy.ServiceProxy("ah_req", ah_request)
     turn_left = rospy.ServiceProxy("turn_left", Empty)
     turn_right = rospy.ServiceProxy("turn_right", Empty)
+    turn_back = rospy.ServiceProxy("turn_back", Empty)
     resp = arm_reset()
     rospy.logwarn("Arm RESET")
     time.sleep(2)
@@ -82,6 +83,9 @@ class RobotControl:
                 #time.sleep(10)
             elif ah_resp.response == "pickup":
                 pickup()
+            elif ah_resp.response == "back":
+                turn_back()
+
 
 rc = RobotControl()
 

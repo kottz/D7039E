@@ -164,8 +164,8 @@ class MoveControl:
     # Public service
     # These values are totally untested, but should work something like this
     def turn_back(self, req):
-        self._drive([-300, 300-1024], 1)
-        self._drive([300, -300], 4)
+        self._drive([-399, -400], 5)
+        self._drive([399, -400], 4)
         return ()
     
     #Will set the motors to a certain speed for x sec

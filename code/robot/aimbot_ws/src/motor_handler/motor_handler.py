@@ -160,8 +160,9 @@ def set_speed(id_motor, velocity):
 	dir_value = 0
 	#if speed is negative (it should be in wheel mode) "switch" direction
 	if velocity < 0:
-		velocity = -velocity
-		dir_value = 1024
+		if id_motor==6:
+			velocity = -velocity
+			dir_value = 1024
 
 	velocity_mem_value = (velocity)/100*1023
 	

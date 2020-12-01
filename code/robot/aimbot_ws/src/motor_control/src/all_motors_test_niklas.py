@@ -430,10 +430,17 @@ def send_to_motors(data):
         elif data.velocity: 
             if hasattr(data, 'velocity'):
                 for motor_id, vel in zip(data.name, data.velocity):
-                    print("setting motor id {} to velocity {}".format(motor_id, str(vel)))
                     #motor = motor_dict[motor_id]
                     #motor.set_position(pos)
+                    #if vel < 0 and motor_id==6:
+                      #  vel = -vel + 1024
+                     #   rospy.logwarn(vel)
+                    #elif vel < 0 and motor_id==7:
+                     #   vel = -vel -1024
+                        
+                    #rospy.logwarn(vel)
                     velocities.append(vel)
+                    #rospy.logwarn("setting motor id {} to velocity {}".format(motor_id, str(vel)))
                     ids.append(motor_id)
                 #print(ids)
                 sync_speed(ids, velocities)

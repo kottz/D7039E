@@ -50,7 +50,7 @@ class ArmControl:
     # Service to pick up a piece
     def pickup(self, req):
         # Different motor angles during pickup procedure
-        file_path = "src/arm_control/src/"
+        file_path = "~/D7039E/code/robot/aimbot_ws/src/arm_control/src/"
         path = pandas.read_csv(file_path + "traj_test.csv")
         vel = pandas.read_csv(file_path + "velocity_test.csv")
 
