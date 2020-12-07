@@ -5,9 +5,9 @@
             "pkcs12_password": "123456"
         },
         "urls": {
-            "service_regisrty_url": "https://benkpress.campus.ltu.se:8443/serviceregistry",
-            "authorization_url": "https://benkpress.campus.ltu.se:8445/authorization",
-            "orchestration_url": "https://benkpress.campus.ltu.se:8441/orchestrator"
+            "service_regisrty_url": "https://localhost:8443/serviceregistry",
+            "authorization_url": "https://localhost:8445/authorization",
+            "orchestration_url": "https://localhost:8441/orchestrator"
         },
         "consumer_json": {
             "systemName": "test_consumer",
