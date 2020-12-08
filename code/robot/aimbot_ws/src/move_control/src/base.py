@@ -13,7 +13,7 @@ RIGHT_WHEEL_MOTOR = "7"
 class PD:
     speed= 521
     kp=5
-    kd=1
+    kd=0.15
     prev_err=0
         
     def speed_from_angle(self, angle):
