@@ -1,0 +1,15 @@
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}
+    \coordinate (a) at (0,0);
+    \coordinate (b) at (0,1);
+    \coordinate (c) at (1,0);
+    \coordinate (d) at (1,1);
+    \coordinate (e) at (2,0);
+    \coordinate (f) at (2,1);
+    \draw (a) -- (b)node[pos=1.1,scale=0.25]{Robot} (c) -- (d)node[pos=1.1,scale=0.25]{Arrowhead} (e) -- (f)node[pos=1.1, scale=0.25]{Factory};
+    \draw[-stealth] ($(a)!0.75!(b)$) -- node[above,scale=0.25,midway]{Status}($(c)!0.75!(d)$);
+    \draw[stealth-] ($(e)!0.65!(f)$) -- node[below,scale=0.25,midway]{Hey} ($(c)!0.65!(d)$);
+  \end{tikzpicture}
+\end{center}
+\end{figure}
