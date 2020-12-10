@@ -16,10 +16,6 @@ test_provider = Arrowhead_system(
 
 test_provider.register_system(provider_json)
 
-
-
-
-
 # creating a Flask app
 app = Flask(__name__)
 
@@ -32,12 +28,6 @@ def home():
         return jsonify({'data': data})
 
 
-@app.route('/home/<int:num>', methods=['GET'])
-def disp(num):
-
-    return jsonify({'data': num**2})
-
-
 @app.route('/pick-up', methods=['POST'])
 def ready_for_pick_up():
     info = {
@@ -46,11 +36,23 @@ def ready_for_pick_up():
 
     return jsonify({'info': info}), 201
 
+
 @app.route('/place', methods=['GET'])
 def ready_for_place():
         clock = time.localtime()
-        data =  str(clock.tm_hour) + ":" + str(clock.tm_min) + ":" + str(clock.tm_sec)
+        data = str(clock.tm_hour) + ":" + \
+                   str(clock.tm_min) + ":" + str(clock.tm_sec)
         return jsonify({'data': data})
+
+@app.route('/direction', methods=['POST'])
+def setDirection():
+    direction = {
+        'direction': request.json['direction']}
+    direction_for_robot = request.json['direction']
+    print(direction_for_robot)
+    return jsonify({'direction': direction}), 201
+
+
  
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="2342", debug=False)
