@@ -17,3 +17,10 @@ Replace the consumer, provider and service definition jsons in your own config f
 
 ## TODO
 Add support for dynamic orchestration.
+
+
+# How to demo tommorrow 11/12
+* Change ip-addresses, provider should be robot and consumer computer that can access robot.
+* Change path to sysop.p12
+* Run provider first then consumer
+* Profit?

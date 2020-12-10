@@ -1,6 +1,7 @@
 import json
 from arrowhead_core_systems import Arrowhead_system
 from requests_pkcs12 import get, post
+import time
 
 
 # TODO add code from core_systems.py to take care of all arrowhead logic.
@@ -15,30 +16,59 @@ with open("config_template.json") as json_file:
     pick_up_service_definition = config["pick_up_service_json"]["serviceDefinition"]
     place_service_json = config["place_service_json"]
     place_service_definition = config["place_service_json"]["serviceDefinition"]
-
-test_provider = Arrowhead_system(
-    "/home/albin/Documents/core-java-spring/certificates/testcloud2/sysop.p12", "123456")
-
-test_provider.register_system(provider_json)
-test_provider.register_service(pick_up_service_json)
-test_provider.add_intracloud_authorization(pick_up_service_definition).json()
-test_provider.create_orchestration_store_entry(pick_up_service_definition)
-test_provider.add_intracloud_authorization(place_service_definition)
-test_provider.create_orchestration_store_entry(place_service_definition)
+    direction_service_json = config["direction_service_json"]
+    direction_service_definition = config["direction_service_json"]["serviceDefinition"]
 
 
 test_consumer = Arrowhead_system(
     "/home/albin/Documents/core-java-spring/certificates/testcloud2/sysop.p12", "123456")
 test_consumer.register_system(consumer_json)
-test_consumer.start_orchestration_based_on_id(consumer_name, provider_name)
+test_consumer.register_service(pick_up_service_json)
+test_consumer.add_intracloud_authorization(pick_up_service_definition)
+test_consumer.create_orchestration_store_entry(pick_up_service_definition)
+test_consumer.register_service(place_service_json)
+test_consumer.add_intracloud_authorization(place_service_definition)
+test_consumer.create_orchestration_store_entry(place_service_definition)
+test_consumer.register_service(direction_service_json)
+test_consumer.add_intracloud_authorization(direction_service_definition)
+test_consumer.create_orchestration_store_entry(direction_service_definition)
+test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()
+
+
+provider_ip = test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()["response"][0]["provider"]["address"]
+proivder_port = test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()["response"][0]["provider"]["port"]
+
+
+service_uri_pick_up = test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()["response"][0]["serviceUri"]
+service_uri_place = test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()["response"][1]["serviceUri"]
+service_uri_direction = test_consumer.start_orchestration_based_on_id(
+    consumer_name, provider_name).json()["response"][2]["serviceUri"]
+
+url = 'http://' + provider_ip + ":" + str(proivder_port)
 
 # TODO flask api
-json = {
-    'ready': True
+direction_json = {
+    'direction': "left"
 }
 
-print(post('http://94.255.133.57:2342/pick-up',
-           verify=False, json=json
+# print(post(url + service_uri_pick_up,
+#            verify=False, json=json
+#            ).json())
+
+print(post(url + service_uri_direction,
+           verify=False, json=direction_json
            ).json())
 
-print(get('http://94.255.133.57:2342/place'))
+while(True):
+    direction_keyboard_input = input("arrowhead input requested. What to do? ")
+    direction_json = {
+        'direction': direction_keyboard_input
+    }
+    print(post(url + service_uri_direction,
+           verify=False, json=direction_json
+           ).json())
