@@ -146,6 +146,36 @@ class Motor:	#Setup the motor arguments
             print('%s' % packetHandler.getRxPacketError(dxl_error))
         else:
             print('Dynamixel CCW limit set')
+            
+            
+            
+            
+        ADDR_AX_COMPLIANCE_SLOPE_CW = 28
+        ADDR_AX_COMPLIANCE_SLOPE_CCW = 29
+        
+        compliance_slope_cw = 32
+        compliance_slope_ccw = 32
+            
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write1ByteTxRx(portHandler, self.motor_id,
+                ADDR_AX_COMPLIANCE_SLOPE_CW, compliance_slope_cw)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel CCW slope set')
+
+        (dxl_comm_result, dxl_error) = \
+            packetHandler.write1ByteTxRx(portHandler, self.motor_id,
+                ADDR_AX_COMPLIANCE_SLOPE_CCW, compliance_slope_ccw)
+        if dxl_comm_result != COMM_SUCCESS:
+            print('%s' % packetHandler.getTxRxResult(dxl_comm_result))
+        elif dxl_error != 0:
+            print('%s' % packetHandler.getRxPacketError(dxl_error))
+        else:
+            print('Dynamixel CCW slope set')
+        
 
 
 
@@ -304,9 +334,19 @@ def sync_speed(ids, velocities):
         #Allocate params into byte array
         param = []
         
-
+        
+        
+        
+        
+        
         #very bad, just for testing
-        if ids[i] == 7: #"flip" motor 7
+        if ids[i] == 7 and velocities[i] > 0: #"flip" motor 7
+            velocities[i] += 1024
+        if ids[i] == 7 and velocities[i] < 0:
+            velocities[i] = abs(velocities[i])
+            #velocities[i] = 1024
+        if ids[i] == 6 and velocities[i] < 0:
+            velocities[i] = abs(velocities[i])
             velocities[i] += 1024
 
         param.append(DXL_LOBYTE(int(velocities[i])))

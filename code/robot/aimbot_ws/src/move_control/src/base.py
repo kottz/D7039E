@@ -147,12 +147,12 @@ class MoveControl:
 
 
     # Public service
-    def turn_left(self, req):
+    def turn_right(self, req):
         self._drive([30, 621], 4)
         return ()
 
     # Public service
-    def turn_right(self, req):
+    def turn_left(self, req):
         self._drive([621, 30], 4)
         return ()
 
@@ -164,8 +164,8 @@ class MoveControl:
     # Public service
     # These values are totally untested, but should work something like this
     def turn_back(self, req):
-        self._drive([-399, -400], 5)
-        self._drive([399, -400], 4)
+        self._drive([-400, -400], 4)
+        self._drive([500, -500], 5.4)
         return ()
     
     #Will set the motors to a certain speed for x sec

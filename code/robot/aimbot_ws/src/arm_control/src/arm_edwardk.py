@@ -8,6 +8,8 @@ from std_srvs.srv import Empty
 import time
 import pandas
 
+import niklas
+
 
 SWIVEL_MOTOR 	   = "1"
 FIRST_JOINT_MOTOR  = "2"
@@ -49,45 +51,48 @@ class ArmControl:
 
     # Service to pick up a piece
     def pickup(self, req):
+        file_name = "pickup.csv"
+        self.follow_path(req, file_name)
+        return ()
+        
+    # Service to place down a piece
+    def place(self, req):
+        file_name = "place.csv"
+        self.follow_path(req, file_name)
+        return ()
+        
+        
+    def follow_path(self, req, file_name):
         # Different motor angles during pickup procedure
         file_path = "~/D7039E/code/robot/aimbot_ws/src/arm_control/src/"
-        path = pandas.read_csv(file_path + "traj_test.csv")
-        vel = pandas.read_csv(file_path + "velocity_test.csv")
-
-
-        q = []
-        velocities = []
-
-        #load positions and velocities for the trajectory
-        for i in range(0, len(path.iloc[:,0].tolist())):
-            t = path.iloc[i,:].tolist()
-            q.append(t)	
-
-        for i in range(0, len(vel.iloc[:,0].tolist())):
-            t = vel.iloc[i,:].tolist()
-            velocities.append(t)	
-            
-        path = q
-
-            #        path = [[0, 0, 90, 0], [0, 0, 90, 0, 0], [0, 57, 51, 2, 0], [0, 57, 51, 2, 100], [0, 0, 90, 0, 100]]
-            
         
-        for i in range(0, len(path)):
+        path = niklas.read_file(file_path + file_name)
+        
+        
+        for i in range(0, len(path)-1):
+
             p = path[i]
-            v = velocities[i]
-            v = [abs(vv)/10 for vv in velocities[i]]
-            print("speed " + str(v))
+            #rospy.logwarn(p)
+            vel = niklas.calc_speeds(path[i], path[i+1])
+            
+            
+            print("speed " + str(vel))
             print("angles " + str(p))
             joint = JointState()
             angles = p
             #print(angles)
             joint.header.stamp = rospy.Time.now()
             joint.position = convert_angles(angles)
-            #joint.velocity = convert_speeds(v)
-            joint.velocity = convert_speeds([50, 50, 50, 50, 70])
+            joint.velocity = [v*1023/114 for v in vel]
+            rospy.logwarn([v*1023/114 for v in vel])
+            #joint.velocity = convert_speeds([50, 50, 50, 50, 70])
             joint.name = [SWIVEL_MOTOR, FIRST_JOINT_MOTOR, SECOND_JOINT_MOTOR, THIRD_JOINT_MOTOR, GRIPPER_MOTOR]
             self.arm_publisher.publish(joint)
-            time.sleep(0.05)
+            time.sleep(0.06)
+        
+        
+        
+        
         return ()
 
     # Service to return to line follow position (does not touch gripper since it might be in use)
@@ -105,6 +110,7 @@ class ArmControl:
     def init_services(self):
         rospy.Service('pickup', Empty, self.pickup)
         rospy.Service('reset_arm', Empty, self.reset_arm)
+        rospy.Service('place', Empty, self.place)
            
 
 
