@@ -10,6 +10,13 @@ In essense, the U2D2 uses the same protocol but also enables for USB communicati
 \subsection{UART full duplex to half duplex}
 UART communication scheme works by connecting the transmitter pin (Tx) of the Jetson Nvidia Nano microcontroller (MCU)
 directly to the receiver pin (Rx) of the motors and vice versa.
-UART communication can be setup into three different ways of communication \cite{duplex}
+UART communication can be setup into three different ways of communication \cite{duplex}.
+Full duplex, half duplex and simplex.
+Full duplex allows for data communication both ways simultaneously.
+Half duplex only allows for one way communication at any given time, by either sending or receiving.
+Simplex communication is static, meaning communication is always one direction.
+\newline
+Full duplex and half duplex are not directly compatible.
+
 
 
