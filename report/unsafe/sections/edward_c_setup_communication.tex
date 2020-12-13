@@ -1,7 +1,15 @@
+\section*{communication}
 Unlike most servo motors controlled by pulse-width modulation (PWM) signals.
 Dynamixel uses digital packet communication.
 By grouping data into different packages and transmitting it as a bundle.
 This in turn opens up for many possibilities since the motors responds to commands and have built in control functions you can execute together with memory allocation on the motor itself.
 Dynamixel recommends two different setups for communication,
 either by using a Tri-state-buffer to construct your own communication bridge and protocol based on Universal asynchronous receiver-transmitter setup (UART) or by using their own built solution called U2D2.
-In essense, the U2D2 uses the same protocol but also enables for USB communication between the controller and Dynamixels. 
+In essense, the U2D2 uses the same protocol but also enables for USB communication between the controller and Dynamixels\cite{robotis}.
+
+\subsection{UART full duplex to half duplex}
+UART communication scheme works by connecting the transmitter pin (Tx) of the Jetson Nvidia Nano microcontroller (MCU)
+directly to the receiver pin (Rx) of the motors and vice versa.
+UART communication can be setup into three different ways of communication \cite{duplex}
+
+
