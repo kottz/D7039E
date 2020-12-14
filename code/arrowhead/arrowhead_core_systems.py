@@ -72,7 +72,7 @@ def create_orchestration_json(service_definition):
             "consumerSystemId": idarray[0],
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.1.104",
+                "address": "192.168.0.107",
                 "port": 2342,
                 "authenticationInfo": ""
             },

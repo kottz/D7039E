@@ -20,12 +20,11 @@ test_provider.register_system(provider_json)
 app = Flask(__name__)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def home():
-    if(request.method == 'GET'):
-
-        data = "hello world"
-        return jsonify({'data': data})
+    ip_address = request.environ["REMOTE_ADDR"] + ":" + request.environ["SERVER_PORT"] 
+    print(ip_address)
+    return ip_address
 
 
 @app.route('/pick-up', methods=['POST'])

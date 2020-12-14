@@ -3,7 +3,6 @@ from arrowhead_core_systems import Arrowhead_system
 from requests_pkcs12 import get, post
 import time
 
-
 # TODO add code from core_systems.py to take care of all arrowhead logic.
 
 with open("config_template.json") as json_file:
@@ -33,7 +32,7 @@ test_consumer.register_service(direction_service_json)
 test_consumer.add_intracloud_authorization(direction_service_definition)
 test_consumer.create_orchestration_store_entry(direction_service_definition)
 test_consumer.start_orchestration_based_on_id(
-    consumer_name, provider_name).json()
+    consumer_name, provider_name)
 
 
 provider_ip = test_consumer.start_orchestration_based_on_id(
@@ -51,24 +50,18 @@ service_uri_direction = test_consumer.start_orchestration_based_on_id(
 
 url = 'http://' + provider_ip + ":" + str(proivder_port)
 
-# TODO flask api
-direction_json = {
-    'direction': "left"
-}
-
-# print(post(url + service_uri_pick_up,
-#            verify=False, json=json
-#            ).json())
-
-print(post(url + service_uri_direction,
-           verify=False, json=direction_json
-           ).json())
-
 while(True):
-    direction_keyboard_input = input("arrowhead input requested. What to do? ")
     direction_json = {
-        'direction': direction_keyboard_input
+        'direction': "left"
     }
     print(post(url + service_uri_direction,
-           verify=False, json=direction_json
-           ).json())
+               verify=False, json=direction_json
+               ).json())
+    time.sleep(1)
+    direction_json = {
+        'direction': "right"
+    }
+    print(post(url + service_uri_direction,
+               verify=False, json=direction_json
+               ).json())
+    time.sleep(1)
