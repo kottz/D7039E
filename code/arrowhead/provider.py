@@ -50,7 +50,5 @@ def setDirection():
     print(direction_for_robot)
     return jsonify({'direction': direction}), 201
 
-
- 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="2342", debug=False)

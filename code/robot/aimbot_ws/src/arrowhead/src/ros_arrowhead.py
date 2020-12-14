@@ -26,7 +26,7 @@ test_provider.register_system(provider_json)
 class Arrowhead_response:
     def __init__(self):
         self.direction = ""
-        self.ready = False
+        self.ready = 0
 
 
 ah_resp = Arrowhead_response()
@@ -36,6 +36,7 @@ app = Flask(__name__)
 
 @app.route('/pick-up', methods=['POST'])
 def ready_for_pick_up():
+     ah_resp.ready = request.json['ready']
     ready = {
         'ready': request.json['ready']
     }
@@ -99,7 +100,6 @@ def arrowhead_spoof(request):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port="2342", debug=False)
     rospy.init_node('arrowhead', anonymous=True)
 
     # x = threading.Thread(target=get_keyboard_input)
@@ -107,4 +107,5 @@ if __name__ == '__main__':
     # x.join()
     # rospy.Service('ah_req', ah_request, arrowhead_spoof)
     rospy.Service('ah_req', ah_request, arrowhead_factory_ready)
+    app.run(host="0.0.0.0", port="2342", debug=False)
     rospy.spin()

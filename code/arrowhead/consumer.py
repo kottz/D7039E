@@ -52,14 +52,14 @@ url = 'http://' + provider_ip + ":" + str(proivder_port)
 
 while(True):
     factory_ready_json = {
-        'ready': False
+        'ready': 0
     }
     print(post(url + service_uri_pick_up,
                verify=False, json=factory_ready_json
                ).json())
     time.sleep(10)
     factory_ready_json = {
-        'ready': True
+        'ready': 1
     }
     print(post(url + service_uri_pick_up,
                verify=False, json=factory_ready_json
