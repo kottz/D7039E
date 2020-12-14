@@ -26,7 +26,7 @@ test_provider.register_system(provider_json)
 class Arrowhead_response:
     def __init__(self):
         self.direction = ""
-        self.ready = 0
+        self.ready = "not ready"
 
 
 ah_resp = Arrowhead_response()
@@ -36,7 +36,7 @@ app = Flask(__name__)
 
 @app.route('/pick-up', methods=['POST'])
 def ready_for_pick_up():
-     ah_resp.ready = request.json['ready']
+    ah_resp.ready = request.json['ready']
     ready = {
         'ready': request.json['ready']
     }

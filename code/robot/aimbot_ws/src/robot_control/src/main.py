@@ -70,7 +70,7 @@ class RobotControl:
             
             rospy.logwarn(ah_resp.response)
 
-            if ah_resp.response == 0:
+            if ah_resp.response == "ready":
                 turn_left() 
             
             turn_right()
