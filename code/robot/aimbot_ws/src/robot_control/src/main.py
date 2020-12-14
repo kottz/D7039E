@@ -69,22 +69,25 @@ class RobotControl:
             ah_resp = ah_req(self.last_qr)
             
             rospy.logwarn(ah_resp.response)
+
+            if ah_resp.response:
+                turn_left() 
             
-            if ah_resp.response == "left":
-                turn_left()
-                follow_line()
-                #time.sleep(10)
-            elif ah_resp.response == "right":
-                turn_right()
-                follow_line()
-                #time.sleep(10)
-            elif ah_resp.response == "follow":
-                follow_line()
-                #time.sleep(10)
-            elif ah_resp.response == "pickup":
-                pickup()
-            elif ah_resp.response == "back":
-                turn_back()
+            # if ah_resp.response == "left":
+            #     turn_left()
+            #     follow_line()
+            #     #time.sleep(10)
+            # elif ah_resp.response == "right":
+            #     turn_right()
+            #     follow_line()
+            #     #time.sleep(10)
+            # elif ah_resp.response == "follow":
+            #     follow_line()
+            #     #time.sleep(10)
+            # elif ah_resp.response == "pickup":
+            #     pickup()
+            # elif ah_resp.response == "back":
+            #     turn_back()
 
 
 rc = RobotControl()
