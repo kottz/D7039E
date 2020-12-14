@@ -29,11 +29,10 @@ def home():
 
 @app.route('/pick-up', methods=['POST'])
 def ready_for_pick_up():
-    info = {
+    ready = {
         'ready': request.json['ready']
     }
-
-    return jsonify({'info': info}), 201
+    return jsonify({'ready': ready}), 201
 
 
 @app.route('/place', methods=['GET'])

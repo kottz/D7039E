@@ -51,17 +51,17 @@ service_uri_direction = test_consumer.start_orchestration_based_on_id(
 url = 'http://' + provider_ip + ":" + str(proivder_port)
 
 while(True):
-    direction_json = {
-        'direction': "left"
+    factory_ready_json = {
+        'ready': False
     }
-    print(post(url + service_uri_direction,
-               verify=False, json=direction_json
+    print(post(url + service_uri_pick_up,
+               verify=False, json=factory_ready_json
                ).json())
-    time.sleep(1)
-    direction_json = {
-        'direction': "right"
+    time.sleep(10)
+    factory_ready_json = {
+        'ready': True
     }
-    print(post(url + service_uri_direction,
-               verify=False, json=direction_json
+    print(post(url + service_uri_pick_up,
+               verify=False, json=factory_ready_json
                ).json())
-    time.sleep(1)
+    time.sleep(10)

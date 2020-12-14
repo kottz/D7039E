@@ -22,9 +22,11 @@ test_provider = Arrowhead_system(
 
 test_provider.register_system(provider_json)
 
+
 class Arrowhead_response:
     def __init__(self):
         self.direction = ""
+        self.ready = False
 
 
 ah_resp = Arrowhead_response()
@@ -32,17 +34,31 @@ ah_resp = Arrowhead_response()
 app = Flask(__name__)
 
 
+@app.route('/pick-up', methods=['POST'])
+def ready_for_pick_up():
+    ready = {
+        'ready': request.json['ready']
+    }
+    return jsonify({'ready': ready}), 201
+
+
 @ app.route('/direction', methods=['POST'])
-def setDirection():
+def setDirection(ros_request):
     direction_for_robot = request.json['direction']
     print(direction_for_robot)
     ah_resp.direction = direction_for_robot
     return jsonify({'direction': direction_for_robot}), 201
 
+
 def arrowhead_direction(request):
     qr_data = request
     print(qr_data)
     return ah_resp.direction
+
+def arrowhead_factory_ready(request):
+    qr_data = request
+    print(qr_data)
+    return ah_resp.ready
 
 # def setDirection(request):
 #     qr_data = request
@@ -50,6 +66,7 @@ def arrowhead_direction(request):
 #     direction_for_robot = request.json['direction']
 #    # print(direction_for_robot)
 #     return direction_for_robot
+
 
 def get_keyboard_input():
     while(True):
@@ -89,5 +106,5 @@ if __name__ == '__main__':
     # x.start()
     # x.join()
     # rospy.Service('ah_req', ah_request, arrowhead_spoof)
-    rospy.Service('ah_req', ah_request, arrowhead_direction)
+    rospy.Service('ah_req', ah_request, arrowhead_factory_ready)
     rospy.spin()
