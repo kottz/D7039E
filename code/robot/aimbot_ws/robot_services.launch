@@ -4,7 +4,6 @@
   <node name="move_control" pkg="move_control" type="base.py" />
   <node name="arm_control" pkg="arm_control" type="arm_edwardk.py" />
   <node name="motor_control" pkg="motor_control" type="all_motors_test_niklas.py" />
-  <node name="mv_node" pkg="mv_node" type="line_tracer" />
 </launch>
 
 

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
-#import rospy
+
+
+
+import rospy
 import threading
 
 
-#from arm_control.srv import *
+from arm_control.srv import *
 
 class Coordinate:
     def __init__(self, x, y):
@@ -135,11 +138,11 @@ def go_to_goal(goal):
         cur_pos = qr.name # Update current position
 
 
-#if __name__ == '__main__':
-  #  rospy.init_node('arrowhead', anonymous=True)
+if __name__ == '__main__':
+    rospy.init_node('arrowhead', anonymous=True)
 
-    #x = threading.Thread(target=get_keyboard_input)
-    #x.start()
-    #x.join()
-   # rospy.Service('ah_req', ah_request, arrowhead_spoof)
-  #  rospy.spin()
+    x = threading.Thread(target=get_keyboard_input)
+    x.start()
+    x.join()
+    rospy.Service('ah_req', ah_request, arrowhead_spoof)
+    rospy.spin()
