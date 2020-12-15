@@ -80,11 +80,11 @@ def arrowhead_spoof(request):
     
 
 
-#if __name__ == '__main__':
-  #  rospy.init_node('arrowhead', anonymous=True)
+if __name__ == '__main__':
+    rospy.init_node('arrowhead', anonymous=True)
 
-    #x = threading.Thread(target=get_keyboard_input)
-    #x.start()
-    #x.join()
-   # rospy.Service('ah_req', ah_request, arrowhead_spoof)
-  #  rospy.spin()
+    x = threading.Thread(target=get_keyboard_input)
+    x.start()
+    x.join()
+    rospy.Service('ah_req', ah_request, arrowhead_spoof)
+    rospy.spin()
