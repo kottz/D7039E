@@ -1,7 +1,7 @@
 [
     {
         "certificate_info": {
-            "pkcs12_filename": "/home/robot/D7039E/code/arrowhead/sysop.p12",
+            "pkcs12_filename": "/home/albin/D7039E/code/arrowhead/sysop.p12",
             "pkcs12_password": "123456"
         },
         "urls": {
@@ -11,13 +11,13 @@
         },
         "consumer_json": {
             "systemName": "test_consumer",
-            "address": "192.168.1.110",
+            "address": "192.168.43.63",
             "port": 2341,
             "authenticationInfo": ""
         },
         "provider_json": {
             "systemName": "test_provider",
-            "address": "192.168.1.104",
+            "address": "192.168.42.204",
             "port": 2342,
             "authenticationInfo": ""
         },
@@ -27,7 +27,7 @@
             "serviceDefinition": "pick-up",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.1.104",
+                "address": "192.168.42.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -41,7 +41,7 @@
             "serviceDefinition": "place",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.1.104",
+                "address": "192.168.42.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -55,7 +55,7 @@
             "serviceDefinition": "direction",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.1.104",
+                "address": "192.168.42.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
