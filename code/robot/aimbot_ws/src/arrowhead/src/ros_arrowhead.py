@@ -40,6 +40,14 @@ def ready_for_pick_up():
     }
     return jsonify({'ready': ready}), 201
 
+
+@app.route('/direction', methods=['POST'])
+def setDirection():
+    direction = {
+        'direction': request.json['direction']}
+    ah_resp.direction = request.json['direction']
+    return jsonify({'direction': direction}), 201
+
 def get_keyboard_input():
       while(True):
         inp = input("type something ")
@@ -67,6 +75,9 @@ def set_goal(request):
     else:
         return ""
 
+def set_direction(request):
+    return ah_resp.direction
+
 def arrowhead_spoof(request):
     qr_data = request
     print(qr_data)
@@ -86,5 +97,6 @@ if __name__ == '__main__':
     #x.join()
     #rospy.Service('ah_req', ah_request, arrowhead_spoof)
     rospy.Service('ah_req', ah_request, set_goal)
+    rospy.Service('ah_req', ah_request, set_direction)
     app.run(host="0.0.0.0", port="2342", debug=False)
     rospy.spin()

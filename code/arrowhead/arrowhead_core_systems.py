@@ -72,7 +72,7 @@ with open("config_template.json") as json_file:
                 "consumerSystemId": idarray[0],
                 "providerSystem": {
                     "systemName": "test_provider",
-                    "address": "192.168.43.63",
+                    "address": "192.168.1.104",
                     "port": 2342,
                     "authenticationInfo": ""
                 },

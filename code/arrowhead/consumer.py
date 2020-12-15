@@ -22,17 +22,16 @@ with open("config_template.json") as json_file:
 test_consumer = Arrowhead_system(
     "/home/albin/Documents/core-java-spring/certificates/testcloud2/sysop.p12", "123456")
 test_consumer.register_system(consumer_json)
-test_consumer.register_service(pick_up_service_json)
-test_consumer.add_intracloud_authorization(pick_up_service_definition)
-test_consumer.create_orchestration_store_entry(pick_up_service_definition)
+print(test_consumer.register_service(pick_up_service_json).json())
+print(test_consumer.add_intracloud_authorization(pick_up_service_definition).json())
+print(test_consumer.create_orchestration_store_entry(pick_up_service_definition).json())
 test_consumer.register_service(place_service_json)
 test_consumer.add_intracloud_authorization(place_service_definition)
 test_consumer.create_orchestration_store_entry(place_service_definition)
 test_consumer.register_service(direction_service_json)
 test_consumer.add_intracloud_authorization(direction_service_definition)
 test_consumer.create_orchestration_store_entry(direction_service_definition)
-test_consumer.start_orchestration_based_on_id(
-    consumer_name, provider_name)
+print(test_consumer.start_orchestration_based_on_id(consumer_name, provider_name).json())
 
 
 provider_ip = test_consumer.start_orchestration_based_on_id(
@@ -51,17 +50,25 @@ service_uri_direction = test_consumer.start_orchestration_based_on_id(
 url = 'http://' + provider_ip + ":" + str(proivder_port)
 
 while(True):
-    factory_ready_json = {
-        'ready': "not ready"
+    # factory_ready_json = {
+    #     'ready': "not ready"
+    # }
+    # print(post(url + service_uri_pick_up,
+    #            verify=False, json=factory_ready_json
+    #            ).json())
+    # time.sleep(10)
+    # factory_ready_json = {
+    #     'ready': "ready"
+    # }
+    # print(post(url + service_uri_pick_up,
+    #            verify=False, json=factory_ready_json
+    #            ).json())
+    # time.sleep(10)
+
+    direction_keyboard_input = input("arrowhead input requested. What to do? ")
+    direction_json = {
+        'direction': direction_keyboard_input
     }
-    print(post(url + service_uri_pick_up,
-               verify=False, json=factory_ready_json
+    print(post(url + service_uri_direction,
+               verify=False, json=direction_json
                ).json())
-    time.sleep(10)
-    factory_ready_json = {
-        'ready': "ready"
-    }
-    print(post(url + service_uri_pick_up,
-               verify=False, json=factory_ready_json
-               ).json())
-    time.sleep(10)
