@@ -17,7 +17,7 @@
         },
         "provider_json": {
             "systemName": "test_provider",
-            "address": "192.168.42.204",
+            "address": "192.168.43.204",
             "port": 2342,
             "authenticationInfo": ""
         },
@@ -27,7 +27,7 @@
             "serviceDefinition": "pick-up",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.42.204",
+                "address": "192.168.43.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -41,7 +41,7 @@
             "serviceDefinition": "place",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.42.204",
+                "address": "192.168.43.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -55,7 +55,7 @@
             "serviceDefinition": "direction",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "192.168.42.204",
+                "address": "192.168.43.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
