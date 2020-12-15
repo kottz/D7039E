@@ -1,23 +1,23 @@
 [
     {
         "certificate_info": {
-            "pkcs12_filename": "/home/albin/Documents/core-java-spring/certificates/testcloud2/sysop.p12",
+            "pkcs12_filename": "/home/albin/D7039E/code/arrowhead/sysop.p12",
             "pkcs12_password": "123456"
         },
         "urls": {
-            "service_regisrty_url": "https://benkpress.campus.ltu.se:8443/serviceregistry",
-            "authorization_url": "https://benkpress.campus.ltu.se:8445/authorization",
-            "orchestration_url": "https://benkpress.campus.ltu.se:8441/orchestrator"
+            "service_regisrty_url": "https://130.240.200.67:8443/serviceregistry",
+            "authorization_url": "https://130.240.200.67:8445/authorization",
+            "orchestration_url": "https://130.240.200.67:8441/orchestrator"
         },
         "consumer_json": {
             "systemName": "test_consumer",
-            "address": "localhost",
+            "address": "192.168.43.63",
             "port": 2341,
             "authenticationInfo": ""
         },
         "provider_json": {
             "systemName": "test_provider",
-            "address": "localhost",
+            "address": "192.168.42.204",
             "port": 2342,
             "authenticationInfo": ""
         },
@@ -27,7 +27,7 @@
             "serviceDefinition": "pick-up",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "localhost",
+                "address": "192.168.42.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
@@ -41,7 +41,21 @@
             "serviceDefinition": "place",
             "providerSystem": {
                 "systemName": "test_provider",
-                "address": "localhost",
+                "address": "192.168.42.204",
+                "port": 2342,
+                "authenticationInfo": ""
+            },
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        },
+        "direction_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/direction",
+            "serviceDefinition": "direction",
+            "providerSystem": {
+                "systemName": "test_provider",
+                "address": "192.168.42.204",
                 "port": 2342,
                 "authenticationInfo": ""
             },
