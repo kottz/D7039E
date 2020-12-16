@@ -36,5 +36,54 @@ The protocol allows for a size of 8 bits per message between the MCU and motors.
 The two types message structures is represented by the figures below \ref{instr} and \ref{return}.
 For more information how to interpret the structure use dynamixels own documentation ().
 
+\subsubsection{Instruction package}
+Instruction package carries commands from the controller to the motor.
+An abundance of support is included,
+from changing statics parameters like torque, baud-rate or id of each individual unit or different actions,
+for example move to this location with this speed.
+The structure of the message is represented in figure \ref{instr} and table \ref{instr_table} describes the structure from left to right. 
+
+\begin{table}[H]
+    \centering
+    \caption{Explanation of parameters in instruction packadge}
+    \begin{tabular}{c | c c c c c}
+        \(OXFF\) & Indicates start of incoming packet  \\
+        \hline
+        \(ID\) & Specific ID of each unit  \\
+        \hline
+        \(Length\) & Length of message \\
+        \hline
+        \(Param\) & Used for additional information  \\
+        \hline
+        \(Check sum\) & Calculate length of packet \\
+        \hline
+    \end{tabular}
+    \label{instr_table}
+\end{table}
+
+\begin{figure}[H]
+    \graphicspath{ {img/} }
+    \centering
+    
+    \includegraphics[width = 9 cm]{img/instruction_packadge}
+    \label{instr}
+    \caption{Structure of instruction message.}
+\end{figure}
+
+\subsubsection{Status package}
+Status packet contains the response from the Dynamixel to the controller after receiving a instruction.
+The structure is almost the same as the instruction package.
+However, one difference is the the message confirms the status of sent instructions including an error if one occurs.
+The structure is represented in figure \ref{return} and Dynamixels support page (refsupport) gives more information how to read the error messages.
+
+\begin{figure}[H]
+    \graphicspath{ {img/} }
+    \centering
+    
+    \includegraphics[width = 9 cm]{img/return_packadge.JPG}
+    \label{return}
+    \caption{Structure of return message.}
+\end{figure}
+
 
 
