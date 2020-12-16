@@ -7,31 +7,31 @@
 
 \section*{Base}
 
- The motors will be connected to tracks on the robot and can therefore be modelled as two wheels connected with a rod, as seen in figure \ref{fig:base_math_model}.\\ 
-This means that most of the mathematical modeling is very straight forward given that we can read the encoders from the motors. From the encoders we would be able to get both the length the robot has traveled and more importantly the individual speed each motor rotates with. The speed for the individual motor is of course given by: 
+The motors will be connected to tracks on the robot and can therefore be modelled as two wheels connected with a rod, as seen in figure \ref{fig:base_math_model}.\\ 
+Deriving a mathematical model is straight forward if we can read the encoders from the motors. From the encoders we would be able to get both the length the robot has traveled and more importantly the individual speed each motor rotates with. The speed for the individual motor is given by: 
 
 \begin{equation}
-    v_m=\frac{2\pi r_{wheel}/N_{encoders}}{\Delta t}
+    v_m=\frac{2\pi r_{wh}/N_{enc}}{\Delta t}
     \label{eq:base_system_eq1}
 \end{equation}
 
-\noindent Where $N_{encoders}$ is the number of encoders on the motor, $r_{wheel}$ is the radius of the driving wheel and thickness of the track and $\Delta t$ is the time between the previous encoder reading and the most recent one. By doing this for both the left and right motor we can find how fast the robot is moving along the line by:
+\noindent Where $N_{enc}$ is the number of encoders on the motor, $r_{wh}$ is the radius of the driving wheel and thickness of the track and $\Delta t$ is the time between the previous encoder reading and the most recent one. By doing this for both the left and right motor we can find how fast the robot is moving along the line by:
 
 \begin{equation}
     \overline{v}= \frac{v_L+v_R}{2}(-\cos \theta \hat{i}+ \sin \theta \Hat{j})
 \end{equation}
 
-\noindent Where the $y$-axis parallel to the line. In a similar fashion to how we calculated the velocity of the robot, the rate of change of the angle can be calculated using:
+\noindent Where the $y$-axis parallel to the line. In a similar fashion the angular velocity can be calculated using:
 
 \begin{equation}
-    \Dot{\theta} = \frac{v_R-v_L}{2r_{base}}
+    \Dot{\theta} = \frac{v_R-v_L}{2r_{b}}
     \label{eq:base_system_eq2}
 \end{equation}
 
-\noindent Where $r_{base}$ is the distance from the center of the base to the wheels. From this and figure \ref{fig:base_math_model} it's easy to see that the change of angle then becomes:
+\noindent Where $r_{b}$ is the distance from the center of the base to the wheels. From this and figure \ref{fig:base_math_model} it's easy to see that the change of angle then becomes:
 
 \begin{equation}
-    \theta = sin^{-1}\left(\frac{V_L-V_R}{2r_{base}}t\right)
+    \theta = sin^{-1}\left(\frac{V_L-V_R}{2r_{b}}t\right)
 \end{equation}
 
 \begin{figure}[H]
@@ -41,10 +41,10 @@ This means that most of the mathematical modeling is very straight forward given
     \label{fig:base_math_model}
 \end{figure}
 
-Given small angles \footnote{Which will be assumed because the robot will be operating on a grid with hard coded functions for turning at QR-codes}, we can therefore write this as:
+Given the use of small-angles approximation\footnote{Which will be assumed since the robot will be operating on a grid with hard coded functions for turning at QR-codes}, the angular velocity can be written as:
 
 \begin{equation}
-    \theta = \frac{V_L-V_R}{2r_{base}}t
+    \theta = \frac{V_L-V_R}{2r_{b}}t
 \end{equation}
 
 
