@@ -74,7 +74,7 @@ The structure of the message is represented in figure \ref{instr} and table \ref
 Status packet contains the response from the Dynamixel to the controller after receiving a instruction.
 The structure is almost the same as the instruction package.
 However, one difference is the the message confirms the status of sent instructions including an error if one occurs.
-The structure is represented in figure \ref{return} and Dynamixels support page (refsupport) gives more information how to read the error messages.
+The structure is represented in figure \ref{return} and Dynamixels support page \cite{protocol1} gives more information how to read the error messages.
 
 \begin{figure}[H]
     \graphicspath{ {img/} }
@@ -88,6 +88,6 @@ The structure is represented in figure \ref{return} and Dynamixels support page 
 \subsection{Motor communication}
 Dynamixel provides a lot of support for lower level programming using instructions and reading return messages with documentation support, as stated above
 . However, there is also support for higher level and more user friendly programming languages like Python,
-C and third-party libraries by using Dynamixels own software development kit called DYNAMIXEL SDK (source).
+C and third-party libraries by using Dynamixels own software development kit called DYNAMIXEL SDK \cite{dynamixel_SDK}.
 
 
