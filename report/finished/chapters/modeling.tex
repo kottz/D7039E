@@ -14,7 +14,7 @@ Kinematics is what describes the motion of rigid bodies and points in space.
 
 \subsection*{Backgroud}
 \subsection*{Rigid body transformation}
-In general any position can be described by translation along 3 axes and rotation along these same axes. These translations/rotations can be described by a matrix
+In general any position can be described by translation along three axes and rotation along these same axes. These translations/rotations can be described by a matrix
 \begin{equation}
     T = 
     \begin{bmatrix}
@@ -26,7 +26,7 @@ where \(R\) is a 3 x 3 rotation matrix and \(d\) a 3 x 1 translation matrix. Thi
 
 
 \subsection*{Denavit-Hartenberg Convention}
-A common approach for selecting the coordinate frames of reference for each joint in a robotic arm is to us the Denavit-Hartenberg convention. This allows the transformation matrix for each joint to be expressed as
+A common approach for selecting the coordinate frames of reference for each joint in a robotic arm is the Denavit-Hartenberg convention. This allows the transformation matrix for each joint to be expressed as
 \begin{equation}
     A_i = Rot_{z}(\theta_i) \cdot Trans_{z}(d_i) \cdot Trans_{x}(a_i) \cdot Rot_{z}(\alpha_i)
     \label{eqn:DH-transformation}
@@ -80,7 +80,7 @@ where it is assumed that two frames are given, frame 0 and frame 1, and the tran
 
 
 \subsection*{Kinematic Chain} %A1*A2*...
-A robotic manipulator can be described by a set of joints with links between them where a homogeneous transformation matrix \(A_i\) that describes the transformation with respect to the previous joint exists for each joint. This means that a transformation that describes the position and orientation of joint j with respect to a joint i to a can be found by a transformation matrix \cite{spong}
+A robotic manipulator can be described by a set of joints with links between them where a homogeneous transformation matrix \(A_i\) that describes the transformation with respect to the previous joint exists for each joint. This means that a transformation that describes the position and orientation of joint \(j\) with respect to a joint \(i\) to a can be found by a transformation matrix \cite{spong}
 \begin{equation}
     \begin{cases}
         T_j^i = A_{i+1}A_{i+2}...A_{j-1}A_{j}, \text{  if \(i < j\) } \\
@@ -95,7 +95,7 @@ A robotic manipulator can be described by a set of joints with links between the
 \subsection*{Forward Kinematics}
 Forward kinematics is the problem of finding the position and orientation of the end effector.
 
-Since a manipulator can be seen as a kinematic chain the problem of finding the position and orientation of the end effector can be solved by finding the transformation matrices in equation \ref{eqn:Kinematic_chain_spong} needed to solve for the transformation matrix for the final joint.
+Since a manipulator can be seen as a kinematic chain the problem of finding the position and orientation of the end effector can be solved by finding the transformation matrices in equation \ref{eqn:Kinematic_chain_spong}.
 
 
 
