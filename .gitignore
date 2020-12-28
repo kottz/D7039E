@@ -41,8 +41,12 @@ hs_err_pid*
 #Build
 build/
 
+
+src/red_line.mp4
+
 #config
 **/config.toml
 /report/Presentations/img/animation*
 
 *.mp4
+
