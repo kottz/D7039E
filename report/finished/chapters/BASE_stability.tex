@@ -57,4 +57,11 @@ The $\Delta v$ will be seen as a constant and will be ignored in future equation
 
 
 \subsubsection{Discrete Time}
-Using MATLAB to move from continuous time to discrete time with a update frequency of 20 Hz\footnote{The update frequency of the camera} and an input delay of $1/30s$\footnote{Estimated input delay to the actuators}. In Fig.\ref{fig:step1} it's clear that the pole is within the unit circle on the discrete time plane and that the responds follows the step input. In conclusion, the system is stable using the $k_p$ and $k_d$ values proposed above, even in discrete time.
+Using MATLAB to move from continuous time to discrete time with a update frequency of 20 Hz\footnote{The update frequency of the camera} and an input delay of $1/30s$\footnote{Estimated input delay to the actuators}. In Fig.\ref{fig:stepD} it's clear that the pole is within the unit circle on the discrete time plane and that the responds follows the step input. In conclusion, the system is stable using the $k_p$ and $k_d$ values proposed above, even in discrete time.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width= 0.7\textwidth]{img/closed_loop_step_D.eps}
+    \caption{The discrete step response and the poles and zeros of the discrete transfer function}
+    \label{fig:stepD}
+\end{figure}
