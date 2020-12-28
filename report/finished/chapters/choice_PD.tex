@@ -1,3 +1,6 @@
+\section{Line Follower}
+The robot will use a line follower controller in order to navigate the factory floor. This in combination with \textbf{QR} codes and a path-planning algorithm will give a huge variety in places that the robot can be instructed to go, as long as it's on the grid and denoted with a \textbf{QR} code.
+
 \subsection{Choice of Controller} \label{sec:choice_of_cont}
 
 In order to move the robot to a specified point the use of a line follower controller was decided on. The robot will read in values from a camera \footnote{Refrence to the machine vision part} that publishes the angle that a \textbf{PD} controller uses as an input for calculating the signal it sends to the motors.\\
