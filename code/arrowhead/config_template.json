@@ -1,0 +1,67 @@
+[
+    {
+        "certificate_info": {
+            "pkcs12_filename": "/home/albin/D7039E/code/arrowhead/sysop.p12",
+            "pkcs12_password": "123456"
+        },
+        "urls": {
+            "service_regisrty_url": "https://130.240.200.67:8443/serviceregistry",
+            "authorization_url": "https://130.240.200.67:8445/authorization",
+            "orchestration_url": "https://130.240.200.67:8441/orchestrator"
+        },
+        "consumer_json": {
+            "systemName": "test_consumer",
+            "address": "localhost",
+            "port": 2341,
+            "authenticationInfo": ""
+        },
+        "provider_json": {
+            "systemName": "test_provider",
+            "address": "localhost",
+            "port": 2342,
+            "authenticationInfo": ""
+        },
+        "pick_up_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/pick-up",
+            "serviceDefinition": "pick-up",
+            "providerSystem": {
+                "systemName": "test_provider",
+                "address": "localhost",
+                "port": 2342,
+                "authenticationInfo": ""
+            },
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        },
+        "place_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/place",
+            "serviceDefinition": "place",
+            "providerSystem": {
+                "systemName": "test_provider",
+                "address": "localhost",
+                "port": 2342,
+                "authenticationInfo": ""
+            },
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        },
+        "direction_service_json": {
+            "secure": "CERTIFICATE",
+            "serviceUri": "/direction",
+            "serviceDefinition": "direction",
+            "providerSystem": {
+                "systemName": "test_provider",
+                "address": "localhost",
+                "port": 2342,
+                "authenticationInfo": ""
+            },
+            "interfaces": [
+                "HTTPS-SECURE-JSON"
+            ]
+        }
+    }
+]

@@ -1,0 +1,6 @@
+<launch>
+  <node name="motor_handler" pkg="motor_handler" type="motor_handler.py" />
+  <node name="arm_pickup" pkg="arm_control" type="arm_pickup.py" />
+</launch>
+
+

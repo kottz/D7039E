@@ -1,0 +1,52 @@
+
+    \begin{figure}
+        \begin{center}
+\resizebox{6.0cm}{!}{
+
+\begin{tikzpicture}
+    [align=center, auto]
+    \node [computing] (start) {\textbf{CHAPTER\_descriptive\_filename.tex}};
+    \node [computing, below= of start] (push) {Push to \textbf{/sections}};
+    \node [computing, below= of push] (finished) {Finished?};
+    \node [computing, below= of finished] (write) {Write on section}; 
+    \node [computing, below= of write] (commit) {Commit};
+
+    \node [computing, right= of finished, xshift=5em] (branch) {New branch \\ \textbf{REVIEW\_chapter}};
+    \node [computing, below= of branch] (paste) {Paste section in \\ \textbf{/chapters/chapter.tex}};
+    \node [computing, below= of paste] (pushb) {Push new branch};
+    \node [computing, below=of pushb] (PR) {PR against \textbf{report-unsafe}};
+    \node [computing, below= of PR] (review) {Wait for review};
+    
+    
+
+
+
+    \coordinate [left= of push] (lrpush);
+    \coordinate [left= of write] (lrwrite);
+    \coordinate [left= of commit] (lrcommit);
+    \coordinate [left= of finished] (lrfinished);
+    \coordinate [right= of PR] (crPR);
+    \coordinate [below= of crPR] (crreview);
+    
+
+
+
+    \draw [->] (commit) -- (lrcommit) -| (lrpush) -- (push);
+
+    \draw [->] (start) -- (push);
+
+    \draw [->] (push) -- (finished) -- node[midway, fill=white] {No} (write) -- (commit);
+
+    \draw [->] (finished) -- node[midway, fill=white] {Yes} (branch);
+
+    \draw [->] (branch) -- (paste) -- (pushb) -- (PR)  -- (review);
+
+    \draw [->] (review) -| (crreview) -- node[midway, xshift=2.2em, yshift=-0.5em, fill=white] {Fix} (crPR) -- (PR);
+    
+    
+\end{tikzpicture}
+}
+\end{center}
+\caption{Report writing flowchart}
+\label{fig:git_workflow}
+\end{figure}
