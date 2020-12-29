@@ -21,7 +21,7 @@ When you're done with your section and feel that it's finished and ready to be r
 8. Push your new branch to the repo
 9. Go to github and create a new Pull request where
    ```
-   Base: report-UNSAFE
+   Base: master
    Compare: REVIEW_chapter
    ```
 10. Add label `review` and `report` on the right
