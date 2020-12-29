@@ -21,6 +21,24 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
+\bibitem{robotis}
+\BIBentryALTinterwordspacing
+{ROBOTIS TEAM}. e-manual from robotis. [Online]. Available:
+  \url{https://emanual.robotis.com/docs/en/dxl/ax/ax-12a/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{protocol1}
+\BIBentryALTinterwordspacing
+------. Protocol from robotis. [Online]. Available:
+  \url{https://emanual.robotis.com/docs/en/dxl/protocol1/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{dynamixel_SDK}
+\BIBentryALTinterwordspacing
+------. Dynamixel sdk lib. [Online]. Available:
+  \url{https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel\_sdk/overview/}
+\BIBentrySTDinterwordspacing
+
 \bibitem{spong}
 M.~V. "Mark W.~Spong", "Seth~Hutchinson", \emph{Robot Dynamics and Control},
   2nd~ed.\hskip 1em plus 0.5em minus 0.4em\relax John Wiley \& Sons, Inc.,
@@ -30,7 +48,7 @@ M.~V. "Mark W.~Spong", "Seth~Hutchinson", \emph{Robot Dynamics and Control},
 \BIBentryALTinterwordspacing
 D.~Rus. Robotics systems and science lecture 14: Forward and inverse
   kinematics. [Online]. Available:
-  \url{http://courses.csail.mit.edu/6.141/spring2011/pub/lectures/Lec14-Manipulation-II.pdf}
+  \url{https://courses.csail.mit.edu/6.141/spring2011/pub/lectures/Lec14-Manipulation-II.pdf}
 \BIBentrySTDinterwordspacing
 
 \bibitem{inverse_tangent_wolfram}
