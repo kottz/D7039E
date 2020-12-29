@@ -18,7 +18,7 @@ Simplex communication is static, meaning communication happens in one direction.
 \newline
 Full duplex and half duplex are not directly compatible. 
 If the MCU and Dynamixel motors are connected directly,
-since the MCU sends and receive data simultaneously it will occupy the transmission line indefinitely and the Dynamixel won't be able to tell when the messages stop. 
+since the MCU sends and receives data simultaneously it will occupy the transmission line indefinitely and the Dynamixel won't be able to tell when the messages stop. 
 This phenomena is known as chatter. 
 The solution for this is to implement a tri-state-buffer circuit converting the full system to half duplex.
 
@@ -33,7 +33,7 @@ A logic analyzer will give this information and is recommended to use in conjuga
 
 \subsection{Data package - structure of message}
 The protocol allows for a size of 8 bits per message between the MCU and motors. 
-The two types message structures is represented by the figures below \ref{instr} and \ref{return}.
+Two types of message structures is represented by figures \ref{instr} and \ref{return}.
 For more information how to interpret the structure use dynamixels own documentation ().
 
 \subsubsection{Instruction package}
