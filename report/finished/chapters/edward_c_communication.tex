@@ -44,7 +44,7 @@ The structure of the message is represented in figure \ref{instr} and table \ref
 
 \begin{table}[H]
     \centering
-    \caption{Explanation of parameters in instruction packadge}
+    \caption{Explanation of parameters in instruction packadge.}
     \begin{tabular}{c | c c c c c}
         \(OXFF\) & Indicates start of incoming packet  \\
         \hline
@@ -70,7 +70,7 @@ The structure of the message is represented in figure \ref{instr} and table \ref
 \end{figure}
 
 \subsubsection{Status package}
-Status packet contains the response from the Dynamixel to the controller after receiving a instruction.
+Status packet contains the response from the Dynamixel after the motors receives an instruction.
 The structure is almost the same as the instruction package.
 However, one difference is the the message confirms the status of sent instructions including an error if one occurs.
 The structure is represented in figure \ref{return} and Dynamixels support page \cite{protocol1} gives more information how to read the error messages.
