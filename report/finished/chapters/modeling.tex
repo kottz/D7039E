@@ -4,7 +4,7 @@
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{chapters/img/robot_arm.png}
+    \includegraphics[width=0.7\columnwidth]{chapters/img/robot_arm.png}
     \caption{Placeholder image for the robotic arm?.}
     \label{fig:robotic_manipulator_general}
 \end{figure}
@@ -158,6 +158,7 @@ To solve the inverse kinematics for the position of a three joint manipulator a 
     \end{cases}
 \end{equation}
 where \(Atan(x, y)\) is the two argument arctangent function \cite{inverse_tangent_wolfram} and 
+
 \begin{equation}
     D = \frac{x_d^2 + y_d^2 + (z_d - d_1)^2 - a_2^2 - a_3^2}{2 a_2 a_3}
 \end{equation}
@@ -180,11 +181,11 @@ and a simulated 2D slice of the workspace can be seen in figure \ref{fig:workspa
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.45\textwidth]{chapters/img/workspace.eps}
+    \includegraphics[width=0.7\columnwidth]{chapters/img/workspace.eps}
     \caption{A simulated 2D slice of the workspace for the three jointed manipulator.}
     \label{fig:workspace_simulated}
 \end{figure}
-
+%chapters/img/workspace.eps
 
 
 
@@ -234,10 +235,11 @@ Deriving a mathematical model is straight forward if we can read the encoders fr
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.7\textwidth]{base_math_model.eps}
+    \includegraphics[width=0.7\columnwidth]{chapters/img/base_math_model.eps}
     \caption{Modelling of the base as two wheels connected with a rod, where $\theta$ is the angle to the line}
     \label{fig:base_math_model}
 \end{figure}
+%base_math_model.eps
 
 Given the use of small-angles approximation\footnote{Which will be assumed since the robot will be operating on a grid with hard coded functions for turning at QR-codes}, the angular velocity can be written as:
 
