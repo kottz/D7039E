@@ -14,11 +14,11 @@ UART communication can be setup into three different ways of communication \cite
 Full duplex, half duplex and simplex.
 Full duplex allows for data communication both ways simultaneously.
 Half duplex only allows for one way communication at any given time, by either sending or receiving.
-Simplex communication is static, meaning communication is always one direction.
+Simplex communication is static, meaning communication happens in one direction.
 \newline
 Full duplex and half duplex are not directly compatible. 
 If the MCU and Dynamixel motors are connected directly,
-since the MCU sends and receive data simultaneously it will occupy the transmission line indefinitely and the Dynamixel won't be able to tell when the messages stop. 
+since the MCU sends and receives data simultaneously it will occupy the transmission line indefinitely and the Dynamixel won't be able to tell when the messages stop. 
 This phenomena is known as chatter. 
 The solution for this is to implement a tri-state-buffer circuit converting the full system to half duplex.
 
@@ -32,20 +32,19 @@ A crucial part is timing, the direction pin must be pulled high long enough for 
 A logic analyzer will give this information and is recommended to use in conjugation with the tri-state-buffer for tuning.
 
 \subsection{Data package - structure of message}
-The protocol allows for a size of 8 bits per message between the MCU and motors. 
-The two types message structures is represented by the figures below \ref{instr} and \ref{return}.
+The protocol allows for a size between 5 to 255 bytes per message between the MCU and motors. 
+Two types of message structures is represented by figures \ref{instr} and \ref{return}.
 For more information how to interpret the structure use dynamixels own documentation ().
 
 \subsubsection{Instruction package}
 Instruction package carries commands from the controller to the motor.
 An abundance of support is included,
-from changing statics parameters like torque, baud-rate or id of each individual unit or different actions,
-for example move to this location with this speed.
+from changing statics parameters like torque, baud-rate, id of each individual unit and different actions. 
 The structure of the message is represented in figure \ref{instr} and table \ref{instr_table} describes the structure from left to right. 
 
 \begin{table}[H]
     \centering
-    \caption{Explanation of parameters in instruction packadge}
+    \caption{Explanation of parameters in instruction packadge.}
     \begin{tabular}{c | c c c c c}
         \(OXFF\) & Indicates start of incoming packet  \\
         \hline
@@ -71,7 +70,7 @@ The structure of the message is represented in figure \ref{instr} and table \ref
 \end{figure}
 
 \subsubsection{Status package}
-Status packet contains the response from the Dynamixel to the controller after receiving a instruction.
+Status packet contains the response from the Dynamixel after the motors receives an instruction.
 The structure is almost the same as the instruction package.
 However, one difference is the the message confirms the status of sent instructions including an error if one occurs.
 The structure is represented in figure \ref{return} and Dynamixels support page \cite{protocol1} gives more information how to read the error messages.
