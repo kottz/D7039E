@@ -1,0 +1,92 @@
+\subsection{Arrowhead framework}
+Arrowhead framework is a framework designed to aid in the functonality of Iot-devices, havning a focus on large scale industry and
+productivity. The framework provides a number of core system, systems that are required to run to enable certain functionality. This 
+project uses five of them nameley, service registry, orchestrator, authorization, gateway and gatekeeper. The service registry is used 
+to register systems and services, a system is defined as either a provider or a consumer. A provider provides a service for examample 
+the reading of a temperature sensor and in turn the consumer consumes that service which in this example might be to log the temperature
+in a database. A service is therefore what the provider is providing and the consumer consuming, more on this later. The orchestrator is
+used to decide which consumer and acces which provider and what services said provider is entitled to provide the conusmer with. The
+authorization is used to declare which providers are authozired within both the local cloud, intra cloud authorization, and between
+differnt clouds, inter cloud authorization. When defining inter or intra cloud rules to user also has to decide which interface should 
+handle the communication between the systems. These three systems are the minimun requirment for running a local arrowhead cloud. 
+To enable intra cloud communication both the gateway and gatekeeper core systems will have to be running as well. 
+
+\subsection{Communication}
+This project uses the arrowhead framework for Communication between the robot and the local arrowhead cloud as well as the 
+remote cloud from the factory. This section of the report aims to explain how the communication between these different clouds works as well
+as to define the purpose of using the arrowhead framework. This project decided to use arrowhead framework for communication between 
+the local cloud and the robot, all internal communication on the robot will be handled using ROS. This proides faster and more robust 
+control of the robot, not relying on internet connection and so forth to control the robot. It should be noted that the arrowhead framework
+is fully competent to control every aspect of the robot as well, but can run in to problems with delay in time critical sections.
+
+\subsubsection{Intra cloud communication}
+The prerequisites for using intra cloud communication is:
+\begin{itemize}
+    \item Running core services i.e. service registry, authorization and orchestrator.
+    \item A registered consumer and provider.
+    \item Defined intra cloud rules.
+\end{itemize}
+
+\subsubsection{Inter cloud communication}
+The prerequisites for using inter cloud communication is:
+\begin{itemize}
+    \item Running core services i.e. service registry, authorization, orchestrator, gateway and gatekeeper.
+    \item A running ActiveMQ relay server.
+    \item Defined inter cloud rules.
+\end{itemize}
+
+\subsubsection{Purpose of using arrowhead framework}
+The communication between different IoT-devices has been an issue for quite some time, and the security issues surrounding IoT-devices
+are well known. Arrowhead framework attempts to provide a soulution for fixing these issues. Using HTPPS with certificates the arrowhead
+framework provides a solution for tackling the basic secruity flaws of oth er unprotected IoT-devices, this means that you would have to have
+the right certificate and the keyword for that certificate in order to access the service registry. The same applies to both the orchestrator
+and authorization core system. 
+
+\subsubsection{Services}
+Two services will be offered by the robot, which acts as a provider i.e. it provides a service. In this case the services offered
+is place and pick-up. Both these services will have to be registered in the service registry where they will have differnt URI:s 
+to and servicedefinitions to tell them apart. Otherwise they will work very much the same. They will, when prompted to do so, provide a
+service to either pick-up the piece from the end of the factorys conveyer belt or place it at the beginning of the conveyer belt. 
+In both cases the services will wait for a JSON containing if the service should be carried out or not. When recieving a JSON containing that the service will be carried out. Both the services
+works in a similar way:
+
+\begin{itemize}
+    \item Use pathfinding to go to predefined goal coordinate.
+    \item Perform desired action i.e. pick up or place the piece.
+    \item Await further instructions.
+\end{itemize}
+
+\subsection{Python implementation of the arrowhead framework}
+A python implementation of the arrowhead framework core systems was created because:
+\begin{itemize}
+    \item Current implementation on the arrowhead framework's github had no support for HTTPS.
+    \item Gain a further understanding of how the framework actually works.
+    \item Facilitate the integration between ROS, i.e. being able to easily run the provider from the robot. 
+\end{itemize}
+
+The python implementation consists of four major parts. The first part is a class containg all the methods for registering, authorizing and
+orchestrating services. The second part is a JSON-file containing all the properties for both provider and consumer i.e. path to certificate, 
+password to certificate, system name, address and port. It also contains service definitions, details for orchestration and intra cloud
+authorization. The third part is a skeleton for a provider, letting the user know in which order to execute the different commands. 
+That order is: 
+\begin{itemize}
+    \item Register the provider system in the service registry.
+\end{itemize}
+The forth and last part is a skeleton for a consumer, letting the user know in which order to execute the different commands.
+That order is:
+\begin{itemize}
+    \item Register the consumer system in the service registry
+    \item Register the service definition in the service registry.
+    \item Create the intra cloud authorization rules.
+    \item Create the orchestration store entry.
+    \item Start the orchestration based on the consumer's id.
+    \item Recieve the provider port and address.
+    \item Recieve the service URI.
+\end{itemize}
+
+The class contains a great variety of helper methods to make as easy for the user as possible. Only the most necessary 
+and non-dynamic information is stored in the JSON. It uses the names of systems, services, and service definitions to find the necessary
+id's, which means that if other services or systems are added or deleted the skeletons will still work. 
+
+
+
