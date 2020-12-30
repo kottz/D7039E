@@ -1,6 +1,6 @@
 \subsection{Simulation}
 
-To verify the validity of the \textbf{PD} controller for this task, simulations were run in MATLAB. The simulation sets the motors to a common speed, so that the controller always makes the robot move forward when $\theta=0$ and lower the speed of a motor on one side to turn. This is the same way as the controller is implemented on the robot. Both motors speed can therefore be set into one variable that is defined as the difference between the motor speeds ($\Delta v = v_L-v_R$). \\
+To verify the validity of the \textbf{PD} controller for this task, simulations were run in MATLAB. The simulation set the motors to a common speed, so that the controller always makes the robot move forward when $\theta=0$ and lower the speed of a motor on one side to turn. This is the same way as the controller is implemented on the robot. Both motors speed can therefore be set into one variable that is defined as the difference between the motor speeds ($\Delta v = v_L-v_R$). \\
 \indent The simulation used a sinusoid as input to the controller, simulating that the robot travelled along a line that consistently turn from left to right and back again. The results can be seen in Fig. \ref{fig:sim_t_error} and \ref{fig:sim_LR_motor}
 
 \begin{figure}[H]
