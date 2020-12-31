@@ -1,6 +1,6 @@
 
 \subsection{Mechanical structure}
-The design of the robot is influenced by the LEGO\textregistered Mindstorms\textregistered EV3 set. While the original set has a movable base it was too small and without an arm and manipulator. It also does not incorporate the Dynamixel AX-12A Smart Servos used in the final design so the decision to redesign the robot with design inspiration from the LEGO\textregistered EV3 design. By developing and designing a new platform it gave the possibility to adapt the dimensions and fastenings. It also gave experience in manufacturing methods such as 3D-printing and Laser cutting. The final design is shown in Fig. \ref{fig:concept_rendering}
+The design of the robot is influenced by the LEGO\textregistered Mindstorms\textregistered EV3 set. While the original set has a movable base without a manipulator arm. It also does not incorporate the Dynamixel AX-12A Smart Servos used in the final design so the decision to redesign the robot with inspiration from the LEGO\textregistered EV3 design was made. By developing and designing a new platform it gave the possibility to adapt the dimensions and fastenings. It also gave experience in manufacturing methods such as 3D-printing and Laser cutting. The final design is shown in Fig. \ref{fig:concept_rendering}
 Consisting of seven Dynamixel\textregistered AX-12A Smart Servos for actuation, two on the base for locomotion and four on the arm and one for the gripping tool the robot has seven degrees of freedom. The main advantage of using the AX-12As is the possibility of connecting them in series which enables pararell control of all the joints. Additionaly with the built in sensors the motors return feedback of the joint angles, angular speed, current draw, teperature to name a few.  
 
 \begin{figure}
@@ -16,7 +16,7 @@ While the mechanical components are those visible it's the underlying electrical
     %tikz/electrical_connections.tex
 
 \subsection{Robotic Operating System}
-Because the robot and the task consists of many different parts it is preferred to utilize an esy to use and well documented framework for internal communication on the robot. Because of its many uses and popularity within the reasearch community this project makes use of the Robotic Operating System (ROS) as its underlying framework. 
+Because the robot and the task consists of many different parts it is preferred to utilize an easy to use and well documented framework for internal communication on the robot. With its versatility and popularity within the research community this project makes use of the Robotic Operating System (ROS) as its underlying framework. 
 ROS utilizes an internal TCP communication protocol where different parts can communicate and be synchronized which enables real-time performance. 
 The rosgraph is shown in Fig. \ref{fig:rosgraph}. 
 
