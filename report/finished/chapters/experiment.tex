@@ -4,4 +4,27 @@ Overview of what is being used in the evaluation
 \section*{Arm evaluation}
 \section*{Gripping evaluation}
 \section*{Sensor evaluation}
+\section*{Machine vision evaluation}
+The line following algorithm has generally worked well.
+During testing the robot has been able to follow the lines and identify the QR codes.
+The robot is able to travel between points in the grid in a sufficient manner.
+
+%Limitation 1
+A limitation of the line following algorithm is its sensitivity to noise.
+Bad lighting conditions and a poorly calibrated color mask can negatively affect the ability to track the line reliably.
+A possible future optimization to mitigate this effect would be to keep track of the center point of the line in the previous frame.
+The image moment calculation could then be done in a smaller subsection of the horizontal slice around the previous center.
+Currently, the algorithm uses the entire width of the frame to calculate the center point.
+This leads to a heightened sensitivity to random noise in the outer parts of the frame.
+If the general position of the line is already known only pixels close to this point should be considered, since the line will not move considerably between frames.
+
+% Limitation 2
+Also, another limitation is the fact that the machine vision system is dependent on sufficiently fast hardware.
+Some lag will always be introduced while the current image is being processed.
+If the hardware on which the system is run is slow this lag runs the risk of being alarmingly large.
+This will result in the angle sent to the base controller being out of date.
+However, when running on a Raspberry Pi 4 or the Nvidia Jetson Nano this delay is negligible.
+This can also be tuned by changing the image resolution used to capture frames with the camera.
+Preferably, the resolution should be low to increase performance but not so low that the ability to recognize QR codes is impaired.
+During testing $360$ by $240$ was found to be a good middle ground between performance and image quality.
 \section*{Arrowhead evaluation}
