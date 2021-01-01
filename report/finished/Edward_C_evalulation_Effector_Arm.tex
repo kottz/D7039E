@@ -1,0 +1,19 @@
+
+\subsection{Robotic arm}
+In the beginning many different arm choices were discussed. One solution was using a simpler forklift design that just moves up and forward in a rigid motion without rotation.
+This solution would suffice. However, the decision was made to go with a arm design with links connected with motors.
+This is a more complex solution but opens up for translation and rotation in 3D-space.
+The design allows the arm to move to any spot in the defined work space.
+to pick up the piece at an angle from factory.
+A limitation is the fact that the last arm joint is kept static and parallel to the ground, So the end effector cannot rotate. 
+This can be adjusted by adding one more motor. However, for the task at hand it deemed not necessary.
+
+\subsection{End effector}
+In order to pick up the object a gripping mechanism was needed, different choices were discussed in the early stages.
+However the simple solution using a claw would suffice.
+By rotating the shaft of the motor, connected to the claw, the claw either retracts or expands.
+As stated above this design is easy to implement and works well.
+One downfall is the fact that the connecting rods that moves the claw are fragile and can break.
+This can be improved by using metal instead of plastic for the rods connected between motor and claw. 
+
+
