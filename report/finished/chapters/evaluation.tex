@@ -1,0 +1,14 @@
+\subsection{Engineering challenge}
+Performance of the robot during navigation on the setup shown in Fig. \ref{fig:factory_setup} was evaluated with the following criterias
+
+\begin{itemize}
+    \item Autonomy of the robot
+    \item Speed and navigation
+    \item Pickup / drop-off performance
+\end{itemize}
+
+The test were performed at Luleå University of Technology at EISLAB with a local Arrowhead cloud and private network. The robot was able to navigate the factory floor and perform the action but moved slowly. This is because the Dynamixel motors used to move the robot are slow as they are mostly used for joint control, not contious rotation. Communicating with Arrowhead was working and the test was proved successful. A video with the whole run can be seen here: https://www.youtube.com/watch?v=YoAFspEC2no. 
+We can't do the evaluation without mentioning some limitations. The speed of the robot is mentioned above but also because of the line following algorithm the robot can get lost if it ever loses the line. This could be prevented with an external navigation system such as GPS, Ultra Wide Band (UWB) or similar. 
+
+\subsection{Factory setup}
+In this project we also propose how a factory test-bed can be designed. In this solution the main components are the colored lines and QR-codes. The advantage of this setup is that it's higly flexible. First of all the path can have any shape and the QR-codes can contain any information. Further, more colors can be utilized to identify different parts of the factory, stop certain robots from following them or use lines with multiple colors to determine the orientation of the robot while following the path. While flexible this solution may get complicated and hard to alter for very big factories. Also a streamlined system to register QR-codes and information would need to be implemented for efficiency ang high flexibility. 
